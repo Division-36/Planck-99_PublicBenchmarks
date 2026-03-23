@@ -1,0 +1,95 @@
+========================================================================
+TinyML Malware Classifier — External Dataset Test Report
+========================================================================
+  Dataset      : someDEV/IoTsyscalls.csv
+  Test name    : IoTsyscalls
+  Samples      : 1,505
+  Output dir   : /mnt/c/Users/dell/Desktop/TinyMalwareML/benchmark/External Dataset Tests/IoTsyscalls
+
+  Interface-only measurement:
+  Python Embedded  pipe.predict([seq])  (model pre-loaded, no import cost)
+  C Interface      internal C ns timer via --quick (no subprocess overhead)
+                   Accuracy = --text on real samples passed via STDIN
+
+Dataset Statistics
+──────────────────────────────────────────────────────────────
+  Overall  (n=1,505)
+    min=40  max=117088  mean=14212.9  median=15075  std=9799.1
+    p10=969  p25=8311  p75=18677  p90=24019  p95=28199  p99=36542
+
+  Malware  (n=1,267)
+    min=81  max=117088  mean=15668.7  median=15863  std=8767.6
+    p10=2812  p25=12262  p75=19349  p90=24402  p95=28289  p99=31825
+
+  Benign  (n=238)
+    min=40  max=64389  mean=6462.7  median=2234  std=11273.1
+    p10=612  p25=1391  p75=6910  p90=13896  p95=20771  p99=57292
+
+Latency Results  (INTERFACE ONLY)
+──────────────────────────────────────────────────────────────
+  Mode                        Mean         P50         P95         P99         Min         Max    Throughput
+  ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+  Python Embedded        537.65 ms   388.08 ms     1.335 s     2.509 s    14.08 ms    40.570 s           2/s
+  C Interface              34.0 ns     34.0 ns     39.0 ns     41.0 ns     30.0 ns     41.0 ns      29.41M/s
+
+Speedup
+──────────────────────────────────────────────────────────────
+  Python Embedded              1.0×
+  C Interface           15,813,342.1×
+
+Accuracy Metrics
+──────────────────────────────────────────────────────────────
+  Mode                    Accuracy   Precision      Recall          F1       FPR       FNR
+  ────────────────────────────────────────────────────────────────────────────────────────
+  Python Embedded           0.9648      0.9772      0.9811      0.9791    0.1218    0.0189
+  C Interface               0.9628      0.9771      0.9787      0.9779    0.1218    0.0213
+
+Confusion Matrices
+──────────────────────────────────────────────────────────────
+  Python Embedded
+    Predicted:    Benign   Malware
+    Benign           209        29
+    Malware           24      1243
+
+  C Interface
+    Predicted:    Benign   Malware
+    Benign           209        29
+    Malware           27      1240
+
+Error Analysis
+──────────────────────────────────────────────────────────────
+  Python Embedded  (53 errors)
+    Fails more on SHORTER traces  (avg error length 4259 vs correct 14576)
+    Correct samples  —  mean=14576.2  median=15179  min=40  max=117088
+    Error samples    —  mean=4258.5  median=1274  min=81  max=83710
+    Top syscalls in FP: read(45685)  mmap(24841)  faccessat2(11904)  fstat(11509)  write(11427)  ioctl(9019)  mprotect(7310)  execve(4732)
+    Top syscalls in FN: fstat(20166)  read(19260)  faccessat2(11986)  write(8508)  mprotect(7228)  mmap(6403)  ioctl(3989)  munmap(1479)
+
+  C Interface  (56 errors)
+    Fails more on SHORTER traces  (avg error length 4037 vs correct 14606)
+    Correct samples  —  mean=14606.1  median=15179  min=40  max=117088
+    Error samples    —  mean=4037.2  median=1168  min=81  max=83710
+    Top syscalls in FP: read(45685)  mmap(24841)  faccessat2(11904)  fstat(11509)  write(11427)  ioctl(9019)  mprotect(7310)  execve(4732)
+    Top syscalls in FN: fstat(20169)  read(19353)  faccessat2(12007)  write(8552)  mprotect(7250)  mmap(6463)  ioctl(4000)  munmap(1503)
+
+Resource Usage
+──────────────────────────────────────────────────────────────
+  Python Embedded       Peak RAM:   1001.7 MB  Avg CPU:   43.0%
+  C Interface           Peak RAM:      1.4 MB  Avg CPU:    0.0%
+
+Generated Files
+──────────────────────────────────────────────────────────────
+  misclassified.csv
+  fig_latency.png
+  fig_breakdown.png
+  fig_accuracy.png
+  fig_confusion.png
+  fig_fpr_fnr.png
+  fig_resources.png
+  fig_trace_length.png
+  fig_length_cdf.png
+  fig_error_by_length.png
+  fig_correct_vs_error_length.png
+  fig_syscall_errors.png
+
+========================================================================

@@ -1,0 +1,482 @@
+[
+  {
+    "mode": "Python Embedded",
+    "total_errors": 57,
+    "correct_length_stats": {
+      "count": 5493,
+      "min": 120,
+      "max": 2275,
+      "mean": 821.74,
+      "median": 872,
+      "std": 487.54,
+      "p10": 238,
+      "p25": 443,
+      "p75": 900,
+      "p90": 1563,
+      "p95": 1886,
+      "p99": 2200
+    },
+    "error_length_stats": {
+      "count": 57,
+      "min": 120,
+      "max": 2100,
+      "mean": 662.65,
+      "median": 492,
+      "std": 463.42,
+      "p10": 145,
+      "p25": 266,
+      "p75": 900,
+      "p90": 1200,
+      "p95": 1533,
+      "p99": 1569
+    },
+    "length_verdict": "Fails more on SHORTER traces  (avg error length 663 vs correct 822)",
+    "error_by_length_bin": {
+      "120\u2013238": {
+        "range": [
+          120,
+          238
+        ],
+        "total": 569,
+        "errors": 11,
+        "error_rate": 0.019332161687170474
+      },
+      "238\u2013348": {
+        "range": [
+          238,
+          348
+        ],
+        "total": 564,
+        "errors": 8,
+        "error_rate": 0.014184397163120567
+      },
+      "348\u2013530": {
+        "range": [
+          348,
+          530
+        ],
+        "total": 560,
+        "errors": 12,
+        "error_rate": 0.02142857142857143
+      },
+      "530\u2013687": {
+        "range": [
+          530,
+          687
+        ],
+        "total": 562,
+        "errors": 2,
+        "error_rate": 0.0035587188612099642
+      },
+      "687\u2013863": {
+        "range": [
+          687,
+          863
+        ],
+        "total": 558,
+        "errors": 5,
+        "error_rate": 0.008960573476702509
+      },
+      "863\u2013900": {
+        "range": [
+          863,
+          900
+        ],
+        "total": 1508,
+        "errors": 5,
+        "error_rate": 0.0033156498673740055
+      },
+      "900\u20131073": {
+        "range": [
+          900,
+          1073
+        ],
+        "total": 1624,
+        "errors": 5,
+        "error_rate": 0.003078817733990148
+      },
+      "1073\u20131561": {
+        "range": [
+          1073,
+          1561
+        ],
+        "total": 556,
+        "errors": 12,
+        "error_rate": 0.02158273381294964
+      },
+      "1561\u20132275": {
+        "range": [
+          1561,
+          2275
+        ],
+        "total": 558,
+        "errors": 2,
+        "error_rate": 0.0035842293906810036
+      }
+    },
+    "top_syscalls_in_fp": [
+      [
+        "read",
+        7421
+      ],
+      [
+        "openat",
+        2774
+      ],
+      [
+        "close",
+        2552
+      ],
+      [
+        "mmap",
+        2492
+      ],
+      [
+        "fstat",
+        2340
+      ],
+      [
+        "readlink",
+        1783
+      ],
+      [
+        "recvmsg",
+        1401
+      ],
+      [
+        "faccessat2",
+        1285
+      ],
+      [
+        "ioctl",
+        1175
+      ],
+      [
+        "write",
+        1010
+      ],
+      [
+        "mprotect",
+        788
+      ],
+      [
+        "newfstatat",
+        628
+      ],
+      [
+        "brk",
+        555
+      ],
+      [
+        "execve",
+        502
+      ],
+      [
+        "exit",
+        454
+      ]
+    ],
+    "top_syscalls_in_fn": [
+      [
+        "read",
+        1117
+      ],
+      [
+        "close",
+        914
+      ],
+      [
+        "openat",
+        891
+      ],
+      [
+        "mmap",
+        781
+      ],
+      [
+        "fstat",
+        515
+      ],
+      [
+        "lstat",
+        484
+      ],
+      [
+        "rt_sigaction",
+        403
+      ],
+      [
+        "futex",
+        395
+      ],
+      [
+        "write",
+        351
+      ],
+      [
+        "mprotect",
+        209
+      ],
+      [
+        "rt_sigprocmask",
+        190
+      ],
+      [
+        "recvmsg",
+        183
+      ],
+      [
+        "stat",
+        156
+      ],
+      [
+        "newfstatat",
+        152
+      ],
+      [
+        "unlink",
+        117
+      ]
+    ]
+  },
+  {
+    "mode": "C Interface",
+    "total_errors": 62,
+    "correct_length_stats": {
+      "count": 5488,
+      "min": 120,
+      "max": 2275,
+      "mean": 821.99,
+      "median": 872.5,
+      "std": 487.7,
+      "p10": 238,
+      "p25": 443,
+      "p75": 900,
+      "p90": 1564,
+      "p95": 1886,
+      "p99": 2200
+    },
+    "error_length_stats": {
+      "count": 62,
+      "min": 120,
+      "max": 2100,
+      "mean": 653.37,
+      "median": 505.5,
+      "std": 444.29,
+      "p10": 145,
+      "p25": 315,
+      "p75": 900,
+      "p90": 1200,
+      "p95": 1308,
+      "p99": 1569
+    },
+    "length_verdict": "Fails more on SHORTER traces  (avg error length 653 vs correct 822)",
+    "error_by_length_bin": {
+      "120\u2013238": {
+        "range": [
+          120,
+          238
+        ],
+        "total": 569,
+        "errors": 11,
+        "error_rate": 0.019332161687170474
+      },
+      "238\u2013348": {
+        "range": [
+          238,
+          348
+        ],
+        "total": 564,
+        "errors": 8,
+        "error_rate": 0.014184397163120567
+      },
+      "348\u2013530": {
+        "range": [
+          348,
+          530
+        ],
+        "total": 560,
+        "errors": 15,
+        "error_rate": 0.026785714285714284
+      },
+      "530\u2013687": {
+        "range": [
+          530,
+          687
+        ],
+        "total": 562,
+        "errors": 3,
+        "error_rate": 0.005338078291814947
+      },
+      "687\u2013863": {
+        "range": [
+          687,
+          863
+        ],
+        "total": 558,
+        "errors": 4,
+        "error_rate": 0.007168458781362007
+      },
+      "863\u2013900": {
+        "range": [
+          863,
+          900
+        ],
+        "total": 1508,
+        "errors": 8,
+        "error_rate": 0.005305039787798408
+      },
+      "900\u20131073": {
+        "range": [
+          900,
+          1073
+        ],
+        "total": 1624,
+        "errors": 8,
+        "error_rate": 0.0049261083743842365
+      },
+      "1073\u20131561": {
+        "range": [
+          1073,
+          1561
+        ],
+        "total": 556,
+        "errors": 11,
+        "error_rate": 0.019784172661870502
+      },
+      "1561\u20132275": {
+        "range": [
+          1561,
+          2275
+        ],
+        "total": 558,
+        "errors": 2,
+        "error_rate": 0.0035842293906810036
+      }
+    },
+    "top_syscalls_in_fp": [
+      [
+        "read",
+        7645
+      ],
+      [
+        "openat",
+        2941
+      ],
+      [
+        "close",
+        2701
+      ],
+      [
+        "mmap",
+        2564
+      ],
+      [
+        "fstat",
+        2356
+      ],
+      [
+        "recvmsg",
+        1353
+      ],
+      [
+        "faccessat2",
+        1285
+      ],
+      [
+        "readlink",
+        1187
+      ],
+      [
+        "ioctl",
+        1160
+      ],
+      [
+        "write",
+        986
+      ],
+      [
+        "mprotect",
+        805
+      ],
+      [
+        "newfstatat",
+        625
+      ],
+      [
+        "brk",
+        564
+      ],
+      [
+        "execve",
+        505
+      ],
+      [
+        "exit",
+        454
+      ]
+    ],
+    "top_syscalls_in_fn": [
+      [
+        "read",
+        1571
+      ],
+      [
+        "close",
+        1235
+      ],
+      [
+        "openat",
+        1214
+      ],
+      [
+        "mmap",
+        974
+      ],
+      [
+        "fstat",
+        838
+      ],
+      [
+        "lseek",
+        526
+      ],
+      [
+        "stat",
+        491
+      ],
+      [
+        "lstat",
+        484
+      ],
+      [
+        "unlink",
+        415
+      ],
+      [
+        "rt_sigaction",
+        402
+      ],
+      [
+        "futex",
+        398
+      ],
+      [
+        "write",
+        353
+      ],
+      [
+        "mprotect",
+        282
+      ],
+      [
+        "rt_sigprocmask",
+        209
+      ],
+      [
+        "recvmsg",
+        185
+      ]
+    ]
+  }
+]

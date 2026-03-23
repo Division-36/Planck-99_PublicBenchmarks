@@ -1,0 +1,95 @@
+========================================================================
+TinyML Malware Classifier — External Dataset Test Report
+========================================================================
+  Dataset      : someDEV/_dataset.csv
+  Test name    : _dataset
+  Samples      : 5,550
+  Output dir   : /mnt/c/Users/dell/Desktop/TinyMalwareML/benchmark/External Dataset Tests/_dataset
+
+  Interface-only measurement:
+  Python Embedded  pipe.predict([seq])  (model pre-loaded, no import cost)
+  C Interface      internal C ns timer via --quick (no subprocess overhead)
+                   Accuracy = --text on real samples passed via STDIN
+
+Dataset Statistics
+──────────────────────────────────────────────────────────────
+  Overall  (n=5,550)
+    min=120  max=2275  mean=820.1  median=863  std=487.5
+    p10=238  p25=440  p75=900  p90=1561  p95=1881  p99=2200
+
+  Malware  (n=2,797)
+    min=120  max=2200  mean=973.3  median=900  std=456.7
+    p10=392  p25=821  p75=1030  p90=1742  p95=1950  p99=2143
+
+  Benign  (n=2,753)
+    min=120  max=2275  mean=664.4  median=581  std=468.2
+    p10=192  p25=301  p75=900  p90=1200  p95=1665  p99=2200
+
+Latency Results  (INTERFACE ONLY)
+──────────────────────────────────────────────────────────────
+  Mode                        Mean         P50         P95         P99         Min         Max    Throughput
+  ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+  Python Embedded         17.01 ms    16.41 ms    21.38 ms    27.12 ms    13.34 ms    47.71 ms          59/s
+  C Interface              62.0 ns     62.0 ns     68.0 ns     73.0 ns     38.0 ns     73.0 ns      16.13M/s
+
+Speedup
+──────────────────────────────────────────────────────────────
+  Python Embedded              1.0×
+  C Interface            274,372.9×
+
+Accuracy Metrics
+──────────────────────────────────────────────────────────────
+  Mode                    Accuracy   Precision      Recall          F1       FPR       FNR
+  ────────────────────────────────────────────────────────────────────────────────────────
+  Python Embedded           0.9897      0.9862      0.9936      0.9898    0.0142    0.0064
+  C Interface               0.9888      0.9858      0.9921      0.9890    0.0145    0.0079
+
+Confusion Matrices
+──────────────────────────────────────────────────────────────
+  Python Embedded
+    Predicted:    Benign   Malware
+    Benign          2714        39
+    Malware           18      2779
+
+  C Interface
+    Predicted:    Benign   Malware
+    Benign          2713        40
+    Malware           22      2775
+
+Error Analysis
+──────────────────────────────────────────────────────────────
+  Python Embedded  (57 errors)
+    Fails more on SHORTER traces  (avg error length 663 vs correct 822)
+    Correct samples  —  mean=821.7  median=872  min=120  max=2275
+    Error samples    —  mean=662.6  median=492  min=120  max=2100
+    Top syscalls in FP: read(7421)  openat(2774)  close(2552)  mmap(2492)  fstat(2340)  readlink(1783)  recvmsg(1401)  faccessat2(1285)
+    Top syscalls in FN: read(1117)  close(914)  openat(891)  mmap(781)  fstat(515)  lstat(484)  rt_sigaction(403)  futex(395)
+
+  C Interface  (62 errors)
+    Fails more on SHORTER traces  (avg error length 653 vs correct 822)
+    Correct samples  —  mean=822.0  median=872  min=120  max=2275
+    Error samples    —  mean=653.4  median=506  min=120  max=2100
+    Top syscalls in FP: read(7645)  openat(2941)  close(2701)  mmap(2564)  fstat(2356)  recvmsg(1353)  faccessat2(1285)  readlink(1187)
+    Top syscalls in FN: read(1571)  close(1235)  openat(1214)  mmap(974)  fstat(838)  lseek(526)  stat(491)  lstat(484)
+
+Resource Usage
+──────────────────────────────────────────────────────────────
+  Python Embedded       Peak RAM:    966.6 MB  Avg CPU:   51.6%
+  C Interface           Peak RAM:      0.1 MB  Avg CPU:    0.0%
+
+Generated Files
+──────────────────────────────────────────────────────────────
+  misclassified.csv
+  fig_latency.png
+  fig_breakdown.png
+  fig_accuracy.png
+  fig_confusion.png
+  fig_fpr_fnr.png
+  fig_resources.png
+  fig_trace_length.png
+  fig_length_cdf.png
+  fig_error_by_length.png
+  fig_correct_vs_error_length.png
+  fig_syscall_errors.png
+
+========================================================================

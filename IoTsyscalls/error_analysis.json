@@ -1,0 +1,492 @@
+[
+  {
+    "mode": "Python Embedded",
+    "total_errors": 53,
+    "correct_length_stats": {
+      "count": 1452,
+      "min": 40,
+      "max": 117088,
+      "mean": 14576.21,
+      "median": 15179.0,
+      "std": 9535.87,
+      "p10": 1341,
+      "p25": 9912,
+      "p75": 18936,
+      "p90": 24045,
+      "p95": 28391,
+      "p99": 36542
+    },
+    "error_length_stats": {
+      "count": 53,
+      "min": 81,
+      "max": 83710,
+      "mean": 4258.51,
+      "median": 1274,
+      "std": 11628.61,
+      "p10": 107,
+      "p25": 127,
+      "p75": 4756,
+      "p90": 7177,
+      "p95": 10815,
+      "p99": 12806
+    },
+    "length_verdict": "Fails more on SHORTER traces  (avg error length 4259 vs correct 14576)",
+    "error_by_length_bin": {
+      "40\u2013969": {
+        "range": [
+          40,
+          969
+        ],
+        "total": 150,
+        "errors": 23,
+        "error_rate": 0.15333333333333332
+      },
+      "969\u20134541": {
+        "range": [
+          969,
+          4541
+        ],
+        "total": 152,
+        "errors": 15,
+        "error_rate": 0.09868421052631579
+      },
+      "4541\u201310783": {
+        "range": [
+          4541,
+          10783
+        ],
+        "total": 151,
+        "errors": 12,
+        "error_rate": 0.07947019867549669
+      },
+      "10783\u201313172": {
+        "range": [
+          10783,
+          13172
+        ],
+        "total": 155,
+        "errors": 3,
+        "error_rate": 0.01935483870967742
+      },
+      "13172\u201315073": {
+        "range": [
+          13172,
+          15073
+        ],
+        "total": 153,
+        "errors": 0,
+        "error_rate": 0.0
+      },
+      "15073\u201316353": {
+        "range": [
+          15073,
+          16353
+        ],
+        "total": 152,
+        "errors": 0,
+        "error_rate": 0.0
+      },
+      "16353\u201317856": {
+        "range": [
+          16353,
+          17856
+        ],
+        "total": 155,
+        "errors": 0,
+        "error_rate": 0.0
+      },
+      "17856\u201319854": {
+        "range": [
+          17856,
+          19854
+        ],
+        "total": 156,
+        "errors": 0,
+        "error_rate": 0.0
+      },
+      "19854\u201324019": {
+        "range": [
+          19854,
+          24019
+        ],
+        "total": 153,
+        "errors": 0,
+        "error_rate": 0.0
+      },
+      "24019\u2013117088": {
+        "range": [
+          24019,
+          117088
+        ],
+        "total": 154,
+        "errors": 1,
+        "error_rate": 0.006493506493506494
+      }
+    },
+    "top_syscalls_in_fp": [
+      [
+        "read",
+        45685
+      ],
+      [
+        "mmap",
+        24841
+      ],
+      [
+        "faccessat2",
+        11904
+      ],
+      [
+        "fstat",
+        11509
+      ],
+      [
+        "write",
+        11427
+      ],
+      [
+        "ioctl",
+        9019
+      ],
+      [
+        "mprotect",
+        7310
+      ],
+      [
+        "execve",
+        4732
+      ],
+      [
+        "brk",
+        4453
+      ],
+      [
+        "exit",
+        3664
+      ],
+      [
+        "munmap",
+        3635
+      ],
+      [
+        "getrandom",
+        302
+      ],
+      [
+        "openat",
+        185
+      ],
+      [
+        "nanosleep",
+        8
+      ]
+    ],
+    "top_syscalls_in_fn": [
+      [
+        "fstat",
+        20166
+      ],
+      [
+        "read",
+        19260
+      ],
+      [
+        "faccessat2",
+        11986
+      ],
+      [
+        "write",
+        8508
+      ],
+      [
+        "mprotect",
+        7228
+      ],
+      [
+        "mmap",
+        6403
+      ],
+      [
+        "ioctl",
+        3989
+      ],
+      [
+        "munmap",
+        1479
+      ],
+      [
+        "sendto",
+        1188
+      ],
+      [
+        "brk",
+        882
+      ],
+      [
+        "execve",
+        839
+      ],
+      [
+        "exit",
+        562
+      ],
+      [
+        "socket",
+        404
+      ],
+      [
+        "connect",
+        404
+      ],
+      [
+        "sendmsg",
+        404
+      ]
+    ]
+  },
+  {
+    "mode": "C Interface",
+    "total_errors": 56,
+    "correct_length_stats": {
+      "count": 1449,
+      "min": 40,
+      "max": 117088,
+      "mean": 14606.13,
+      "median": 15179,
+      "std": 9523.02,
+      "p10": 1357,
+      "p25": 9922,
+      "p75": 18936,
+      "p90": 24045,
+      "p95": 28391,
+      "p99": 36542
+    },
+    "error_length_stats": {
+      "count": 56,
+      "min": 81,
+      "max": 83710,
+      "mean": 4037.18,
+      "median": 1167.5,
+      "std": 11345.92,
+      "p10": 107,
+      "p25": 127,
+      "p75": 4756,
+      "p90": 7177,
+      "p95": 10815,
+      "p99": 12806
+    },
+    "length_verdict": "Fails more on SHORTER traces  (avg error length 4037 vs correct 14606)",
+    "error_by_length_bin": {
+      "40\u2013969": {
+        "range": [
+          40,
+          969
+        ],
+        "total": 150,
+        "errors": 26,
+        "error_rate": 0.17333333333333334
+      },
+      "969\u20134541": {
+        "range": [
+          969,
+          4541
+        ],
+        "total": 152,
+        "errors": 15,
+        "error_rate": 0.09868421052631579
+      },
+      "4541\u201310783": {
+        "range": [
+          4541,
+          10783
+        ],
+        "total": 151,
+        "errors": 12,
+        "error_rate": 0.07947019867549669
+      },
+      "10783\u201313172": {
+        "range": [
+          10783,
+          13172
+        ],
+        "total": 155,
+        "errors": 3,
+        "error_rate": 0.01935483870967742
+      },
+      "13172\u201315073": {
+        "range": [
+          13172,
+          15073
+        ],
+        "total": 153,
+        "errors": 0,
+        "error_rate": 0.0
+      },
+      "15073\u201316353": {
+        "range": [
+          15073,
+          16353
+        ],
+        "total": 152,
+        "errors": 0,
+        "error_rate": 0.0
+      },
+      "16353\u201317856": {
+        "range": [
+          16353,
+          17856
+        ],
+        "total": 155,
+        "errors": 0,
+        "error_rate": 0.0
+      },
+      "17856\u201319854": {
+        "range": [
+          17856,
+          19854
+        ],
+        "total": 156,
+        "errors": 0,
+        "error_rate": 0.0
+      },
+      "19854\u201324019": {
+        "range": [
+          19854,
+          24019
+        ],
+        "total": 153,
+        "errors": 0,
+        "error_rate": 0.0
+      },
+      "24019\u2013117088": {
+        "range": [
+          24019,
+          117088
+        ],
+        "total": 154,
+        "errors": 1,
+        "error_rate": 0.006493506493506494
+      }
+    },
+    "top_syscalls_in_fp": [
+      [
+        "read",
+        45685
+      ],
+      [
+        "mmap",
+        24841
+      ],
+      [
+        "faccessat2",
+        11904
+      ],
+      [
+        "fstat",
+        11509
+      ],
+      [
+        "write",
+        11427
+      ],
+      [
+        "ioctl",
+        9019
+      ],
+      [
+        "mprotect",
+        7310
+      ],
+      [
+        "execve",
+        4732
+      ],
+      [
+        "brk",
+        4453
+      ],
+      [
+        "exit",
+        3664
+      ],
+      [
+        "munmap",
+        3635
+      ],
+      [
+        "getrandom",
+        302
+      ],
+      [
+        "openat",
+        185
+      ],
+      [
+        "nanosleep",
+        8
+      ]
+    ],
+    "top_syscalls_in_fn": [
+      [
+        "fstat",
+        20169
+      ],
+      [
+        "read",
+        19353
+      ],
+      [
+        "faccessat2",
+        12007
+      ],
+      [
+        "write",
+        8552
+      ],
+      [
+        "mprotect",
+        7250
+      ],
+      [
+        "mmap",
+        6463
+      ],
+      [
+        "ioctl",
+        4000
+      ],
+      [
+        "munmap",
+        1503
+      ],
+      [
+        "sendto",
+        1197
+      ],
+      [
+        "brk",
+        889
+      ],
+      [
+        "execve",
+        881
+      ],
+      [
+        "exit",
+        571
+      ],
+      [
+        "socket",
+        407
+      ],
+      [
+        "connect",
+        407
+      ],
+      [
+        "sendmsg",
+        407
+      ]
+    ]
+  }
+]
