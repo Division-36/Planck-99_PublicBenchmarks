@@ -107,7 +107,11 @@ Planck-99 is currently under active testing and benchmarking across multiple dat
 All results, benchmarks, and system details are publicly available in this repository.
 
 ---
-
+```
+Intellectual Property Notice:
+Planck-99 is a proprietary technology developed by Ziad Salah under the Division-36 umbrella.
+All rights reserved. Commercial licensing and partnership inquiries: dariangosztafio@gmail.com
+```
 ## Bottom Line
 
 If malware detection is to scale across billions of devices,  
