@@ -1,5 +1,11 @@
 # Why This Matters — Planck-99
 
+```
+Planck-99 is a kernel-level malware detection system that enables real-time threat detection on devices that previously could not run security software.
+It reduces detection latency from milliseconds to nanoseconds and operates within ~37KB, making it viable for IoT, embedded systems, and low-resource environments.
+This allows organizations to deploy behavioral security directly on-device — eliminating reliance on cloud analysis and reducing response time from seconds to instant.
+```
+
 ## The Problem
 
 Modern malware detection does not operate where it matters most.
