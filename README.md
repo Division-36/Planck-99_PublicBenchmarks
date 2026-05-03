@@ -1,3 +1,5 @@
+> V2 benchmarks in v2 directory
+
 # Why This Matters — Planck-99
 
 
