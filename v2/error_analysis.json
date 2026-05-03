@@ -1,0 +1,230 @@
+[
+  {
+    "mode": "Python Embedded",
+    "total_errors": 0,
+    "correct_length_stats": {
+      "count": 1505,
+      "min": 40,
+      "max": 117088,
+      "mean": 14212.86,
+      "median": 15075,
+      "std": 9799.14,
+      "p10": 969,
+      "p25": 8311,
+      "p75": 18677,
+      "p90": 24019,
+      "p95": 28199,
+      "p99": 36542
+    },
+    "error_length_stats": {},
+    "length_verdict": "Insufficient data",
+    "error_by_length_bin": {
+      "40\u2013969": {
+        "range": [
+          40,
+          969
+        ],
+        "total": 150,
+        "errors": 0,
+        "error_rate": 0.0
+      },
+      "969\u20134541": {
+        "range": [
+          969,
+          4541
+        ],
+        "total": 152,
+        "errors": 0,
+        "error_rate": 0.0
+      },
+      "4541\u201310783": {
+        "range": [
+          4541,
+          10783
+        ],
+        "total": 151,
+        "errors": 0,
+        "error_rate": 0.0
+      },
+      "10783\u201313172": {
+        "range": [
+          10783,
+          13172
+        ],
+        "total": 155,
+        "errors": 0,
+        "error_rate": 0.0
+      },
+      "13172\u201315073": {
+        "range": [
+          13172,
+          15073
+        ],
+        "total": 153,
+        "errors": 0,
+        "error_rate": 0.0
+      },
+      "15073\u201316353": {
+        "range": [
+          15073,
+          16353
+        ],
+        "total": 152,
+        "errors": 0,
+        "error_rate": 0.0
+      },
+      "16353\u201317856": {
+        "range": [
+          16353,
+          17856
+        ],
+        "total": 155,
+        "errors": 0,
+        "error_rate": 0.0
+      },
+      "17856\u201319854": {
+        "range": [
+          17856,
+          19854
+        ],
+        "total": 156,
+        "errors": 0,
+        "error_rate": 0.0
+      },
+      "19854\u201324019": {
+        "range": [
+          19854,
+          24019
+        ],
+        "total": 153,
+        "errors": 0,
+        "error_rate": 0.0
+      },
+      "24019\u2013117088": {
+        "range": [
+          24019,
+          117088
+        ],
+        "total": 154,
+        "errors": 0,
+        "error_rate": 0.0
+      }
+    },
+    "top_syscalls_in_fp": [],
+    "top_syscalls_in_fn": []
+  },
+  {
+    "mode": "C Interface",
+    "total_errors": 0,
+    "correct_length_stats": {
+      "count": 1505,
+      "min": 40,
+      "max": 117088,
+      "mean": 14212.86,
+      "median": 15075,
+      "std": 9799.14,
+      "p10": 969,
+      "p25": 8311,
+      "p75": 18677,
+      "p90": 24019,
+      "p95": 28199,
+      "p99": 36542
+    },
+    "error_length_stats": {},
+    "length_verdict": "Insufficient data",
+    "error_by_length_bin": {
+      "40\u2013969": {
+        "range": [
+          40,
+          969
+        ],
+        "total": 150,
+        "errors": 0,
+        "error_rate": 0.0
+      },
+      "969\u20134541": {
+        "range": [
+          969,
+          4541
+        ],
+        "total": 152,
+        "errors": 0,
+        "error_rate": 0.0
+      },
+      "4541\u201310783": {
+        "range": [
+          4541,
+          10783
+        ],
+        "total": 151,
+        "errors": 0,
+        "error_rate": 0.0
+      },
+      "10783\u201313172": {
+        "range": [
+          10783,
+          13172
+        ],
+        "total": 155,
+        "errors": 0,
+        "error_rate": 0.0
+      },
+      "13172\u201315073": {
+        "range": [
+          13172,
+          15073
+        ],
+        "total": 153,
+        "errors": 0,
+        "error_rate": 0.0
+      },
+      "15073\u201316353": {
+        "range": [
+          15073,
+          16353
+        ],
+        "total": 152,
+        "errors": 0,
+        "error_rate": 0.0
+      },
+      "16353\u201317856": {
+        "range": [
+          16353,
+          17856
+        ],
+        "total": 155,
+        "errors": 0,
+        "error_rate": 0.0
+      },
+      "17856\u201319854": {
+        "range": [
+          17856,
+          19854
+        ],
+        "total": 156,
+        "errors": 0,
+        "error_rate": 0.0
+      },
+      "19854\u201324019": {
+        "range": [
+          19854,
+          24019
+        ],
+        "total": 153,
+        "errors": 0,
+        "error_rate": 0.0
+      },
+      "24019\u2013117088": {
+        "range": [
+          24019,
+          117088
+        ],
+        "total": 154,
+        "errors": 0,
+        "error_rate": 0.0
+      }
+    },
+    "top_syscalls_in_fp": [],
+    "top_syscalls_in_fn": []
+  }
+]

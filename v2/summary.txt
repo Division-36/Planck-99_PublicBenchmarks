@@ -1,0 +1,84 @@
+========================================================================
+TinyML Malware Classifier — External Dataset Test Report
+========================================================================
+  Dataset      : someDEV/IoTsyscalls.csv
+  Test name    : IoTsyscalls
+  Samples      : 1,505
+  Output dir   : /mnt/c/Users/dell/Desktop/Planck-99/benchmark/External Dataset Tests/IoTsyscalls
+
+  Interface-only measurement:
+  Python Embedded  pipe.predict([seq])  (model pre-loaded, no import cost)
+  C Interface      internal C ns timer via --quick (no subprocess overhead)
+                   Accuracy = --text on real samples passed via STDIN
+
+Dataset Statistics
+──────────────────────────────────────────────────────────────
+  Overall  (n=1,505)
+    min=40  max=117088  mean=14212.9  median=15075  std=9799.1
+    p10=969  p25=8311  p75=18677  p90=24019  p95=28199  p99=36542
+
+  Malware  (n=1,267)
+    min=81  max=117088  mean=15668.7  median=15863  std=8767.6
+    p10=2812  p25=12262  p75=19349  p90=24402  p95=28289  p99=31825
+
+  Benign  (n=238)
+    min=40  max=64389  mean=6462.7  median=2234  std=11273.1
+    p10=612  p25=1391  p75=6910  p90=13896  p95=20771  p99=57292
+
+Latency Results  (INTERFACE ONLY)
+──────────────────────────────────────────────────────────────
+  Mode                        Mean         P50         P95         P99         Min         Max    Throughput
+  ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+  Python Embedded        401.36 ms   305.14 ms     1.029 s     1.954 s    13.86 ms    13.219 s           2/s
+  C Interface              57.0 ns     57.0 ns     76.0 ns     88.0 ns     46.0 ns     88.0 ns      17.54M/s
+
+Speedup
+──────────────────────────────────────────────────────────────
+  Python Embedded              1.0×
+  C Interface           7,041,484.1×
+
+Accuracy Metrics
+──────────────────────────────────────────────────────────────
+  Mode                    Accuracy   Precision      Recall          F1       FPR       FNR
+  ────────────────────────────────────────────────────────────────────────────────────────
+  Python Embedded           1.0000      1.0000      1.0000      1.0000    0.0000    0.0000
+  C Interface               1.0000      1.0000      1.0000      1.0000    0.0000    0.0000
+
+Confusion Matrices
+──────────────────────────────────────────────────────────────
+  Python Embedded
+    Predicted:    Benign   Malware
+    Benign           238         0
+    Malware            0      1267
+
+  C Interface
+    Predicted:    Benign   Malware
+    Benign           238         0
+    Malware            0      1267
+
+Error Analysis
+──────────────────────────────────────────────────────────────
+  Python Embedded  (0 errors)
+    Insufficient data
+
+  C Interface  (0 errors)
+    Insufficient data
+
+Resource Usage
+──────────────────────────────────────────────────────────────
+  Python Embedded       Peak RAM:    719.9 MB  Avg CPU:   35.1%
+  C Interface           Peak RAM:      0.0 MB  Avg CPU:    0.0%
+
+Generated Files
+──────────────────────────────────────────────────────────────
+  fig_latency.png
+  fig_breakdown.png
+  fig_accuracy.png
+  fig_confusion.png
+  fig_fpr_fnr.png
+  fig_resources.png
+  fig_trace_length.png
+  fig_length_cdf.png
+  fig_error_by_length.png
+
+========================================================================

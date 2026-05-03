@@ -1,0 +1,62 @@
+{
+  "Python Embedded": {
+    "latency_ns": 401364595.67906976,
+    "latency_p50": 305141200,
+    "latency_p90": 782429790,
+    "latency_p95": 1029019403,
+    "latency_p99": 1953619544,
+    "latency_min": 13861601,
+    "latency_max": 13219455302,
+    "latency_std": 658413408.1610783,
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "fpr": 0.0,
+    "confusion": {
+      "TP": 1267,
+      "TN": 238,
+      "FP": 0,
+      "FN": 0
+    },
+    "peak_ram_mb": 719.9140625,
+    "avg_cpu_pct": 35.05190987958047,
+    "measurement": "pipe.predict([seq]) only \u2014 model pre-loaded, no import overhead"
+  },
+  "C Interface": {
+    "latency_ns": 57.0,
+    "latency_p50": 57.0,
+    "latency_p90": 76.0,
+    "latency_p95": 76.0,
+    "latency_p99": 88.0,
+    "latency_min": 46.0,
+    "latency_max": 88.0,
+    "latency_std": 13.955285736952863,
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "fpr": 0.0,
+    "confusion": {
+      "TP": 1267,
+      "TN": 238,
+      "FP": 0,
+      "FN": 0
+    },
+    "peak_ram_mb": 0.0,
+    "avg_cpu_pct": 0.0,
+    "kernel_runs_ns": [
+      88.0,
+      76.0,
+      70.0,
+      60.0,
+      57.0,
+      54.0,
+      53.0,
+      48.0,
+      46.0
+    ],
+    "errors": 0,
+    "measurement": "Timing = C internal clock via --quick (median of 9 runs, 100k random quantised vectors). Accuracy = full C pipeline (--text) passing seq via STDIN."
+  }
+}
