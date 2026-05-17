@@ -117,7 +117,7 @@ All results, benchmarks, and system details are publicly available in this repos
 ```
 Intellectual Property Notice:
 Planck-99 is a proprietary technology developed by Ziad Salah under the Division-36 umbrella.
-All rights reserved. Commercial licensing and partnership inquiries: dariangosztafio@gmail.com
+All rights reserved. Commercial licensing and partnership inquiries: zs.01117875692@gmail.com
 ```
 ## Bottom Line
 
