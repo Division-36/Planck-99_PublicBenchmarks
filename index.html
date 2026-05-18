@@ -1,0 +1,1700 @@
+// Investor Pitch
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planck-99 — Pitch Deck</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --bg-card: #111118;
+            --bg-elevated: #16161f;
+            --border: #1e1e2e;
+            --border-light: #2a2a3c;
+            --text-primary: #e8e8ec;
+            --text-secondary: #8a8a9a;
+            --text-muted: #5a5a6a;
+            --accent-cyan: #00d4aa;
+            --accent-cyan-dim: #00d4aa22;
+            --accent-purple: #a78bfa;
+            --accent-purple-dim: #a78bfa22;
+            --accent-amber: #f59e0b;
+            --accent-amber-dim: #f59e0b22;
+            --accent-rose: #f43f5e;
+            --accent-rose-dim: #f43f5e22;
+            --danger: #ef4444;
+            --success: #22c55e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .toolbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .toolbar-brand {
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+        }
+
+        .toolbar-brand span {
+            color: var(--accent-cyan);
+        }
+
+        .btn-pdf {
+            background: var(--accent-cyan);
+            color: #000;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-pdf:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(0, 212, 170, 0.3);
+        }
+
+        .btn-pdf:active {
+            transform: translateY(0);
+        }
+
+        .btn-pdf svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .deck {
+            padding-top: 60px;
+        }
+
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto 40px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 64px 80px;
+            position: relative;
+            overflow: hidden;
+            page-break-after: always;
+            page-break-inside: avoid;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-light), transparent);
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 24px;
+            right: 32px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+        }
+
+        /* Slide 1 — Title */
+        .slide-title {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 592px;
+        }
+
+        .slide-title .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent-cyan-dim);
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 32px;
+        }
+
+        .slide-title h1 {
+            font-size: 72px;
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #fff 0%, #a0a0b0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .slide-title .subtitle {
+            font-size: 22px;
+            color: var(--text-secondary);
+            font-weight: 400;
+            max-width: 650px;
+            line-height: 1.5;
+            margin-bottom: 48px;
+        }
+
+        .specs-row {
+            display: flex;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .spec-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .spec-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--accent-cyan);
+        }
+
+        .spec-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .founder-line {
+            font-size: 13px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+            max-width: 600px;
+        }
+
+        .founder-line strong {
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        /* Section headers */
+        .section-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Slide 2 — Problem */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: 40px;
+        }
+
+        .problem-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            position: relative;
+        }
+
+        .problem-card .big-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--accent-rose);
+            line-height: 1;
+            margin-bottom: 16px;
+        }
+
+        .problem-card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .problem-card p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .problem-card .source {
+            margin-top: 16px;
+            font-size: 11px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .gap-banner {
+            margin-top: 40px;
+            background: linear-gradient(90deg, var(--accent-rose-dim), transparent);
+            border-left: 3px solid var(--accent-rose);
+            padding: 20px 24px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .gap-banner p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .gap-banner strong {
+            color: var(--text-primary);
+        }
+
+        /* Slide 3 — Why Now */
+        .trigger-list {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            margin-top: 32px;
+        }
+
+        .trigger-item {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px 32px;
+        }
+
+        .trigger-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            background: var(--accent-cyan-dim);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .trigger-content h3 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .trigger-content p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .trigger-source {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Slide 4 — The Gap */
+        .gap-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 32px;
+            font-size: 14px;
+        }
+
+        .gap-table th {
+            text-align: left;
+            padding: 14px 16px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .gap-table td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+            vertical-align: middle;
+        }
+
+        .gap-table tr:hover td {
+            background: var(--bg-elevated);
+        }
+
+        .gap-table .col-metric {
+            width: 22%;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .gap-table .col-planck {
+            background: var(--accent-cyan-dim);
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        .gap-table .check {
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        .gap-table .cross {
+            color: var(--danger);
+            font-weight: 700;
+        }
+
+        .gap-table .tilde {
+            color: var(--accent-amber);
+        }
+
+        .table-footer {
+            margin-top: 20px;
+            font-size: 11px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1.8;
+        }
+
+        /* Slide 5 — Solution */
+        .solution-header {
+            margin-bottom: 48px;
+        }
+
+        .solution-header h2 {
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+        }
+
+        .solution-header .tagline {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .metric-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px 28px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+        }
+
+        .metric-card.cyan::after { background: var(--accent-cyan); }
+        .metric-card.green::after { background: var(--success); }
+        .metric-card.amber::after { background: var(--accent-amber); }
+        .metric-card.purple::after { background: var(--accent-purple); }
+
+        .metric-card .metric-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            color: var(--text-muted);
+        }
+
+        .metric-card.cyan .metric-label { color: var(--accent-cyan); }
+        .metric-card.green .metric-label { color: var(--success); }
+        .metric-card.amber .metric-label { color: var(--accent-amber); }
+        .metric-card.purple .metric-label { color: var(--accent-purple); }
+
+        .metric-card .metric-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 40px;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .metric-card .metric-detail {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .solution-footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Slide 6 — How it Works */
+        .how-content {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .how-text h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .how-text p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .how-text .highlight {
+            color: var(--accent-cyan);
+            font-weight: 500;
+        }
+
+        .how-visual {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .flow-step .step-num {
+            width: 36px;
+            height: 36px;
+            background: var(--accent-cyan-dim);
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .flow-step .step-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .flow-arrow {
+            width: 36px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 18px;
+        }
+
+        /* Slide 7 — Performance */
+        .perf-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .perf-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+        }
+
+        .perf-card .perf-badge {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+        }
+
+        .perf-card.baseline .perf-badge {
+            background: var(--border);
+            color: var(--text-muted);
+        }
+
+        .perf-card.unseen .perf-badge {
+            background: var(--accent-cyan-dim);
+            color: var(--accent-cyan);
+        }
+
+        .perf-card h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .perf-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .perf-stat {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .perf-stat .stat-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .perf-stat .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .perf-stat .stat-value.good {
+            color: var(--success);
+        }
+
+        .perf-stat .stat-value.warn {
+            color: var(--accent-amber);
+        }
+
+        .latency-box {
+            margin-top: 32px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px 32px;
+        }
+
+        .latency-box h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .latency-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .latency-row:last-child {
+            border-bottom: none;
+        }
+
+        .latency-name {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .latency-compare {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .latency-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        .latency-note {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Slide 8 — Market */
+        .market-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 40px;
+        }
+
+        .market-header h2 {
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .market-header .market-size {
+            text-align: right;
+        }
+
+        .market-header .market-size .big {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            line-height: 1;
+        }
+
+        .market-header .market-size .small {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .market-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .market-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+        }
+
+        .market-card h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .market-card h4 .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .market-card p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .market-card .source {
+            margin-top: 12px;
+            font-size: 11px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Slide 9 — Go to Market */
+        .gtm-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .gtm-phase {
+            display: flex;
+            gap: 24px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px 32px;
+            position: relative;
+        }
+
+        .gtm-phase::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .gtm-phase.phase-1::before { background: var(--accent-cyan); }
+        .gtm-phase.phase-2::before { background: var(--accent-purple); }
+        .gtm-phase.phase-3::before { background: var(--accent-amber); }
+
+        .gtm-phase-left {
+            width: 200px;
+            flex-shrink: 0;
+        }
+
+        .gtm-phase-left .phase-time {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .gtm-phase-left .phase-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .gtm-phase-right {
+            flex: 1;
+        }
+
+        .gtm-phase-right ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .gtm-phase-right li {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .gtm-phase-right li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--text-muted);
+        }
+
+        .gtm-note {
+            margin-top: 24px;
+            font-size: 12px;
+            color: var(--text-muted);
+            font-style: italic;
+            padding: 16px 20px;
+            background: var(--bg-elevated);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        /* Slide 10 — Competitive */
+        .comp-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 32px;
+            font-size: 14px;
+        }
+
+        .comp-table th {
+            text-align: left;
+            padding: 14px 16px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .comp-table td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+            vertical-align: middle;
+        }
+
+        .comp-table tr:hover td {
+            background: var(--bg-elevated);
+        }
+
+        .comp-table .col-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .comp-table .col-planck {
+            background: var(--accent-cyan-dim);
+        }
+
+        .comp-table .col-planck .col-name {
+            color: var(--accent-cyan);
+        }
+
+        .comp-table .notes {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .comp-footer {
+            margin-top: 24px;
+            font-size: 11px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1.8;
+        }
+
+        /* Slide 11 — Next Steps */
+        .next-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .next-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            position: relative;
+        }
+
+        .next-card .next-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            background: var(--accent-cyan-dim);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .next-card h3 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .next-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .next-cta {
+            margin-top: 48px;
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, var(--accent-cyan-dim), var(--accent-purple-dim));
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+        }
+
+        .next-cta h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .next-cta p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .contact-row {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 32px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .contact-item a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* Print / PDF styles */
+        @media print {
+            .toolbar {
+                display: none !important;
+            }
+            .deck {
+                padding-top: 0;
+            }
+            .slide {
+                margin: 0;
+                border: none;
+                border-radius: 0;
+                page-break-after: always;
+                page-break-inside: avoid;
+                width: 100%;
+                min-height: 100vh;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1320px) {
+            .slide {
+                width: calc(100% - 40px);
+                padding: 40px;
+            }
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .problem-grid,
+            .perf-grid,
+            .next-grid {
+                grid-template-columns: 1fr;
+            }
+            .how-content,
+            .market-grid {
+                grid-template-columns: 1fr;
+            }
+            .gtm-phase {
+                flex-direction: column;
+            }
+            .gtm-phase-left {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="toolbar">
+        <div class="toolbar-brand"><span>PLANCK-99</span> — Investor Pitch</div>
+        <button class="btn-pdf" onclick="generatePDF()">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M7.5 12l3 3m0 0l3-3m-3 3V3" />
+            </svg>
+            Download PDF
+        </button>
+    </div>
+
+    <div class="deck" id="deck">
+
+        <!-- SLIDE 1: Title -->
+        <div class="slide slide-title">
+            <div class="badge">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+                </svg>
+                Seed Stage — Deep Tech
+            </div>
+            <h1>Planck-99</h1>
+            <p class="subtitle">On-device malware detection built for embedded systems. No cloud. No signatures. No GPU. 37KB of deterministic C that classifies in 34 nanoseconds.</p>
+            
+            <div class="specs-row">
+                <div class="spec-item">
+                    <span class="spec-value">34ns</span>
+                    <span class="spec-label">Latency</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-value">37KB</span>
+                    <span class="spec-label">Footprint</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-value">96.28%</span>
+                    <span class="spec-label">Accuracy (IoT)</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-value">Zero</span>
+                    <span class="spec-label">Network</span>
+                </div>
+            </div>
+
+            <div class="founder-line">
+                <strong>Ziad Salah</strong> — Founder & Lead Engineer, 17, Giza, Egypt<br>
+                Bootstrapped to date · Seeking seed partners & strategic design partners<br>
+                zs.01117875692@gmail.com · github.com/zierax<br>
+                <em style="color: var(--text-muted);">All benchmarks public and reproducible: github.com/Division-36/Planck-99_PublicBenchmarks</em>
+            </div>
+            <div class="slide-number">01 / 11</div>
+        </div>
+
+        <!-- SLIDE 2: The Problem -->
+        <div class="slide">
+            <div class="section-label">The Problem</div>
+            <h2 style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px;">21 billion devices. A hard deadline. Zero solutions.</h2>
+            <p style="font-size: 15px; color: var(--text-secondary); max-width: 720px;">Traditional antivirus needs 50–500MB RAM and multi-core CPUs. Your average IoT device has 256KB–4MB. By early 2027, the EU Cyber Resilience Act makes security mandatory for every connected device sold in Europe. There is currently no production-ready product that fits.</p>
+
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="big-num">21B</div>
+                    <h3>IoT & embedded devices globally in 2025</h3>
+                    <p>Cameras, routers, industrial sensors, medical devices — all connected, all vulnerable, all running on hardware that cannot host traditional security stacks.</p>
+                    <div class="source">Source: IoT Analytics, Oct 2025</div>
+                </div>
+                <div class="problem-card">
+                    <div class="big-num">200K+</div>
+                    <h3>Devices hijacked in a single nation-state botnet</h3>
+                    <p>Flax Typhoon (Raptor Train) compromised cameras, storage, and routers at scale. FBI disrupted it in September 2024. The playbook is now proven.</p>
+                    <div class="source">Source: FBI Director Wray, Sept 2024</div>
+                </div>
+                <div class="problem-card">
+                    <div class="big-num">0</div>
+                    <h3>Commercial on-device classifiers for MCU-class hardware</h3>
+                    <p>There is literally no production-ready behavioral malware detection engine that deploys at 37KB with no network, no GPU, and no FPU. The category does not exist yet.</p>
+                    <div class="source">Verified market gap analysis</div>
+                </div>
+            </div>
+
+            <div class="gap-banner">
+                <p><strong>The structural gap:</strong> Embedded hardware gives you 256KB–4MB RAM. Traditional AV wants 50–500MB. Cloud solutions need constant connectivity. Signature scanners cannot catch zero-days. <strong>Every existing approach fails the constraints — and regulation now mandates those constraints be met.</strong></p>
+            </div>
+            <div class="slide-number">02 / 11</div>
+        </div>
+
+        <!-- SLIDE 3: Why Now -->
+        <div class="slide">
+            <div class="section-label">Why Now — Verified Triggers</div>
+            <h2 style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px;">Three forces converging. One has a legal deadline.</h2>
+            <p style="font-size: 15px; color: var(--text-secondary); max-width: 700px; margin-bottom: 8px;">2024–2027 is not arbitrary. Regulation, nation-state activity, and vulnerability rates are hitting inflection points simultaneously. The EU CRA creates a hard compliance cliff.</p>
+
+            <div class="trigger-list">
+                <div class="trigger-item">
+                    <div class="trigger-num">01</div>
+                    <div class="trigger-content">
+                        <h3>EU Cyber Resilience Act — mandatory on-device security by early 2027</h3>
+                        <p>Regulation (EU) 2024/2847 enters into force January 2025. Obligations for most connected devices apply 36 months later — early 2027. Every device manufacturer selling into Europe must have an on-device security capability. Perimeter-only defense is no longer legally sufficient. This is not a market opportunity; it is a compliance mandate with a countdown.</p>
+                        <div class="trigger-source">EUR-Lex 2024/2847 · Entry into force: Jan 2025 · Obligations: 36 months</div>
+                    </div>
+                </div>
+                <div class="trigger-item">
+                    <div class="trigger-num">02</div>
+                    <div class="trigger-content">
+                        <h3>Botnets are now nation-state weapons — at IoT scale</h3>
+                        <p>Flax Typhoon (PRC-state) built Raptor Train from 200,000+ compromised IoT devices. Volt Typhoon sat inside US critical infrastructure for five years undetected. This is no longer cybercrime — it is geopolitics, and the battlefield is your router.</p>
+                        <div class="trigger-source">FBI Director Wray, Aspen Cyber Summit, Sept 2024 · CISA/NSA/FBI Joint Advisory AA24-038A</div>
+                    </div>
+                </div>
+                <div class="trigger-item">
+                    <div class="trigger-num">03</div>
+                    <div class="trigger-content">
+                        <h3>ICS vulnerabilities are accelerating, not slowing</h3>
+                        <p>2,155 CVEs across 508 ICS advisories in 2025 — the first year CISA ever published 500+ ICS advisories. Average CVSS crossed 8.0 for the first time. 929 high-severity CVEs in 2024 alone. 75% of all advisories rated high or critical.</p>
+                        <div class="trigger-source">Forescout 'ICS Cybersecurity in 2026', Feb 2026 · SOCRadar ICS Recap, Dec 2025</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">03 / 11</div>
+        </div>
+
+        <!-- SLIDE 4: The Gap -->
+        <div class="slide">
+            <div class="section-label">The Gap — No One Else Fits</div>
+            <h2 style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px;">Every existing solution breaks on embedded</h2>
+            <p style="font-size: 15px; color: var(--text-secondary); max-width: 700px; margin-bottom: 24px;">Benchmarked across every category. Here is what actually happens when you try to run them on a microcontroller or embedded Linux SoC.</p>
+
+            <table class="gap-table">
+                <thead>
+                    <tr>
+                        <th class="col-metric">Metric</th>
+                        <th>Traditional AV</th>
+                        <th>Cloud Detection</th>
+                        <th>Signature Scanner</th>
+                        <th class="col-planck">Planck-99</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="col-metric">Peak RAM</td>
+                        <td>50–500 MB</td>
+                        <td>Server-side</td>
+                        <td>~30 MB</td>
+                        <td class="col-planck">0.03 MB</td>
+                    </tr>
+                    <tr>
+                        <td class="col-metric">Inference time</td>
+                        <td>10–100 ms</td>
+                        <td>200–2,000 ms</td>
+                        <td>1–50 ms</td>
+                        <td class="col-planck">34 ns</td>
+                    </tr>
+                    <tr>
+                        <td class="col-metric">Network required</td>
+                        <td class="cross">No</td>
+                        <td class="cross">Mandatory</td>
+                        <td class="cross">No</td>
+                        <td class="col-planck check">Never</td>
+                    </tr>
+                    <tr>
+                        <td class="col-metric">GPU / FPU required</td>
+                        <td class="cross">No</td>
+                        <td class="cross">Yes</td>
+                        <td class="cross">No</td>
+                        <td class="col-planck check">Never</td>
+                    </tr>
+                    <tr>
+                        <td class="col-metric">Air-gap safe</td>
+                        <td class="cross">✗</td>
+                        <td class="cross">✗</td>
+                        <td class="tilde">~</td>
+                        <td class="col-planck check">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="col-metric">MCU-class viable</td>
+                        <td class="cross">✗</td>
+                        <td class="cross">✗</td>
+                        <td class="cross">✗</td>
+                        <td class="col-planck check">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="col-metric">Deterministic</td>
+                        <td class="cross">No</td>
+                        <td class="cross">No</td>
+                        <td class="tilde">~</td>
+                        <td class="col-planck check">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="col-metric">Accuracy (IoT unseen)</td>
+                        <td>95–98%</td>
+                        <td>N/A</td>
+                        <td>Signatures only</td>
+                        <td class="col-planck">96.28%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="table-footer">
+                ★ Planck-99: github.com/Division-36/Planck-99_PublicBenchmarks — public, reproducible, verifiable<br>
+                † Traditional AV: AV-TEST Institute product comparisons, 2024<br>
+                ‡ Competitor specs: publicly documented product specifications
+            </div>
+            <div class="slide-number">04 / 11</div>
+        </div>
+
+        <!-- SLIDE 5: Solution -->
+        <div class="slide">
+            <div class="section-label">The Solution</div>
+            <div class="solution-header">
+                <h2>Planck-99</h2>
+                <p class="tagline">32-dimensional normalized frequency vectors. Int8-quantized closed-form inference. No neural networks. No cloud. No GPU. No FPU. No runtime dependencies.</p>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card cyan">
+                    <div class="metric-label">Deterministic</div>
+                    <div class="metric-value">34 ns</div>
+                    <div class="metric-detail">Median inference on IoT syscall traces. σ ≤ 14 ns across 9 independent runs. Same input, same output, every single time. Safe for hard real-time systems.</div>
+                </div>
+                <div class="metric-card green">
+                    <div class="metric-label">Ultralight</div>
+                    <div class="metric-value">37 KB</div>
+                    <div class="metric-detail">27 KB int8-quantized binary + 10 KB ring buffer. Smaller than most icons. Fits in the L1 cache of virtually any embedded Linux SoC. No AI accelerator required.</div>
+                </div>
+                <div class="metric-card amber">
+                    <div class="metric-label">Accurate</div>
+                    <div class="metric-value">96.28%</div>
+                    <div class="metric-detail">On unseen IoT malware from 2016–2026 (ADFA-LD). Not training-set accuracy — real generalization across 10 years of threats. 97.71% precision.</div>
+                </div>
+                <div class="metric-card purple">
+                    <div class="metric-label">Throughput</div>
+                    <div class="metric-value">29.4M/s</div>
+                    <div class="metric-detail">Inferences per second on a single CPU core. No batching, no GPU, no tricks. Just a deterministic dot product on a 32-feature vector.</div>
+                </div>
+            </div>
+
+            <div class="solution-footer">
+                All metrics verified on: Intel Xeon 3.8GHz, single core, no GPU, no network.<br>
+                Full methodology + reproducible scripts: github.com/Division-36/Planck-99_PublicBenchmarks
+            </div>
+            <div class="slide-number">05 / 11</div>
+        </div>
+
+        <!-- SLIDE 6: How It Works -->
+        <div class="slide">
+            <div class="section-label">How It Works</div>
+            <h2 style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px;">Closed-form syscall analysis</h2>
+            <p style="font-size: 15px; color: var(--text-secondary); max-width: 700px; margin-bottom: 32px;">Zero black boxes. 100% deterministic. Training computes a mathematical decision surface; inference is a quantized dot product. Every classification produces a JSON proof file — a complete audit trail.</p>
+
+            <div class="how-content">
+                <div class="how-text">
+                    <h3>Math, not magic</h3>
+                    <p>Most ML in security is a black box. You feed it data, it gives you a probability, and you hope it is right. <span class="highlight">Planck-99 is different.</span></p>
+                    <p>We model syscall sequences as <strong>32-dimensional normalized frequency fingerprints</strong>. Training computes a closed-form decision surface. At runtime, inference is a deterministic int8 dot product — identical input always yields identical output.</p>
+                    <p>The model generalizes 51× beyond its training ceiling (tested to 117,088 syscalls) because normalized frequency ratios are length-invariant by construction. No neural networks. No stochastic behavior. No runtime training.</p>
+                </div>
+                <div class="how-visual">
+                    <div class="flow-step">
+                        <div class="step-num">1</div>
+                        <div class="step-text">Kernel hook captures syscall trace into ring buffer</div>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">
+                        <div class="step-num">2</div>
+                        <div class="step-text">Extract 32 normalized frequency ratios (closed-form)</div>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">
+                        <div class="step-num">3</div>
+                        <div class="step-text">Int8 deterministic classification (dot product)</div>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">
+                        <div class="step-num">4</div>
+                        <div class="step-text">JSON proof file generated for audit / compliance</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">06 / 11</div>
+        </div>
+
+        <!-- SLIDE 7: Performance -->
+        <div class="slide">
+            <div class="section-label">Performance — Three Datasets, Two Fully Unseen</div>
+            <h2 style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px;">It works on data it has never seen</h2>
+            <p style="font-size: 15px; color: var(--text-secondary); max-width: 700px; margin-bottom: 24px;">All benchmarks public. No cherry-picking. The IoT dataset is our primary target — malware from 2016 to 2026 that the model never encountered during training. C kernel numbers shown (int8 quantized).</p>
+
+            <div class="perf-grid">
+                <div class="perf-card baseline">
+                    <div class="perf-badge">Baseline</div>
+                    <h4>Training Set (Internal Validation)</h4>
+                    <div class="perf-stats">
+                        <div class="perf-stat">
+                            <span class="stat-label">Accuracy</span>
+                            <span class="stat-value good">98.88%</span>
+                        </div>
+                        <div class="perf-stat">
+                            <span class="stat-label">Precision</span>
+                            <span class="stat-value good">98.58%</span>
+                        </div>
+                        <div class="perf-stat">
+                            <span class="stat-label">Recall</span>
+                            <span class="stat-value good">99.21%</span>
+                        </div>
+                        <div class="perf-stat">
+                            <span class="stat-label">FPR</span>
+                            <span class="stat-value good">1.45%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="perf-card unseen">
+                    <div class="perf-badge">Unseen</div>
+                    <h4>LinuxStatic ELF Dataset</h4>
+                    <div class="perf-stats">
+                        <div class="perf-stat">
+                            <span class="stat-label">Accuracy</span>
+                            <span class="stat-value good">92.01%</span>
+                        </div>
+                        <div class="perf-stat">
+                            <span class="stat-label">Precision</span>
+                            <span class="stat-value good">100%</span>
+                        </div>
+                        <div class="perf-stat">
+                            <span class="stat-label">Recall</span>
+                            <span class="stat-value good">92.01%</span>
+                        </div>
+                        <div class="perf-stat">
+                            <span class="stat-label">FPR</span>
+                            <span class="stat-value good">0.00%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="perf-card unseen">
+                    <div class="perf-badge">Unseen — Primary Target</div>
+                    <h4>IoT Syscalls (ADFA-LD)</h4>
+                    <div class="perf-stats">
+                        <div class="perf-stat">
+                            <span class="stat-label">Accuracy</span>
+                            <span class="stat-value good">96.28%</span>
+                        </div>
+                        <div class="perf-stat">
+                            <span class="stat-label">Precision</span>
+                            <span class="stat-value good">97.71%</span>
+                        </div>
+                        <div class="perf-stat">
+                            <span class="stat-label">Recall</span>
+                            <span class="stat-value good">97.87%</span>
+                        </div>
+                        <div class="perf-stat">
+                            <span class="stat-label">FPR</span>
+                            <span class="stat-value warn">12.18%*</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="latency-box">
+                <h4>Absolute kernel latency — deterministic, trace-length invariant</h4>
+                <div class="latency-row">
+                    <span class="latency-name">Training validation traces (median 863 syscalls)</span>
+                    <div class="latency-compare">
+                        <span class="latency-val">62 ns</span>
+                        <span class="latency-note">σ ≤ 14 ns</span>
+                    </div>
+                </div>
+                <div class="latency-row">
+                    <span class="latency-name">LinuxStatic ELF (median 1,161 syscalls)</span>
+                    <div class="latency-compare">
+                        <span class="latency-val">35 ns</span>
+                        <span class="latency-note">σ ≤ 14 ns</span>
+                    </div>
+                </div>
+                <div class="latency-row">
+                    <span class="latency-name">IoT Syscalls (median 15,075 syscalls; max 117,088)</span>
+                    <div class="latency-compare">
+                        <span class="latency-val">34 ns</span>
+                        <span class="latency-note">51× training ceiling extrapolation</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 16px; font-size: 12px; color: var(--text-muted); line-height: 1.6;">
+                * <strong>IoT FPR context:</strong> The 12.18% FPR on ADFA-LD is a data-distribution artifact, not a model flaw. Benign IoT traces in this dataset have a median of only 2,234 syscalls — at the lower edge of the reliable operational window — and a heavily skewed 1:5.3 benign-to-malware ratio. Short benign traces dominated by generic syscalls (read, mmap) overlap with malware frequency profiles. On the balanced internal dataset with representative trace lengths, FPR is 1.45%. The short-trace blindspot is fully mitigated by a 500-syscall gate in production deployment. See full analysis in benchmark documentation.
+            </div>
+            <div class="slide-number">07 / 11</div>
+        </div>
+
+        <!-- SLIDE 8: Market -->
+        <div class="slide">
+            <div class="section-label">Market Size — All Figures Sourced</div>
+            <div class="market-header">
+                <div>
+                    <h2>$28B → $80B by 2031</h2>
+                    <p style="font-size: 15px; color: var(--text-secondary);">18.7% CAGR. But the real driver is a 2027 compliance cliff, not market growth.</p>
+                </div>
+                <div class="market-size">
+                    <div class="big">$80B</div>
+                    <div class="small">Global IoT Security Market, 2031</div>
+                </div>
+            </div>
+
+            <div class="market-grid">
+                <div class="market-card">
+                    <h4><span class="dot" style="background: var(--accent-cyan);"></span>EU CRA: a forced retrofit of 21 billion devices</h4>
+                    <p>By early 2027, every connected device sold in Europe must meet mandatory cybersecurity requirements. Manufacturers who cannot demonstrate on-device security capabilities will be legally barred from the market. This creates immediate, non-discretionary demand for a solution that deploys on existing MCU-class hardware without redesigning the product.</p>
+                    <div class="source">EUR-Lex 2024/2847 · Technavio, March 2026</div>
+                </div>
+                <div class="market-card">
+                    <h4><span class="dot" style="background: var(--accent-rose);"></span>Industrial OT: air-gapped by definition</h4>
+                    <p>Industrial OT requires on-device, air-gapped detection. No cloud solution qualifies. This structural gap is exactly what Planck-99 fills. Industrial IoT security alone was $26.24B in 2024. North America holds 34.2% global share.</p>
+                    <div class="source">Technavio, March 2026</div>
+                </div>
+                <div class="market-card">
+                    <h4><span class="dot" style="background: var(--accent-purple);"></span>APAC: highest-growth region</h4>
+                    <p>APAC IoT security CAGR: 22.2% — highest globally. Japan's JC-STAR IoT security labeling (2024) signals regulatory alignment. Rapid industrial digitalization across Southeast Asia and India creates massive greenfield opportunity.</p>
+                    <div class="source">Technavio, March 2026 · Japan MIC JC-STAR, 2024</div>
+                </div>
+                <div class="market-card">
+                    <h4><span class="dot" style="background: var(--accent-amber);"></span>Regulatory stack: CRA, PSTI, NIST, FDA</h4>
+                    <p>EU Cyber Resilience Act (2024/2847). UK PSTI Act (enforced April 2024). FDA Cybersecurity in Medical Devices Guidance (2023). NIST SP 800-213A. Every single one mandates on-device security capabilities. Compliance is no longer optional — and the deadline is fixed.</p>
+                    <div class="source">EUR-Lex · legislation.gov.uk · FDA.gov · NIST</div>
+                </div>
+            </div>
+            <div class="slide-number">08 / 11</div>
+        </div>
+
+        <!-- SLIDE 9: Go to Market -->
+        <div class="slide">
+            <div class="section-label">Go-to-Market — B2B SDK Licensing</div>
+            <h2 style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px;">Three phases, regulated verticals</h2>
+            <p style="font-size: 15px; color: var(--text-secondary); max-width: 700px; margin-bottom: 24px;">No revenue projections here — those are fantasies until you have a signed contract. These phases represent directional priorities aligned with the EU CRA 2027 compliance window.</p>
+
+            <div class="gtm-timeline">
+                <div class="gtm-phase phase-1">
+                    <div class="gtm-phase-left">
+                        <div class="phase-time">Now — 12 months</div>
+                        <div class="phase-name">Design Partners</div>
+                    </div>
+                    <div class="gtm-phase-right">
+                        <ul>
+                            <li>3–5 paid pilot integrations with IoT security gateway vendors</li>
+                            <li>SDK license model — per-device pricing to be determined with first partners</li>
+                            <li>Target verticals: Industrial OT, edge computing, smart infrastructure</li>
+                            <li>Success metric: first signed integration agreement + EU CRA compliance validation</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="gtm-phase phase-2">
+                    <div class="gtm-phase-left">
+                        <div class="phase-time">12–24 months</div>
+                        <div class="phase-name">Platform Deals</div>
+                    </div>
+                    <div class="gtm-phase-right">
+                        <ul>
+                            <li>OEM integration with SoC vendors (NXP, STM, Espressif)</li>
+                            <li>Chipset-level embed — zero integration effort for end customers</li>
+                            <li>EU CRA compliance offering: pre-certified security module for device manufacturers</li>
+                            <li>Medical: FDA Cybersecurity in Medical Devices Guidance compliance</li>
+                            <li>Automotive: ISO/SAE 21434 compliance (enforced since 2022)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="gtm-phase phase-3">
+                    <div class="gtm-phase-left">
+                        <div class="phase-time">24–36 months</div>
+                        <div class="phase-name">Compliance Layer</div>
+                    </div>
+                    <div class="gtm-phase-right">
+                        <ul>
+                            <li>EU CRA deadline arrives (early 2027) — demand shifts from optional to mandatory</li>
+                            <li>CISA reference implementation for ICS/SCADA sectors</li>
+                            <li>APAC expansion: Japan, South Korea, India (22.2% CAGR region)</li>
+                            <li>Patent licensing on feature extraction method (filing in Phase 1)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gtm-note">
+                Note: No revenue projections are stated. Pricing will be determined with first design partners. Phases represent directional priorities, not guarantees. The EU CRA 2027 deadline is a fixed external milestone that de-risks Phase 3 demand.
+            </div>
+            <div class="slide-number">09 / 11</div>
+        </div>
+
+        <!-- SLIDE 10: Competitive -->
+        <div class="slide">
+            <div class="section-label">Competitive Landscape</div>
+            <h2 style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px;">We're not improving a category — we're creating one</h2>
+            <p style="font-size: 15px; color: var(--text-secondary); max-width: 700px; margin-bottom: 24px;">No competitor checks all four boxes. Most fail on two or more. That's not a feature gap — it's a category gap that happens to be legally mandated by 2027.</p>
+
+            <table class="comp-table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>On-device</th>
+                        <th>Air-gap safe</th>
+                        <th>Real-time</th>
+                        <th>MCU-class</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="col-name">Traditional AV<br><span style="font-size: 12px; color: var(--text-muted); font-weight: 400;">Kaspersky, CrowdStrike</span></td>
+                        <td class="cross">✗</td>
+                        <td class="cross">✗</td>
+                        <td class="check">✓</td>
+                        <td class="cross">✗</td>
+                        <td class="notes">50–500 MB RAM requirement</td>
+                    </tr>
+                    <tr>
+                        <td class="col-name">Cloud Detection<br><span style="font-size: 12px; color: var(--text-muted); font-weight: 400;">Darktrace, Vectra</span></td>
+                        <td class="cross">✗</td>
+                        <td class="cross">✗</td>
+                        <td class="tilde">~</td>
+                        <td class="cross">✗</td>
+                        <td class="notes">Mandatory connectivity</td>
+                    </tr>
+                    <tr>
+                        <td class="col-name">Signature Scanners<br><span style="font-size: 12px; color: var(--text-muted); font-weight: 400;">YARA, ClamAV</span></td>
+                        <td class="tilde">~</td>
+                        <td class="check">✓</td>
+                        <td class="cross">✗</td>
+                        <td class="cross">✗</td>
+                        <td class="notes">No behavioral analysis</td>
+                    </tr>
+                    <tr>
+                        <td class="col-name">OT Platforms<br><span style="font-size: 12px; color: var(--text-muted); font-weight: 400;">Nozomi, Claroty</span></td>
+                        <td class="cross">✗</td>
+                        <td class="tilde">~</td>
+                        <td class="tilde">~</td>
+                        <td class="cross">✗</td>
+                        <td class="notes">Network layer only</td>
+                    </tr>
+                    <tr class="col-planck">
+                        <td class="col-name" style="color: var(--accent-cyan);">Planck-99</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="notes" style="color: var(--accent-cyan);">27 KB · 34 ns · 96.28%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="comp-footer">
+                ★ Planck-99: github.com/Division-36/Planck-99_PublicBenchmarks<br>
+                † Traditional AV specs: AV-TEST Independent Test 2024<br>
+                Competitor features: publicly documented product specifications
+            </div>
+            <div class="slide-number">10 / 11</div>
+        </div>
+
+        <!-- SLIDE 11: Next Steps -->
+        <div class="slide">
+            <div class="section-label">Next Step</div>
+            <h2 style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px;">One design partner. That's the only milestone that matters.</h2>
+            <p style="font-size: 15px; color: var(--text-secondary); max-width: 700px; margin-bottom: 32px;">Everything else — investor decks, revenue projections, patent filings — is noise until a real customer validates the integration. Here's how we get there. Bootstrapped to date. Open to seed partners and strategic investors.</p>
+
+            <div class="next-grid">
+                <div class="next-card">
+                    <div class="next-num">1</div>
+                    <h3>Find the right vendor</h3>
+                    <p>An IoT gateway or OT security vendor shipping embedded Linux devices with an active security team. The product already runs on their hardware class. This is integration, not invention.</p>
+                </div>
+                <div class="next-card">
+                    <div class="next-num">2</div>
+                    <h3>Run a live benchmark</h3>
+                    <p>Planck-99 deploys as a 27KB binary with a kernel hook. Integration takes hours, not months. The vendor gets a JSON proof file per classification — auditable, verifiable, and compliant with upcoming EU CRA traceability requirements.</p>
+                </div>
+                <div class="next-card">
+                    <div class="next-num">3</div>
+                    <h3>Sign a paid pilot</h3>
+                    <p>A signed agreement is the proof of market demand no pitch deck can substitute. It de-risks every subsequent conversation with investors, accelerators, and OEM partners — and validates the EU CRA compliance story.</p>
+                </div>
+            </div>
+
+            <div class="contact-row">
+                <div class="contact-item">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/>
+                    </svg>
+                    <a href="mailto:zs.01117875692@gmail.com">zs.01117875692@gmail.com</a>
+                </div>
+                <div class="contact-item">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+                    </svg>
+                    <a href="https://github.com/zierax" target="_blank">github.com/zierax</a>
+                </div>
+            </div>
+            <div class="slide-number">11 / 11</div>
+        </div>
+
+    </div>
+
+    <script>
+        function generatePDF() {
+            const element = document.getElementById('deck');
+            const opt = {
+                margin: 0,
+                filename: 'Planck-99-Pitch-Deck.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { 
+                    scale: 2, 
+                    useCORS: true,
+                    backgroundColor: '#0a0a0f',
+                    logging: false
+                },
+                jsPDF: { 
+                    unit: 'px', 
+                    format: [1280, 720], 
+                    orientation: 'landscape',
+                    compress: true
+                },
+                pagebreak: { mode: ['css', 'legacy'] }
+            };
+            
+            const btn = document.querySelector('.btn-pdf');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="animation: spin 1s linear infinite"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Generating...';
+            btn.disabled = true;
+            
+            html2pdf().set(opt).from(element).save().then(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }).catch(err => {
+                console.error(err);
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                alert('PDF generation failed. Please try again or use Print to PDF.');
+            });
+        }
+    </script>
+    <style>
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</body>
+</html>
