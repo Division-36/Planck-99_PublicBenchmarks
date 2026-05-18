@@ -1,4 +1,3 @@
-// Investor Pitch
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Planck-99 — Pitch Deck</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -94,6 +95,12 @@
             transform: translateY(0);
         }
 
+        .btn-pdf:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         .btn-pdf svg {
             width: 16px;
             height: 16px;
@@ -113,8 +120,6 @@
             padding: 64px 80px;
             position: relative;
             overflow: hidden;
-            page-break-after: always;
-            page-break-inside: avoid;
         }
 
         .slide::before {
@@ -1010,25 +1015,6 @@
             text-decoration: underline;
         }
 
-        /* Print / PDF styles */
-        @media print {
-            .toolbar {
-                display: none !important;
-            }
-            .deck {
-                padding-top: 0;
-            }
-            .slide {
-                margin: 0;
-                border: none;
-                border-radius: 0;
-                page-break-after: always;
-                page-break-inside: avoid;
-                width: 100%;
-                min-height: 100vh;
-            }
-        }
-
         /* Responsive */
         @media (max-width: 1320px) {
             .slide {
@@ -1054,13 +1040,53 @@
                 width: 100%;
             }
         }
+
+        /* PDF generation helper */
+        .pdf-generating {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 10, 15, 0.95);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .pdf-generating.hidden {
+            display: none;
+        }
+
+        .pdf-spinner {
+            width: 48px;
+            height: 48px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent-cyan);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .pdf-status {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
 
+    <div id="pdf-overlay" class="pdf-generating hidden">
+        <div class="pdf-spinner"></div>
+        <div class="pdf-status" id="pdf-status">Capturing slides...</div>
+    </div>
+
     <div class="toolbar">
         <div class="toolbar-brand"><span>PLANCK-99</span> — Investor Pitch</div>
-        <button class="btn-pdf" onclick="generatePDF()">
+        <button class="btn-pdf" id="btn-pdf" onclick="generatePDF()">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M7.5 12l3 3m0 0l3-3m-3 3V3" />
             </svg>
@@ -1071,7 +1097,7 @@
     <div class="deck" id="deck">
 
         <!-- SLIDE 1: Title -->
-        <div class="slide slide-title">
+        <div class="slide slide-title" id="slide-1">
             <div class="badge">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                     <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
@@ -1110,7 +1136,7 @@
         </div>
 
         <!-- SLIDE 2: The Problem -->
-        <div class="slide">
+        <div class="slide" id="slide-2">
             <div class="section-label">The Problem</div>
             <h2 style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px;">21 billion devices. A hard deadline. Zero solutions.</h2>
             <p style="font-size: 15px; color: var(--text-secondary); max-width: 720px;">Traditional antivirus needs 50–500MB RAM and multi-core CPUs. Your average IoT device has 256KB–4MB. By early 2027, the EU Cyber Resilience Act makes security mandatory for every connected device sold in Europe. There is currently no production-ready product that fits.</p>
@@ -1143,7 +1169,7 @@
         </div>
 
         <!-- SLIDE 3: Why Now -->
-        <div class="slide">
+        <div class="slide" id="slide-3">
             <div class="section-label">Why Now — Verified Triggers</div>
             <h2 style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px;">Three forces converging. One has a legal deadline.</h2>
             <p style="font-size: 15px; color: var(--text-secondary); max-width: 700px; margin-bottom: 8px;">2024–2027 is not arbitrary. Regulation, nation-state activity, and vulnerability rates are hitting inflection points simultaneously. The EU CRA creates a hard compliance cliff.</p>
@@ -1178,7 +1204,7 @@
         </div>
 
         <!-- SLIDE 4: The Gap -->
-        <div class="slide">
+        <div class="slide" id="slide-4">
             <div class="section-label">The Gap — No One Else Fits</div>
             <h2 style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px;">Every existing solution breaks on embedded</h2>
             <p style="font-size: 15px; color: var(--text-secondary); max-width: 700px; margin-bottom: 24px;">Benchmarked across every category. Here is what actually happens when you try to run them on a microcontroller or embedded Linux SoC.</p>
@@ -1262,7 +1288,7 @@
         </div>
 
         <!-- SLIDE 5: Solution -->
-        <div class="slide">
+        <div class="slide" id="slide-5">
             <div class="section-label">The Solution</div>
             <div class="solution-header">
                 <h2>Planck-99</h2>
@@ -1300,7 +1326,7 @@
         </div>
 
         <!-- SLIDE 6: How It Works -->
-        <div class="slide">
+        <div class="slide" id="slide-6">
             <div class="section-label">How It Works</div>
             <h2 style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px;">Closed-form syscall analysis</h2>
             <p style="font-size: 15px; color: var(--text-secondary); max-width: 700px; margin-bottom: 32px;">Zero black boxes. 100% deterministic. Training computes a mathematical decision surface; inference is a quantized dot product. Every classification produces a JSON proof file — a complete audit trail.</p>
@@ -1338,7 +1364,7 @@
         </div>
 
         <!-- SLIDE 7: Performance -->
-        <div class="slide">
+        <div class="slide" id="slide-7">
             <div class="section-label">Performance — Three Datasets, Two Fully Unseen</div>
             <h2 style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px;">It works on data it has never seen</h2>
             <p style="font-size: 15px; color: var(--text-secondary); max-width: 700px; margin-bottom: 24px;">All benchmarks public. No cherry-picking. The IoT dataset is our primary target — malware from 2016 to 2026 that the model never encountered during training. C kernel numbers shown (int8 quantized).</p>
@@ -1444,7 +1470,7 @@
         </div>
 
         <!-- SLIDE 8: Market -->
-        <div class="slide">
+        <div class="slide" id="slide-8">
             <div class="section-label">Market Size — All Figures Sourced</div>
             <div class="market-header">
                 <div>
@@ -1483,7 +1509,7 @@
         </div>
 
         <!-- SLIDE 9: Go to Market -->
-        <div class="slide">
+        <div class="slide" id="slide-9">
             <div class="section-label">Go-to-Market — B2B SDK Licensing</div>
             <h2 style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px;">Three phases, regulated verticals</h2>
             <p style="font-size: 15px; color: var(--text-secondary); max-width: 700px; margin-bottom: 24px;">No revenue projections here — those are fantasies until you have a signed contract. These phases represent directional priorities aligned with the EU CRA 2027 compliance window.</p>
@@ -1541,7 +1567,7 @@
         </div>
 
         <!-- SLIDE 10: Competitive -->
-        <div class="slide">
+        <div class="slide" id="slide-10">
             <div class="section-label">Competitive Landscape</div>
             <h2 style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px;">We're not improving a category — we're creating one</h2>
             <p style="font-size: 15px; color: var(--text-secondary); max-width: 700px; margin-bottom: 24px;">No competitor checks all four boxes. Most fail on two or more. That's not a feature gap — it's a category gap that happens to be legally mandated by 2027.</p>
@@ -1610,7 +1636,7 @@
         </div>
 
         <!-- SLIDE 11: Next Steps -->
-        <div class="slide">
+        <div class="slide" id="slide-11">
             <div class="section-label">Next Step</div>
             <h2 style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px;">One design partner. That's the only milestone that matters.</h2>
             <p style="font-size: 15px; color: var(--text-secondary); max-width: 700px; margin-bottom: 32px;">Everything else — investor decks, revenue projections, patent filings — is noise until a real customer validates the integration. Here's how we get there. Bootstrapped to date. Open to seed partners and strategic investors.</p>
@@ -1653,41 +1679,76 @@
     </div>
 
     <script>
-        function generatePDF() {
-            const element = document.getElementById('deck');
-            const opt = {
-                margin: 0,
-                filename: 'Planck-99-Pitch-Deck.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { 
-                    scale: 2, 
-                    useCORS: true,
-                    backgroundColor: '#0a0a0f',
-                    logging: false
-                },
-                jsPDF: { 
-                    unit: 'px', 
-                    format: [1280, 720], 
-                    orientation: 'landscape',
-                    compress: true
-                },
-                pagebreak: { mode: ['css', 'legacy'] }
-            };
-            
-            const btn = document.querySelector('.btn-pdf');
+        async function generatePDF() {
+            const btn = document.getElementById('btn-pdf');
+            const overlay = document.getElementById('pdf-overlay');
+            const status = document.getElementById('pdf-status');
             const originalText = btn.innerHTML;
-            btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="animation: spin 1s linear infinite"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Generating...';
-            btn.disabled = true;
             
-            html2pdf().set(opt).from(element).save().then(() => {
+            btn.disabled = true;
+            btn.innerHTML = '<svg class="pdf-spinner" style="width:16px;height:16px;border-width:2px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Generating...';
+            overlay.classList.remove('hidden');
+            
+            try {
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF({
+                    orientation: 'landscape',
+                    unit: 'px',
+                    format: [1280, 720],
+                    compress: true
+                });
+                
+                const slides = document.querySelectorAll('.slide');
+                const totalSlides = slides.length;
+                
+                for (let i = 0; i < totalSlides; i++) {
+                    status.textContent = `Capturing slide ${i + 1} of ${totalSlides}...`;
+                    
+                    const slide = slides[i];
+                    
+                    // Scroll into view to ensure fonts render
+                    slide.scrollIntoView({ behavior: 'instant', block: 'start' });
+                    await new Promise(r => setTimeout(r, 300));
+                    
+                    const canvas = await html2canvas(slide, {
+                        scale: 2,
+                        useCORS: true,
+                        backgroundColor: '#111118',
+                        logging: false,
+                        windowWidth: 1280,
+                        windowHeight: 720,
+                        onclone: (clonedDoc) => {
+                            // Ensure the cloned slide has exact dimensions
+                            const clonedSlide = clonedDoc.getElementById(slide.id);
+                            if (clonedSlide) {
+                                clonedSlide.style.width = '1280px';
+                                clonedSlide.style.minHeight = '720px';
+                                clonedSlide.style.margin = '0';
+                                clonedSlide.style.borderRadius = '0';
+                            }
+                        }
+                    });
+                    
+                    const imgData = canvas.toDataURL('image/jpeg', 0.92);
+                    
+                    if (i > 0) {
+                        pdf.addPage([1280, 720], 'landscape');
+                    }
+                    
+                    pdf.addImage(imgData, 'JPEG', 0, 0, 1280, 720);
+                }
+                
+                pdf.save('Planck-99-Pitch-Deck.pdf');
+                
+            } catch (err) {
+                console.error('PDF generation failed:', err);
+                alert('PDF generation failed. Please try using Print to PDF (Ctrl+P) as a fallback.');
+            } finally {
+                overlay.classList.add('hidden');
                 btn.innerHTML = originalText;
                 btn.disabled = false;
-            }).catch(err => {
-                console.error(err);
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-                alert('PDF generation failed. Please try again or use Print to PDF.');
-            });
+                status.textContent = 'Capturing slides...';
+            }
         }
     </script>
     <style>
