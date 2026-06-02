@@ -77,7 +77,7 @@ Production mitigation: 500-syscall gate.
 
 ```
 /IoTsyscalls              — syscall frequency datasets
-/OriginalTrained_dataset  — training data (ADFA-LD)
+/OriginalTrained_dataset  — training data (Collected)
 /linuxStaticSyscalls_MALWARES — malware syscall traces
 Planck-99_benchmark_paper.pdf    — full 8-page technical paper
 Planck-99_TechnicalBrief.pdf     — architecture deep-dive
