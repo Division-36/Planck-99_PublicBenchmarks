@@ -30,7 +30,7 @@ Castelion does too. Neither is secured at this layer.
 | Accuracy (unseen data) | 96.28% |
 | Precision | 97.71% |
 | Recall | 97.87% |
-| Dataset | ADFA-LD, 2016–2026 IoT malware |
+| Dataset | Collected, 2016–2026 IoT malware |
 | Generalization ceiling | 51× beyond training trace length |
 
 All benchmarks are reproducible. Scripts and datasets are in this 
