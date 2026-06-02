@@ -522,7 +522,7 @@
             <div class="metric-card amber">
                 <div class="metric-label">Accurate</div>
                 <div class="metric-value">96.28%</div>
-                <div class="metric-detail">On unseen IoT malware from 2016–2026 (ADFA-LD). Not training-set accuracy — real generalization across 10 years of threats. 97.71% precision.</div>
+                <div class="metric-detail">On unseen IoT malware from 2016–2026 (Collected Real-World Dataset). Not training-set accuracy — real generalization across 10 years of threats. 97.71% precision.</div>
             </div>
             <div class="metric-card purple">
                 <div class="metric-label">Throughput</div>
@@ -590,7 +590,7 @@
             </div>
             <div class="perf-card unseen">
                 <div class="perf-badge">Unseen — Primary Target</div>
-                <h4>IoT Syscalls (ADFA-LD)</h4>
+                <h4>IoT Syscalls (Collected Real-World Dataset)</h4>
                 <div class="perf-stats">
                     <div class="perf-stat"><span class="stat-label">Accuracy</span><span class="stat-value good">96.28%</span></div>
                     <div class="perf-stat"><span class="stat-label">Precision</span><span class="stat-value good">97.71%</span></div>
@@ -606,7 +606,7 @@
             <div class="latency-row"><span class="latency-name">IoT Syscalls (median 15,075 syscalls; max 117,088)</span><div class="latency-compare"><span class="latency-val">34 ns</span><span class="latency-note">51× training ceiling extrapolation</span></div></div>
         </div>
         <div style="margin-top:16px;font-size:12px;color:var(--text-muted);line-height:1.6;">
-            * <strong>IoT FPR context:</strong> The 12.18% FPR on ADFA-LD is a data-distribution artifact, not a model flaw. Benign IoT traces in this dataset have a median of only 2,234 syscalls and a heavily skewed 1:5.3 benign-to-malware ratio. On the balanced internal dataset, FPR is 1.45%. The short-trace blindspot is fully mitigated by a 500-syscall gate in production deployment.
+            * <strong>IoT FPR context:</strong> The 12.18% FPR on Collected Real-World Dataset is a data-distribution artifact, not a model flaw. Benign IoT traces in this dataset have a median of only 2,234 syscalls and a heavily skewed 1:5.3 benign-to-malware ratio. On the balanced internal dataset, FPR is 1.45%. The short-trace blindspot is fully mitigated by a 500-syscall gate in production deployment.
         </div>
         <div class="slide-number">08 / 12</div>
     </div>
