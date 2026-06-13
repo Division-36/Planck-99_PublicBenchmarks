@@ -1,1228 +1,791 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planck-99 — Pitch Deck</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #080b10;
-            --bg-card: #0d1017;
-            --bg-elevated: #131820;
-            --border: #1a2232;
-            --border-light: #233048;
-            --text-primary: #e2e8f0;
-            --text-secondary: #8098b8;
-            --text-muted: #4a6080;
-            --accent-cyan: #00e5c8;
-            --accent-cyan-dim: #00e5c815;
-            --accent-cyan-glow: #00e5c840;
-            --accent-purple: #a78bfa;
-            --accent-purple-dim: #a78bfa15;
-            --accent-amber: #f0a040;
-            --accent-amber-dim: #f0a04018;
-            --accent-rose: #f0566a;
-            --accent-rose-dim: #f0566a18;
-            --danger: #ef4444;
-            --success: #22d87a;
-            --grid-line: rgba(0,229,200,0.04);
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Planck-99 — Investor Deck 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #07090e;
+  --bg-card: #0b0e16;
+  --bg-el: #10151f;
+  --border: #182030;
+  --border-l: #1e2e48;
+  --text: #dde8f5;
+  --text-2: #7a97ba;
+  --text-3: #3d5570;
+  --cyan: #00e0c4;
+  --cyan-d: rgba(0,224,196,.10);
+  --cyan-g: rgba(0,224,196,.28);
+  --amber: #f0a040;
+  --amber-d: rgba(240,160,64,.10);
+  --rose: #f05468;
+  --rose-d: rgba(240,84,104,.12);
+  --purple: #a78bfa;
+  --purple-d: rgba(167,139,250,.10);
+  --green: #22d87a;
+  --danger: #ef4444;
+  --grid: rgba(0,224,196,.033);
+}
 
-        body {
-            font-family: 'IBM Plex Sans', -apple-system, sans-serif;
-            background: var(--bg);
-            color: var(--text-primary);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
+*{margin:0;padding:0;box-sizing:border-box;}
 
-        /* Grid background pattern */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image:
-                linear-gradient(var(--grid-line) 1px, transparent 1px),
-                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-            background-size: 48px 48px;
-            pointer-events: none;
-            z-index: 0;
-        }
+body{
+  font-family:'IBM Plex Sans',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
 
-        .toolbar {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-            background: rgba(8,11,16,0.92);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border-bottom: 1px solid var(--border);
-            padding: 12px 28px;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .toolbar-brand {
-            font-family: 'IBM Plex Mono', monospace;
-            font-weight: 600; font-size: 13px;
-            letter-spacing: .08em; color: var(--text-muted);
-        }
-        .toolbar-brand span { color: var(--accent-cyan); }
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px;
+  pointer-events:none;z-index:0;
+}
 
-        .toolbar-right { display: flex; align-items: center; gap: 12px; }
+/* ── TOOLBAR ── */
+.toolbar{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  background:rgba(7,9,14,.94);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:10px 20px;
+  display:flex;justify-content:space-between;align-items:center;
+  gap:12px;
+}
+.toolbar-brand{
+  font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:12px;
+  letter-spacing:.1em;color:var(--text-3);white-space:nowrap;
+}
+.toolbar-brand span{color:var(--cyan);}
+.toolbar-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 
-        .btn-brief {
-            background: transparent;
-            border: 1px solid var(--border-light);
-            color: var(--text-secondary);
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 11px; font-weight: 500;
-            cursor: pointer; text-decoration: none;
-            display: flex; align-items: center; gap: 6px;
-            transition: all .2s;
-        }
-        .btn-brief:hover {
-            border-color: var(--accent-cyan);
-            color: var(--accent-cyan);
-        }
+.btn-outline{
+  background:transparent;border:1px solid var(--border-l);
+  color:var(--text-2);padding:7px 14px;border-radius:5px;
+  font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;
+  cursor:pointer;text-decoration:none;
+  display:flex;align-items:center;gap:5px;transition:all .2s;white-space:nowrap;
+}
+.btn-outline:hover{border-color:var(--cyan);color:var(--cyan);}
 
-        .btn-pdf {
-            background: var(--accent-cyan); color: #000;
-            border: none; padding: 10px 22px; border-radius: 6px;
-            font-family: 'IBM Plex Sans', sans-serif;
-            font-weight: 600; font-size: 12px;
-            cursor: pointer; transition: all .2s;
-            display: flex; align-items: center; gap: 7px;
-            letter-spacing: .04em;
-        }
-        .btn-pdf:hover { box-shadow: 0 0 20px var(--accent-cyan-glow); transform: translateY(-1px); }
-        .btn-pdf:disabled { opacity: .5; cursor: not-allowed; transform: none; }
-        .btn-pdf svg { width: 14px; height: 14px; }
+.btn-print{
+  background:var(--cyan);color:#000;border:none;padding:9px 18px;border-radius:5px;
+  font-family:'IBM Plex Sans',sans-serif;font-weight:700;font-size:11px;
+  cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px;
+  letter-spacing:.05em;white-space:nowrap;
+}
+.btn-print:hover{box-shadow:0 0 18px var(--cyan-g);transform:translateY(-1px);}
 
-        .deck { padding: 76px 0 48px; position: relative; z-index: 1; }
+/* ── DECK ── */
+.deck{padding:60px 0 40px;position:relative;z-index:1;}
 
-        .slide {
-            width: 1280px; min-height: 720px;
-            margin: 0 auto 32px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 56px 72px;
-            position: relative; overflow: hidden;
-        }
+.slide{
+  width:min(1240px,100%);
+  margin:0 auto 24px;
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:48px 60px;
+  position:relative;overflow:hidden;
+  page-break-after:always;
+  break-after:page;
+}
+.slide::after{
+  content:'';position:absolute;top:0;left:0;
+  width:180px;height:180px;
+  background:radial-gradient(circle at top left,var(--cyan-d),transparent 70%);
+  pointer-events:none;
+}
 
-        /* Subtle corner accent */
-        .slide::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 200px; height: 200px;
-            background: radial-gradient(circle at top left, var(--accent-cyan-dim), transparent 70%);
-            pointer-events: none;
-        }
+.slide-num{
+  position:absolute;bottom:16px;right:22px;
+  font-family:'IBM Plex Mono',monospace;font-size:9px;
+  color:var(--text-3);letter-spacing:.12em;
+}
 
-        .slide-number {
-            position: absolute; bottom: 20px; right: 28px;
-            font-family: 'IBM Plex Mono', monospace; font-size: 10px;
-            color: var(--text-muted); letter-spacing: .12em;
-        }
+.tag{
+  font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);
+  margin-bottom:24px;padding-bottom:10px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:8px;
+}
+.tag::before{content:'';display:inline-block;width:4px;height:4px;background:var(--cyan);border-radius:50%;}
 
-        .section-label {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 10px; font-weight: 600; letter-spacing: .25em;
-            text-transform: uppercase; color: var(--accent-cyan);
-            margin-bottom: 28px; padding-bottom: 12px;
-            border-bottom: 1px solid var(--border);
-            display: flex; align-items: center; gap: 10px;
-        }
-        .section-label::before {
-            content: '';
-            display: inline-block; width: 4px; height: 4px;
-            background: var(--accent-cyan);
-            border-radius: 50%;
-        }
+.src{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--text-3);margin-top:6px;line-height:1.5;}
+.src a{color:var(--text-3);text-decoration:underline;}
 
-        /* ── SOURCE FOOTNOTE ── */
-        .src {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 10px; color: var(--text-muted);
-            margin-top: 8px; line-height: 1.5;
-        }
-        .src a { color: var(--text-muted); text-decoration: underline; text-decoration-color: var(--border-light); }
-        .src a:hover { color: var(--accent-cyan); }
+/* ── SLIDE 1 TITLE ── */
+.s1-wrap{display:flex;flex-direction:column;justify-content:center;min-height:580px;}
+.badge-pill{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--cyan-d);border:1px solid var(--cyan);
+  color:var(--cyan);padding:4px 13px;border-radius:4px;
+  font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;margin-bottom:24px;
+}
+.s1-h1{
+  font-size:clamp(52px,8vw,82px);font-weight:700;line-height:.92;
+  letter-spacing:-.04em;margin-bottom:18px;
+  background:linear-gradient(140deg,#fff 20%,#5580a8 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.s1-sub{font-size:clamp(13px,1.5vw,17px);color:var(--text-2);max-width:660px;margin-bottom:32px;line-height:1.65;}
+.specs-row{display:flex;gap:clamp(24px,4vw,52px);flex-wrap:wrap;margin-bottom:32px;}
+.spec-val{font-family:'IBM Plex Mono',monospace;font-size:clamp(22px,3.5vw,32px);font-weight:700;color:var(--cyan);}
+.spec-lbl{font-size:10px;color:var(--text-3);text-transform:uppercase;letter-spacing:.1em;margin-top:2px;}
+.founder-line{font-size:11px;color:var(--text-3);border-top:1px solid var(--border);padding-top:16px;max-width:700px;line-height:1.8;}
+.founder-line strong{color:var(--text-2);}
+.founder-line a{color:var(--cyan);text-decoration:none;}
 
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           SLIDE 1 — TITLE
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .slide-title {
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: flex-start;
-            min-height: 608px;
-        }
-        .badge {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: var(--accent-cyan-dim);
-            border: 1px solid var(--accent-cyan);
-            color: var(--accent-cyan);
-            padding: 5px 14px; border-radius: 4px;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 10px; font-weight: 600;
-            letter-spacing: .15em; text-transform: uppercase;
-            margin-bottom: 28px;
-        }
-        .slide-title h1 {
-            font-size: 80px; font-weight: 700;
-            line-height: .95; letter-spacing: -.04em;
-            margin-bottom: 20px;
-            background: linear-gradient(140deg, #fff 20%, #6090c0 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .slide-title .subtitle {
-            font-size: 18px; color: var(--text-secondary);
-            font-weight: 400; max-width: 680px;
-            line-height: 1.6; margin-bottom: 40px;
-        }
-        .specs-row { display: flex; gap: 48px; margin-bottom: 40px; }
-        .spec-item { display: flex; flex-direction: column; gap: 3px; }
-        .spec-value {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 30px; font-weight: 600; color: var(--accent-cyan);
-        }
-        .spec-label {
-            font-size: 11px; color: var(--text-muted);
-            text-transform: uppercase; letter-spacing: .1em;
-        }
-        .founder-line {
-            font-size: 12px; color: var(--text-muted);
-            border-top: 1px solid var(--border);
-            padding-top: 18px; max-width: 680px;
-            line-height: 1.7;
-        }
-        .founder-line strong { color: var(--text-secondary); }
-        .founder-line a { color: var(--accent-cyan); text-decoration: none; }
-        .founder-line a:hover { text-decoration: underline; }
+/* ── SLIDE 2 FOUNDER ── */
+.founder-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:28px;align-items:start;}
+.f-name{font-size:clamp(24px,3vw,34px);font-weight:700;letter-spacing:-.025em;margin-bottom:4px;}
+.f-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--cyan);margin-bottom:16px;}
+.f-bio{font-size:12px;color:var(--text-2);line-height:1.8;}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:16px;}
+.chip{background:var(--bg-el);border:1px solid var(--border);border-radius:4px;padding:4px 11px;font-size:10px;color:var(--text-2);font-family:'IBM Plex Mono',monospace;}
+.chip span{color:var(--cyan);font-weight:700;margin-right:4px;}
+.creds{display:flex;flex-direction:column;gap:12px;}
+.cred{background:var(--bg-el);border:1px solid var(--border);border-radius:8px;padding:15px 18px;display:flex;gap:12px;align-items:flex-start;}
+.cred-ico{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;}
+.cred-ico.c{background:var(--cyan-d);}
+.cred-ico.a{background:var(--amber-d);}
+.cred-ico.p{background:var(--purple-d);}
+.cred-ico.r{background:var(--rose-d);}
+.cred h4{font-size:12px;font-weight:700;margin-bottom:2px;}
+.cred p{font-size:10px;color:var(--text-2);line-height:1.5;}
 
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           SLIDE 2 — FOUNDER
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .founder-grid {
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 48px; margin-top: 32px; align-items: start;
-        }
-        .founder-name { font-size: 34px; font-weight: 700; letter-spacing: -.025em; margin-bottom: 4px; }
-        .founder-tag { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--accent-cyan); margin-bottom: 20px; }
-        .founder-bio { font-size: 13px; color: var(--text-secondary); line-height: 1.8; }
-        .timeline-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
-        .timeline-chip {
-            background: var(--bg-elevated); border: 1px solid var(--border);
-            border-radius: 4px; padding: 5px 12px;
-            font-size: 11px; color: var(--text-secondary);
-            font-family: 'IBM Plex Mono', monospace;
-        }
-        .timeline-chip span { color: var(--accent-cyan); font-weight: 600; margin-right: 5px; }
-        .founder-credentials { display: flex; flex-direction: column; gap: 14px; }
-        .cred-item {
-            background: var(--bg-elevated); border: 1px solid var(--border);
-            border-radius: 8px; padding: 18px 22px;
-            display: flex; gap: 14px; align-items: flex-start;
-        }
-        .cred-icon {
-            width: 34px; height: 34px; border-radius: 7px;
-            display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0; font-size: 15px;
-        }
-        .cred-icon.cyan { background: var(--accent-cyan-dim); }
-        .cred-icon.amber { background: var(--accent-amber-dim); }
-        .cred-icon.purple { background: var(--accent-purple-dim); }
-        .cred-icon.rose { background: var(--accent-rose-dim); }
-        .cred-text h4 { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; }
-        .cred-text p { font-size: 11px; color: var(--text-secondary); line-height: 1.5; }
+/* Legal Notice Box */
+.legal-notice{
+  margin-top:20px;
+  background:rgba(0,224,196,.06);
+  border:1px solid var(--cyan);
+  border-radius:8px;padding:16px 20px;
+}
+.legal-notice h4{font-size:12px;font-weight:700;color:var(--cyan);margin-bottom:6px;font-family:'IBM Plex Mono',monospace;letter-spacing:.05em;}
+.legal-notice p{font-size:11px;color:var(--text-2);line-height:1.7;}
 
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           SLIDE 3 — PROBLEM
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .problem-grid {
-            display: grid; grid-template-columns: repeat(3,1fr);
-            gap: 24px; margin-top: 32px;
-        }
-        .problem-card {
-            background: var(--bg-elevated); border: 1px solid var(--border);
-            border-radius: 10px; padding: 28px;
-            position: relative; overflow: hidden;
-        }
-        .problem-card::before {
-            content: ''; position: absolute;
-            top: 0; left: 0; right: 0; height: 2px;
-            background: var(--accent-rose);
-        }
-        .problem-card .big-num {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 52px; font-weight: 700;
-            color: var(--accent-rose); line-height: 1; margin-bottom: 14px;
-        }
-        .problem-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 10px; line-height: 1.4; }
-        .problem-card p { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
-        .gap-banner {
-            margin-top: 28px;
-            background: var(--accent-rose-dim);
-            border-left: 3px solid var(--accent-rose);
-            padding: 18px 22px; border-radius: 0 8px 8px 0;
-        }
-        .gap-banner p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+/* ── SLIDE 3 PROBLEM ── */
+.prob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px;}
+.prob-card{background:var(--bg-el);border:1px solid var(--border);border-radius:9px;padding:24px;position:relative;overflow:hidden;}
+.prob-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--rose);}
+.big-n{font-family:'IBM Plex Mono',monospace;font-size:clamp(36px,5vw,52px);font-weight:700;color:var(--rose);line-height:1;margin-bottom:12px;}
+.prob-card h3{font-size:13px;font-weight:600;margin-bottom:8px;line-height:1.4;}
+.prob-card p{font-size:11px;color:var(--text-2);line-height:1.6;}
+.gap-banner{margin-top:22px;background:var(--rose-d);border-left:3px solid var(--rose);padding:15px 20px;border-radius:0 8px 8px 0;}
+.gap-banner p{font-size:12px;color:var(--text-2);line-height:1.65;}
 
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           SLIDE 4 — WHY NOW
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .trigger-list { display: flex; flex-direction: column; gap: 20px; margin-top: 28px; }
-        .trigger-item {
-            display: flex; gap: 20px; align-items: flex-start;
-            background: var(--bg-elevated); border: 1px solid var(--border);
-            border-radius: 10px; padding: 24px 28px;
-        }
-        .trigger-num {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 12px; font-weight: 600;
-            color: var(--accent-cyan);
-            background: var(--accent-cyan-dim);
-            width: 30px; height: 30px;
-            display: flex; align-items: center; justify-content: center;
-            border-radius: 6px; flex-shrink: 0;
-        }
-        .trigger-content h3 { font-size: 16px; font-weight: 600; margin-bottom: 7px; }
-        .trigger-content p { font-size: 13px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 6px; }
-        .trigger-source { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--text-muted); }
+/* ── SLIDE 4 WHY NOW ── */
+.trigger-list{display:flex;flex-direction:column;gap:16px;margin-top:22px;}
+.trigger-item{display:flex;gap:18px;align-items:flex-start;background:var(--bg-el);border:1px solid var(--border);border-radius:9px;padding:20px 24px;}
+.t-num{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;color:var(--cyan);background:var(--cyan-d);width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:5px;flex-shrink:0;}
+.t-body h3{font-size:14px;font-weight:600;margin-bottom:5px;}
+.t-body p{font-size:11px;color:var(--text-2);line-height:1.65;margin-bottom:4px;}
+.t-src{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--text-3);}
 
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           SLIDE 5 — GAP TABLE
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .gap-table { width: 100%; border-collapse: collapse; margin-top: 28px; font-size: 13px; }
-        .gap-table th {
-            text-align: left; padding: 12px 14px;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 10px; font-weight: 600;
-            text-transform: uppercase; letter-spacing: .1em;
-            color: var(--text-muted); border-bottom: 1px solid var(--border-light);
-        }
-        .gap-table td { padding: 13px 14px; border-bottom: 1px solid var(--border); color: var(--text-secondary); vertical-align: middle; }
-        .gap-table tr:hover td { background: var(--bg-elevated); }
-        .gap-table .col-metric { font-weight: 500; color: var(--text-primary); }
-        .gap-table .col-planck { background: var(--accent-cyan-dim); color: var(--accent-cyan); font-weight: 600; }
-        .gap-table .check { color: var(--success); font-weight: 700; }
-        .gap-table .cross { color: var(--danger); font-weight: 700; }
-        .gap-table .tilde { color: var(--accent-amber); }
-        .table-footer { margin-top: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--text-muted); line-height: 1.8; }
+/* ── SLIDE 5 GAP TABLE ── */
+.gap-tbl{width:100%;border-collapse:collapse;margin-top:22px;font-size:12px;}
+.gap-tbl th{text-align:left;padding:10px 13px;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text-3);border-bottom:1px solid var(--border-l);}
+.gap-tbl td{padding:11px 13px;border-bottom:1px solid var(--border);color:var(--text-2);vertical-align:middle;}
+.gap-tbl tr:hover td{background:var(--bg-el);}
+.col-m{font-weight:600;color:var(--text);}
+.col-p{background:var(--cyan-d);color:var(--cyan);font-weight:700;}
+.ck{color:var(--green);font-weight:700;}
+.cx{color:var(--danger);font-weight:700;}
+.ct{color:var(--amber);}
+.tbl-foot{margin-top:12px;font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--text-3);line-height:1.8;}
 
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           SLIDE 6 — SOLUTION
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .metrics-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; margin-top: 8px; }
-        .metric-card {
-            background: var(--bg-elevated); border: 1px solid var(--border);
-            border-radius: 10px; padding: 28px 24px;
-            position: relative; overflow: hidden;
-        }
-        .metric-card::before {
-            content: ''; position: absolute;
-            top: 0; left: 0; right: 0; height: 2px;
-        }
-        .metric-card.cyan::before { background: var(--accent-cyan); }
-        .metric-card.green::before { background: var(--success); }
-        .metric-card.amber::before { background: var(--accent-amber); }
-        .metric-card.purple::before { background: var(--accent-purple); }
-        .metric-label {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 10px; font-weight: 600; letter-spacing: .18em;
-            text-transform: uppercase; margin-bottom: 14px;
-        }
-        .metric-card.cyan .metric-label { color: var(--accent-cyan); }
-        .metric-card.green .metric-label { color: var(--success); }
-        .metric-card.amber .metric-label { color: var(--accent-amber); }
-        .metric-card.purple .metric-label { color: var(--accent-purple); }
-        .metric-value {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 42px; font-weight: 700; line-height: 1;
-            margin-bottom: 14px; color: var(--text-primary);
-        }
-        .metric-detail { font-size: 12px; color: var(--text-secondary); line-height: 1.55; }
-        .solution-footer { margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--border); font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--text-muted); line-height: 1.8; }
+/* ── SLIDE 6 SOLUTION ── */
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:28px;}
+.metric{background:var(--bg-el);border:1px solid var(--border);border-radius:9px;padding:24px 20px;position:relative;overflow:hidden;}
+.metric::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.metric.c::before{background:var(--cyan);}
+.metric.g::before{background:var(--green);}
+.metric.a::before{background:var(--amber);}
+.metric.p::before{background:var(--purple);}
+.m-lbl{font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:12px;}
+.metric.c .m-lbl{color:var(--cyan);}
+.metric.g .m-lbl{color:var(--green);}
+.metric.a .m-lbl{color:var(--amber);}
+.metric.p .m-lbl{color:var(--purple);}
+.m-val{font-family:'IBM Plex Mono',monospace;font-size:clamp(28px,3.5vw,40px);font-weight:700;line-height:1;margin-bottom:12px;}
+.m-det{font-size:11px;color:var(--text-2);line-height:1.55;}
+.sol-foot{margin-top:22px;padding-top:14px;border-top:1px solid var(--border);font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--text-3);line-height:1.8;}
 
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           SLIDE 7 — HOW IT WORKS
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .how-content { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; margin-top: 32px; }
-        .how-text h3 { font-size: 22px; font-weight: 700; margin-bottom: 16px; }
-        .how-text p { font-size: 13px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 14px; }
-        .how-text .highlight { color: var(--accent-cyan); font-weight: 500; }
-        .how-visual {
-            background: var(--bg-elevated); border: 1px solid var(--border);
-            border-radius: 10px; padding: 32px;
-            display: flex; flex-direction: column; gap: 16px;
-        }
-        .flow-step { display: flex; align-items: center; gap: 14px; }
-        .step-num {
-            width: 32px; height: 32px; flex-shrink: 0;
-            background: var(--accent-cyan-dim);
-            border: 1px solid var(--accent-cyan);
-            color: var(--accent-cyan);
-            border-radius: 6px;
-            display: flex; align-items: center; justify-content: center;
-            font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600;
-        }
-        .step-text { font-size: 13px; color: var(--text-secondary); }
-        .flow-arrow { text-align: center; color: var(--text-muted); padding-left: 46px; font-size: 14px; }
+/* ── SLIDE 7 PERFORMANCE ── */
+.perf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px;}
+.perf-card{background:var(--bg-el);border:1px solid var(--border);border-radius:9px;padding:20px;}
+.perf-badge{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:3px;margin-bottom:12px;}
+.perf-card.base .perf-badge{background:var(--border);color:var(--text-3);}
+.perf-card.un .perf-badge{background:var(--cyan-d);color:var(--cyan);border:1px solid var(--cyan);}
+.perf-card h4{font-size:12px;font-weight:600;margin-bottom:12px;}
+.perf-stats{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.ps-lbl{font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--text-3);text-transform:uppercase;letter-spacing:.07em;}
+.ps-val{font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:700;color:var(--text);}
+.ps-val.g{color:var(--green);}
+.ps-val.w{color:var(--amber);}
+.lat-box{margin-top:20px;background:var(--bg-el);border:1px solid var(--border);border-radius:9px;padding:20px;}
+.lat-box h4{font-size:12px;font-weight:600;margin-bottom:12px;}
+.lat-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);}
+.lat-row:last-child{border-bottom:none;}
+.lat-name{font-size:11px;color:var(--text-2);}
+.lat-val{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--cyan);font-weight:700;}
+.lat-note{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--text-3);}
 
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           SLIDE 8 — PERFORMANCE
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .perf-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 28px; }
-        .perf-card { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 10px; padding: 24px; }
-        .perf-badge {
-            display: inline-block; font-family: 'IBM Plex Mono', monospace;
-            font-size: 9px; font-weight: 700; letter-spacing: .12em;
-            text-transform: uppercase; padding: 3px 9px; border-radius: 3px; margin-bottom: 14px;
-        }
-        .perf-card.baseline .perf-badge { background: var(--border); color: var(--text-muted); }
-        .perf-card.unseen .perf-badge { background: var(--accent-cyan-dim); color: var(--accent-cyan); border: 1px solid var(--accent-cyan); }
-        .perf-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 14px; }
-        .perf-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .perf-stat { display: flex; flex-direction: column; gap: 2px; }
-        .stat-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .08em; }
-        .stat-value { font-family: 'IBM Plex Mono', monospace; font-size: 20px; font-weight: 600; color: var(--text-primary); }
-        .stat-value.good { color: var(--success); }
-        .stat-value.warn { color: var(--accent-amber); }
-        .latency-box { margin-top: 24px; background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 10px; padding: 24px; }
-        .latency-box h4 { font-size: 13px; font-weight: 600; margin-bottom: 14px; }
-        .latency-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--border); }
-        .latency-row:last-child { border-bottom: none; }
-        .latency-name { font-size: 12px; color: var(--text-secondary); }
-        .latency-val { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--accent-cyan); font-weight: 600; }
-        .latency-note { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text-muted); }
+/* ── SLIDE 8 MARKET ── */
+.mkt-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:26px;flex-wrap:wrap;gap:16px;}
+.mkt-big{font-family:'IBM Plex Mono',monospace;font-size:clamp(32px,5vw,50px);font-weight:700;color:var(--cyan);line-height:1;}
+.mkt-sub{font-size:9px;color:var(--text-3);margin-top:4px;font-family:'IBM Plex Mono',monospace;}
+.mkt-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.mkt-card{background:var(--bg-el);border:1px solid var(--border);border-radius:9px;padding:20px;}
+.mkt-card h4{font-size:13px;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:7px;}
+.dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.mkt-card p{font-size:11px;color:var(--text-2);line-height:1.65;}
 
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           SLIDE 9 — MARKET
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .market-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px; }
-        .market-size .big { font-family: 'IBM Plex Mono', monospace; font-size: 48px; font-weight: 700; color: var(--accent-cyan); line-height: 1; }
-        .market-size .small { font-size: 12px; color: var(--text-muted); margin-top: 4px; font-family: 'IBM Plex Mono', monospace; }
-        .market-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .market-card { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 10px; padding: 24px; }
-        .market-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-        .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-        .market-card p { font-size: 12px; color: var(--text-secondary); line-height: 1.65; }
+/* ── SLIDE 9 COMPETITIVE ── */
+.comp-tbl{width:100%;border-collapse:collapse;margin-top:22px;font-size:12px;}
+.comp-tbl th{text-align:left;padding:10px 13px;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text-3);border-bottom:1px solid var(--border-l);}
+.comp-tbl td{padding:11px 13px;border-bottom:1px solid var(--border);color:var(--text-2);vertical-align:middle;}
+.comp-tbl tr:hover td{background:var(--bg-el);}
+.comp-tbl .cn{font-weight:700;color:var(--text);}
+.comp-tbl .row-p td{background:var(--cyan-d);}
+.comp-tbl .row-p .cn{color:var(--cyan);}
+.comp-tbl .nt{font-size:10px;color:var(--text-3);font-family:'IBM Plex Mono',monospace;}
+.comp-foot{margin-top:14px;font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--text-3);line-height:1.8;}
+.diff-row{display:flex;gap:9px;align-items:flex-start;margin-bottom:9px;}
+.diff-tag{font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;color:var(--cyan);background:var(--cyan-d);padding:2px 8px;border-radius:3px;flex-shrink:0;white-space:nowrap;}
+.diff-txt{font-size:11px;color:var(--text-2);line-height:1.6;}
 
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           SLIDE 10 — GTM
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .economics-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 28px; }
-        .econ-card { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 10px; padding: 24px; }
-        .econ-scenario { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
-        .econ-devices { font-family: 'IBM Plex Mono', monospace; font-size: 28px; font-weight: 700; color: var(--text-primary); line-height: 1; margin-bottom: 6px; }
-        .econ-price { font-size: 12px; color: var(--text-secondary); margin-bottom: 14px; }
-        .econ-arr { font-family: 'IBM Plex Mono', monospace; font-size: 22px; font-weight: 600; color: var(--accent-cyan); }
-        .econ-arr-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .08em; }
-        .econ-note { margin-top: 20px; padding: 14px 18px; background: var(--accent-cyan-dim); border: 1px solid var(--accent-cyan); border-radius: 7px; font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
-        .econ-note strong { color: var(--accent-cyan); }
-        .target-partners { margin-top: 20px; }
-        .target-partners h4 { font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 10px; }
-        .partner-chips { display: flex; gap: 8px; flex-wrap: wrap; }
-        .partner-chip { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 4px; padding: 5px 12px; font-size: 11px; color: var(--text-secondary); font-family: 'IBM Plex Mono', monospace; }
+/* ── SLIDE 10 NEXT STEPS ── */
+.next-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px;}
+.next-card{background:var(--bg-el);border:1px solid var(--border);border-radius:9px;padding:24px;}
+.next-n{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;color:var(--cyan);background:var(--cyan-d);width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:5px;margin-bottom:14px;}
+.next-card h3{font-size:15px;font-weight:700;margin-bottom:8px;}
+.next-card p{font-size:11px;color:var(--text-2);line-height:1.65;}
+.amber-box{margin-top:16px;background:var(--amber-d);border:1px solid var(--amber);border-radius:8px;padding:17px 20px;}
+.amber-box h4{font-size:12px;font-weight:700;color:var(--amber);margin-bottom:6px;}
+.amber-box p{font-size:11px;color:var(--text-2);line-height:1.7;}
+.border-l-amber{border-left:3px solid var(--amber);background:var(--bg-el);border:1px solid var(--border);border-radius:0 8px 8px 0;padding:15px 19px;margin-top:14px;}
+.contact-row{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin-top:20px;}
+.contact-item{display:flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-3);}
+.contact-item a{color:var(--cyan);text-decoration:none;}
+.contact-item a:hover{text-decoration:underline;}
 
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           SLIDE 11 — STRATEGIC
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .amber-trigger-num {
-            background: var(--accent-amber-dim) !important;
-            color: var(--accent-amber) !important;
-        }
+/* ── PRINT ── */
+@media print{
+  body{background:#07090e !important;}
+  body::before{display:none;}
+  .toolbar,.no-print{display:none !important;}
+  .deck{padding:0;}
+  .slide{
+    width:100% !important;
+    margin:0 !important;
+    border-radius:0 !important;
+    border:none !important;
+    page-break-after:always !important;
+    break-after:page !important;
+    min-height:100vh;
+    padding:36px 48px;
+  }
+  .slide::after{display:none;}
+  .metrics-grid,.prob-grid,.perf-grid,.next-grid,.mkt-grid{grid-template-columns:repeat(2,1fr) !important;}
+  h2{font-size:22px !important;}
+  .s1-h1{font-size:60px !important;}
+  .big-n{font-size:38px !important;}
+  .m-val{font-size:30px !important;}
+}
 
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           SLIDE 12 — COMPETITIVE
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .comp-table { width: 100%; border-collapse: collapse; margin-top: 28px; font-size: 13px; }
-        .comp-table th { text-align: left; padding: 12px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--text-muted); border-bottom: 1px solid var(--border-light); }
-        .comp-table td { padding: 13px 14px; border-bottom: 1px solid var(--border); color: var(--text-secondary); vertical-align: middle; }
-        .comp-table tr:hover td { background: var(--bg-elevated); }
-        .comp-table .col-name { font-weight: 600; color: var(--text-primary); }
-        .comp-table .col-planck td { background: var(--accent-cyan-dim); }
-        .comp-table .col-planck .col-name { color: var(--accent-cyan); }
-        .comp-table .notes { font-size: 11px; color: var(--text-muted); font-family: 'IBM Plex Mono', monospace; }
-        .comp-table .check { color: var(--success); font-weight: 700; }
-        .comp-table .cross { color: var(--danger); font-weight: 700; }
-        .comp-table .tilde { color: var(--accent-amber); }
-        .comp-footer { margin-top: 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--text-muted); line-height: 1.8; }
-
-        .diff-item { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; }
-        .diff-tag {
-            font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700;
-            color: var(--accent-cyan); background: var(--accent-cyan-dim);
-            padding: 3px 9px; border-radius: 3px; flex-shrink: 0; white-space: nowrap;
-        }
-        .diff-text { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
-
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           SLIDE 13 — NEXT STEPS
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .next-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 32px; }
-        .next-card { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 10px; padding: 28px; }
-        .next-num {
-            font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600;
-            color: var(--accent-cyan); background: var(--accent-cyan-dim);
-            width: 30px; height: 30px;
-            display: flex; align-items: center; justify-content: center;
-            border-radius: 6px; margin-bottom: 18px;
-        }
-        .next-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 10px; }
-        .next-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
-        .contact-row { display: flex; gap: 28px; justify-content: center; margin-top: 28px; flex-wrap: wrap; }
-        .contact-item { display: flex; align-items: center; gap: 7px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--text-muted); }
-        .contact-item a { color: var(--accent-cyan); text-decoration: none; }
-        .contact-item a:hover { text-decoration: underline; }
-
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           RESPONSIVE
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        @media (max-width: 1320px) {
-            .slide { width: calc(100% - 32px); padding: 36px; }
-            .metrics-grid, .problem-grid, .perf-grid, .next-grid, .economics-grid { grid-template-columns: 1fr; }
-            .how-content, .market-grid, .founder-grid { grid-template-columns: 1fr; }
-        }
-        @media (max-width: 768px) {
-            .slide { width: 100%; border-radius: 0; border-left: none; border-right: none; padding: 28px 18px; }
-            .slide-title h1 { font-size: 44px; }
-            .specs-row { flex-wrap: wrap; gap: 20px; }
-        }
-
-        /* PDF overlay */
-        .pdf-overlay { position: fixed; inset: 0; background: rgba(8,11,16,.96); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; }
-        .pdf-overlay.hidden { display: none; }
-        .pdf-spinner { width: 44px; height: 44px; border: 2px solid var(--border); border-top-color: var(--accent-cyan); border-radius: 50%; animation: spin 1s linear infinite; }
-        .pdf-status { font-family: 'IBM Plex Mono', monospace; color: var(--text-secondary); font-size: 13px; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-    </style>
+/* ── RESPONSIVE ── */
+@media(max-width:1280px){
+  .slide{width:calc(100% - 24px);padding:36px 32px;}
+}
+@media(max-width:900px){
+  .metrics-grid,.prob-grid,.perf-grid,.next-grid{grid-template-columns:1fr 1fr;}
+  .founder-grid,.mkt-grid,.how-content{grid-template-columns:1fr;}
+  .slide{padding:28px 20px;}
+  .toolbar{padding:10px 14px;}
+  .s1-h1{font-size:44px;}
+}
+@media(max-width:600px){
+  .metrics-grid,.prob-grid,.perf-grid,.next-grid,.mkt-grid{grid-template-columns:1fr;}
+  .comp-tbl{font-size:10px;}
+  .comp-tbl th,.comp-tbl td{padding:8px 7px;}
+  .slide{border-radius:0;border-left:none;border-right:none;}
+  .gap-tbl{font-size:10px;}
+  .gap-tbl th,.gap-tbl td{padding:8px 8px;}
+}
+</style>
 </head>
 <body>
 
-<div id="pdf-overlay" class="pdf-overlay hidden">
-    <div class="pdf-spinner"></div>
-    <div class="pdf-status" id="pdf-status">Capturing slides…</div>
+<div class="toolbar no-print">
+  <div class="toolbar-brand"><span>PLANCK-99</span> / INVESTOR DECK / 2026</div>
+  <div class="toolbar-right">
+    <a href="https://github.com/Division-36/Planck-99_PublicBenchmarks/blob/main/Planck-99_TechnicalBrief.pdf" target="_blank" class="btn-outline">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Technical Brief
+    </a>
+    <button class="btn-print" onclick="window.print()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      Print / PDF
+    </button>
+  </div>
 </div>
 
-<div class="toolbar">
-    <div class="toolbar-brand"><span>PLANCK-99</span> / INVESTOR DECK / 2026</div>
-    <div class="toolbar-right">
-        <a href="https://github.com/Division-36/Planck-99_PublicBenchmarks/blob/main/Planck-99_TechnicalBrief.pdf"
-           target="_blank" class="btn-brief">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            Technical Brief
-        </a>
-        <button class="btn-pdf" id="btn-pdf" onclick="generatePDF()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M7.5 12l3 3m0 0l3-3m-3 3V3"/>
-            </svg>
-            Download PDF
-        </button>
-    </div>
-</div>
+<div class="deck">
 
-<div class="deck" id="deck">
-
-<!-- ═══════════════════════════════════════════════
-     SLIDE 01 — TITLE
-═══════════════════════════════════════════════ -->
-<div class="slide slide-title" id="slide-1">
-    <div class="badge">
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-        Pre-Seed — Deep Tech
+<!-- ═══ SLIDE 01 — TITLE ═══ -->
+<div class="slide" id="s1">
+  <div class="s1-wrap">
+    <div class="badge-pill">
+      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      Pre-Seed · Deep Tech
     </div>
-    <h1>Planck-99</h1>
-    <p class="subtitle">On-device malware detection built for embedded systems. No cloud. No signatures. No GPU. 37KB of deterministic C that classifies in 34 nanoseconds.</p>
+    <h1 class="s1-h1">Planck-99</h1>
+    <p class="s1-sub">On-device malware detection for embedded systems. No cloud. No signatures. No GPU. 37 KB of deterministic C classifying threats in 34 nanoseconds.</p>
     <div class="specs-row">
-        <div class="spec-item"><span class="spec-value">34ns</span><span class="spec-label">Latency</span></div>
-        <div class="spec-item"><span class="spec-value">37KB</span><span class="spec-label">Footprint</span></div>
-        <div class="spec-item"><span class="spec-value">96.28%</span><span class="spec-label">Accuracy (IoT)</span></div>
-        <div class="spec-item"><span class="spec-value">Zero</span><span class="spec-label">Network Deps</span></div>
+      <div><div class="spec-val">34ns</div><div class="spec-lbl">Latency</div></div>
+      <div><div class="spec-val">37KB</div><div class="spec-lbl">Footprint</div></div>
+      <div><div class="spec-val">96.28%</div><div class="spec-lbl">Accuracy (IoT)</div></div>
+      <div><div class="spec-val">Zero</div><div class="spec-lbl">Network Deps</div></div>
     </div>
     <div class="founder-line">
-        <strong>Ziad Salah</strong> — Founder &amp; Lead Engineer, 17, Giza, Egypt<br>
-        Bootstrapped to date · Seeking pre-seed partners &amp; strategic design partners<br>
-        <a href="mailto:zs.01117875692@gmail.com">zs.01117875692@gmail.com</a>
-        · <a href="https://github.com/zierax" target="_blank">github.com/zierax</a>
-        · <a href="https://linkedin.com/in/z14d" target="_blank">linkedin.com/in/z14d</a><br>
-        <em style="color:var(--text-muted)">Benchmarks: <a href="https://github.com/Division-36/Planck-99_PublicBenchmarks" target="_blank">github.com/Division-36/Planck-99_PublicBenchmarks</a>
-        — Technical Brief: <a href="https://github.com/Division-36/Planck-99_PublicBenchmarks/blob/main/Planck-99_TechnicalBrief.pdf" target="_blank">PDF</a></em>
+      <strong>Ziad Salah</strong> — Founder &amp; Lead Engineer, 18, Giza, Egypt<br>
+      Bootstrapped to date · Seeking pre-seed partners &amp; strategic design partners<br>
+      <a href="mailto:zs.01117875692@gmail.com">zs.01117875692@gmail.com</a> · 
+      <a href="https://github.com/zierax" target="_blank">github.com/zierax</a> · 
+      <a href="https://linkedin.com/in/z14d" target="_blank">linkedin.com/in/z14d</a><br>
+      <em style="color:var(--text-3)">Benchmarks: <a href="https://github.com/Division-36/Planck-99_PublicBenchmarks" target="_blank">github.com/Division-36/Planck-99_PublicBenchmarks</a></em>
     </div>
-    <div class="slide-number">01 / 13</div>
+  </div>
+  <div class="slide-num">01 / 10</div>
 </div>
 
-<!-- ═══════════════════════════════════════════════
-     SLIDE 02 — FOUNDER
-═══════════════════════════════════════════════ -->
-<div class="slide" id="slide-2">
-    <div class="section-label">The Founder</div>
-    <h2 style="font-size:28px;font-weight:700;letter-spacing:-.025em;margin-bottom:6px;">Built by someone who learned Linux before he learned algebra.</h2>
-    <p style="font-size:13px;color:var(--text-secondary);max-width:680px;">The technical depth behind Planck-99 is not an accident. It is the product of a decade of deliberate, self-directed work in systems, security, and architecture.</p>
+<!-- ═══ SLIDE 02 — FOUNDER ═══ -->
+<div class="slide" id="s2">
+  <div class="tag">The Founder</div>
+  <h2 style="font-size:clamp(20px,2.8vw,28px);font-weight:700;letter-spacing:-.025em;margin-bottom:5px;">Built by someone who learned Linux before he learned algebra.</h2>
+  <p style="font-size:12px;color:var(--text-2);max-width:680px;">A decade of deliberate, self-directed work in systems, security, and architecture — verifiable, public, and on record.</p>
 
-    <div class="founder-grid">
+  <div class="founder-grid">
+    <div>
+      <div class="f-name">Ziad Salah</div>
+      <div class="f-tag">Founder · Division-36 · Age 17 · Giza, Egypt</div>
+      <div class="f-bio">
+        Self-taught from age 7 — no courses, no bootcamps. Built a kernel and networking mental model from documentation, transitioned into offensive security research at 12 through independent exploitation work and bug bounty programs.<br><br>
+        <strong style="color:var(--text)">Top 90 globally on HackerOne VDP leaderboard</strong> (Feb–Jun 2026), #9 in Egypt. 12+ critical vulnerabilities reported in 48 hours in a single engagement.<br><br>
+        Accepted to <strong style="color:var(--text)">IEEE AIITA 2026</strong>. Research under review at <strong style="color:var(--text)">Nature Portfolio (Scientific Reports)</strong>. Invited by Neurology Research Journal.
+      </div>
+      <div class="chips">
+        <div class="chip"><span>Age 7</span>Linux from docs</div>
+        <div class="chip"><span>Age 12</span>Bug bounty + exploit research</div>
+        <div class="chip"><span>Age 15</span>HackerOne + 3 mentees</div>
+        <div class="chip"><span>Age 18</span>Planck-99 + IEEE + Nature</div>
+      </div>
+    </div>
+    <div class="creds">
+      <div class="cred">
+        <div class="cred-ico c">🏆</div>
         <div>
-            <div class="founder-name">Ziad Salah</div>
-            <div class="founder-tag">Founder · Division-36 · Age 17 · Giza, Egypt</div>
-            <div class="founder-bio">
-                Self-taught from age 7 — no courses, no bootcamps. Learned Linux from documentation, built a kernel and networking mental model by age 9, and transitioned into offensive security research and vulnerability analysis at 12 through independent exploitation work and bug bounty programs.<br><br>
-                Ranked <strong style="color:var(--text-primary)">Top 90 globally on HackerOne VDP leaderboard</strong> (Feb–Jun 2026), #9 in Egypt. Reported 12+ critical vulnerabilities in 48 hours in a single engagement.<br><br>
-                Accepted to <strong style="color:var(--text-primary)">IEEE AIITA 2026</strong>. Paper under consideration for CSCW on academic reviewer recommendation. Research paper under review at <strong style="color:var(--text-primary)">Nature Portfolio (Scientific Reports)</strong>. Invited by Neurology Research Journal.
-            </div>
-            <div class="timeline-row">
-                <div class="timeline-chip"><span>Age 7</span>Linux from docs</div>
-                <div class="timeline-chip"><span>Age 12</span>Bug bounty + exploit research</div>
-                <div class="timeline-chip"><span>Age 15</span>HackerOne + 3 mentees</div>
-                <div class="timeline-chip"><span>Age 17</span>Planck-99 + IEEE + Nature</div>
-            </div>
+          <h4>HackerOne VDP — Top 90 Globally</h4>
+          <p>#9 Egypt · 12+ critical vulns in 48 hours · Feb–Jun 2026 · Publicly verifiable</p>
         </div>
-        <div class="founder-credentials">
-            <div class="cred-item">
-                <div class="cred-icon cyan">🏆</div>
-                <div class="cred-text">
-                    <h4>HackerOne VDP — Top 90 Globally</h4>
-                    <p>#9 Egypt · 12+ critical vulns in 48 hours · Feb–Jun 2026 · Publicly verifiable</p>
-                </div>
-            </div>
-            <div class="cred-item">
-                <div class="cred-icon amber">📄</div>
-                <div class="cred-text">
-                    <h4>IEEE AIITA 2026 — Accepted</h4>
-                    <p>PTRR Framework. Targeting CSCW on academic reviewer recommendation for higher impact venue.</p>
-                </div>
-            </div>
-            <div class="cred-item">
-                <div class="cred-icon purple">🔬</div>
-                <div class="cred-text">
-                    <h4>Nature Portfolio (Scientific Reports) — Under Review</h4>
-                    <p>DVF Framework · Currently under review by 9 independent experts</p>
-                </div>
-            </div>
-            <div class="cred-item">
-                <div class="cred-icon rose">⚙️</div>
-                <div class="cred-text">
-                    <h4>15+ Engines Built Independently</h4>
-                    <p>Planck-99, Axiom-WAF, SYRTH, AdmitGPT, and 11 others — all built without a team or institutional resources</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="slide-number">02 / 13</div>
-</div>
-
-<!-- ═══════════════════════════════════════════════
-     SLIDE 03 — PROBLEM
-═══════════════════════════════════════════════ -->
-<div class="slide" id="slide-3">
-    <div class="section-label">The Problem</div>
-    <h2 style="font-size:28px;font-weight:700;letter-spacing:-.025em;margin-bottom:6px;">21 billion devices. A hard deadline. Zero solutions.</h2>
-    <p style="font-size:13px;color:var(--text-secondary);max-width:760px;">Traditional antivirus needs 50–500 MB RAM and multi-core CPUs. Your average IoT device has 256 KB–4 MB. By December 2027, the EU Cyber Resilience Act makes security mandatory for every connected device sold in Europe. There is currently no production-ready product that fits.</p>
-
-    <div class="problem-grid">
-        <div class="problem-card">
-            <div class="big-num">21.1B</div>
-            <h3>Connected IoT devices globally, end of 2025</h3>
-            <p>Cameras, routers, industrial sensors, medical devices — all connected, all vulnerable, all running on hardware that cannot host traditional security stacks.</p>
-            <div class="src">IoT Analytics, Oct 2025 · iot-analytics.com</div>
-        </div>
-        <div class="problem-card">
-            <div class="big-num">260K+</div>
-            <h3>Devices hijacked in a single nation-state botnet</h3>
-            <p>Flax Typhoon (Raptor Train) compromised 260,000+ cameras, routers, and storage devices. FBI disrupted it in September 2024. The playbook is now proven and repeatable.</p>
-            <div class="src">FBI Director Wray, Aspen Cyber Summit, Sept 2024 · FBI.gov · Black Lotus Labs</div>
-        </div>
-        <div class="problem-card">
-            <div class="big-num">0</div>
-            <h3>Commercial on-device classifiers for MCU-class hardware</h3>
-            <p>There is no production-ready behavioral malware detection engine that deploys at 37 KB with no network, no GPU, and no FPU. The category does not exist yet.</p>
-            <div class="src">Verified market gap analysis — see Slide 12 competitive table</div>
-        </div>
-    </div>
-
-    <div class="gap-banner">
-        <p><strong>The structural gap:</strong> Embedded hardware gives you 256 KB–4 MB RAM. Traditional AV wants 50–500 MB. Cloud solutions need constant connectivity. Signature scanners cannot catch zero-days. <strong>Every existing approach fails the constraints — and regulation now mandates those constraints be met.</strong></p>
-    </div>
-    <div class="slide-number">03 / 13</div>
-</div>
-
-<!-- ═══════════════════════════════════════════════
-     SLIDE 04 — WHY NOW
-═══════════════════════════════════════════════ -->
-<div class="slide" id="slide-4">
-    <div class="section-label">Why Now — Verified Triggers</div>
-    <h2 style="font-size:28px;font-weight:700;letter-spacing:-.025em;margin-bottom:6px;">Three forces converging. One has a legal deadline.</h2>
-    <p style="font-size:13px;color:var(--text-secondary);max-width:700px;margin-bottom:4px;">2024–2027 is not arbitrary. Regulation, nation-state activity, and vulnerability rates are hitting inflection points simultaneously.</p>
-
-    <div class="trigger-list">
-        <div class="trigger-item">
-            <div class="trigger-num">01</div>
-            <div class="trigger-content">
-                <h3>EU Cyber Resilience Act — full obligations from December 11, 2027</h3>
-                <p>Regulation (EU) 2024/2847 entered into force <strong style="color:var(--text-primary)">December 10, 2024</strong>. Full obligations apply <strong style="color:var(--text-primary)">December 11, 2027</strong>. Every device manufacturer selling into Europe must have on-device security. Perimeter-only defense is no longer legally sufficient. Reporting obligations begin earlier, on September 11, 2026. This is not a market opportunity; it is a compliance mandate with a countdown.</p>
-                <div class="trigger-source">EUR-Lex 2024/2847 · Entry into force: 10 Dec 2024 · Full obligations: 11 Dec 2027 — European Commission, digital-strategy.ec.europa.eu</div>
-            </div>
-        </div>
-        <div class="trigger-item">
-            <div class="trigger-num">02</div>
-            <div class="trigger-content">
-                <h3>Botnets are now nation-state weapons — at IoT scale</h3>
-                <p>Flax Typhoon (PRC-state) built Raptor Train from <strong style="color:var(--text-primary)">260,000+ compromised IoT devices</strong>. Volt Typhoon sat inside US critical infrastructure for five years undetected. This is no longer cybercrime — it is geopolitics executed through unsecured embedded hardware.</p>
-                <div class="trigger-source">FBI Director Wray, Aspen Cyber Summit, Sept 2024 · FBI.gov · CISA/NSA/FBI Advisory AA24-038A · Black Lotus Labs / Lumen Technologies</div>
-            </div>
-        </div>
-        <div class="trigger-item">
-            <div class="trigger-num">03</div>
-            <div class="trigger-content">
-                <h3>ICS vulnerabilities are accelerating, not slowing</h3>
-                <p><strong style="color:var(--text-primary)">2,155 CVEs across 508 ICS advisories in 2025</strong> — the first year CISA published 500+ ICS advisories. Average CVSS crossed 8.0 for the first time in 2024 and held in 2025. 82% of 2025-only advisories rated high or critical.</p>
-                <div class="trigger-source">Forescout Vedere Labs, 'ICS Cybersecurity in 2026: Vulnerabilities and the Path Forward', Feb 2026 · forescout.com</div>
-            </div>
-        </div>
-    </div>
-    <div class="slide-number">04 / 13</div>
-</div>
-
-<!-- ═══════════════════════════════════════════════
-     SLIDE 05 — THE GAP
-═══════════════════════════════════════════════ -->
-<div class="slide" id="slide-5">
-    <div class="section-label">The Gap — No One Else Fits</div>
-    <h2 style="font-size:28px;font-weight:700;letter-spacing:-.025em;margin-bottom:6px;">Every existing solution breaks on embedded</h2>
-    <p style="font-size:13px;color:var(--text-secondary);max-width:700px;margin-bottom:20px;">Benchmarked across every category. Here is what actually happens when you try to run them on a microcontroller or embedded Linux SoC.</p>
-
-    <table class="gap-table">
-        <thead>
-            <tr>
-                <th style="width:20%">Metric</th>
-                <th>Traditional AV</th>
-                <th>Cloud Detection</th>
-                <th>Signature Scanner</th>
-                <th style="background:var(--accent-cyan-dim)">Planck-99</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="col-metric">Peak RAM</td>
-                <td>50–500 MB</td>
-                <td>Server-side</td>
-                <td>~30 MB</td>
-                <td class="col-planck">0.03 MB</td>
-            </tr>
-            <tr>
-                <td class="col-metric">Inference time</td>
-                <td>10–100 ms</td>
-                <td>200–2,000 ms</td>
-                <td>1–50 ms</td>
-                <td class="col-planck">34 ns</td>
-            </tr>
-            <tr>
-                <td class="col-metric">Network required</td>
-                <td>No</td>
-                <td class="cross">Mandatory</td>
-                <td>No</td>
-                <td class="col-planck check">Never</td>
-            </tr>
-            <tr>
-                <td class="col-metric">GPU / FPU required</td>
-                <td>No</td>
-                <td class="cross">Yes</td>
-                <td>No</td>
-                <td class="col-planck check">Never</td>
-            </tr>
-            <tr>
-                <td class="col-metric">Air-gap safe</td>
-                <td class="cross">✗</td>
-                <td class="cross">✗</td>
-                <td class="tilde">~</td>
-                <td class="col-planck check">✓</td>
-            </tr>
-            <tr>
-                <td class="col-metric">MCU-class viable</td>
-                <td class="cross">✗</td>
-                <td class="cross">✗</td>
-                <td class="cross">✗</td>
-                <td class="col-planck check">✓</td>
-            </tr>
-            <tr>
-                <td class="col-metric">Deterministic</td>
-                <td>No</td>
-                <td>No</td>
-                <td class="tilde">~</td>
-                <td class="col-planck check">✓</td>
-            </tr>
-            <tr>
-                <td class="col-metric">Accuracy (IoT, unseen)</td>
-                <td>95–98%</td>
-                <td>N/A</td>
-                <td>Signatures only</td>
-                <td class="col-planck">96.28%</td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="table-footer">
-        ★ Planck-99: github.com/Division-36/Planck-99_PublicBenchmarks — public, reproducible, verifiable<br>
-        † Traditional AV: AV-TEST Institute product comparisons, 2024 · ‡ Competitor specs: publicly documented product specifications
-    </div>
-    <div class="slide-number">05 / 13</div>
-</div>
-
-<!-- ═══════════════════════════════════════════════
-     SLIDE 06 — SOLUTION
-═══════════════════════════════════════════════ -->
-<div class="slide" id="slide-6">
-    <div class="section-label">The Solution</div>
-    <h2 style="font-size:36px;font-weight:700;letter-spacing:-.03em;margin-bottom:8px;">Planck-99</h2>
-    <p style="font-size:14px;color:var(--text-secondary);max-width:760px;margin-bottom:32px;">32-dimensional normalized frequency vectors. Int8-quantized closed-form inference. No neural networks. No cloud. No GPU. No FPU. No runtime dependencies.</p>
-
-    <div class="metrics-grid">
-        <div class="metric-card cyan">
-            <div class="metric-label">Deterministic</div>
-            <div class="metric-value">34 ns</div>
-            <div class="metric-detail">Median inference on IoT syscall traces. σ ≤ 14 ns across 9 independent runs. Same input, same output, every time. Safe for hard real-time systems.</div>
-        </div>
-        <div class="metric-card green">
-            <div class="metric-label">Ultralight</div>
-            <div class="metric-value">37 KB</div>
-            <div class="metric-detail">27 KB int8-quantized binary + 10 KB ring buffer. Fits in the L1 cache of virtually any embedded Linux SoC. No AI accelerator required.</div>
-        </div>
-        <div class="metric-card amber">
-            <div class="metric-label">Accurate</div>
-            <div class="metric-value">96.28%</div>
-            <div class="metric-detail">On unseen IoT malware from 2016–2026 (Collected Real-World Dataset). Not training accuracy — real generalization across 10 years of threats. 97.71% precision.</div>
-        </div>
-        <div class="metric-card purple">
-            <div class="metric-label">Throughput</div>
-            <div class="metric-value">29.4M/s</div>
-            <div class="metric-detail">Inferences per second on a single CPU core. No batching, no GPU, no tricks. Just a deterministic dot product on a 32-feature vector.</div>
-        </div>
-    </div>
-    <div class="solution-footer">
-        All metrics verified on: Intel Xeon 3.8 GHz, single core, no GPU, no network.<br>
-        Full methodology + reproducible scripts: github.com/Division-36/Planck-99_PublicBenchmarks<br>
-        Technical Brief (PDF): github.com/Division-36/Planck-99_PublicBenchmarks/blob/main/Planck-99_TechnicalBrief.pdf
-    </div>
-    <div class="slide-number">06 / 13</div>
-</div>
-
-<!-- ═══════════════════════════════════════════════
-     SLIDE 07 — HOW IT WORKS
-═══════════════════════════════════════════════ -->
-<div class="slide" id="slide-7">
-    <div class="section-label">How It Works</div>
-    <h2 style="font-size:28px;font-weight:700;letter-spacing:-.025em;margin-bottom:6px;">Closed-form syscall analysis</h2>
-    <p style="font-size:13px;color:var(--text-secondary);max-width:700px;margin-bottom:4px;">Zero black boxes. 100% deterministic. Training computes a mathematical decision surface; inference is a quantized dot product. Every classification produces a JSON proof file — a complete audit trail.</p>
-
-    <div class="how-content">
-        <div class="how-text">
-            <h3>Math, not magic</h3>
-            <p>Most ML in security is a black box. You feed it data, it gives you a probability, and you hope it is right. <span class="highlight">Planck-99 is different.</span></p>
-            <p>We model syscall sequences as <strong>32-dimensional normalized frequency fingerprints</strong>. Training computes a closed-form decision surface. At runtime, inference is a deterministic int8 dot product — identical input always yields identical output.</p>
-            <p>The model generalizes 51× beyond its training ceiling (tested to 117,088 syscalls) because normalized frequency ratios are length-invariant by construction. No neural networks. No stochastic behavior. No runtime training.</p>
-        </div>
-        <div class="how-visual">
-            <div class="flow-step"><div class="step-num">1</div><div class="step-text">Kernel hook captures syscall trace into ring buffer</div></div>
-            <div class="flow-arrow">↓</div>
-            <div class="flow-step"><div class="step-num">2</div><div class="step-text">Extract 32 normalized frequency ratios (closed-form)</div></div>
-            <div class="flow-arrow">↓</div>
-            <div class="flow-step"><div class="step-num">3</div><div class="step-text">Int8 deterministic classification (dot product)</div></div>
-            <div class="flow-arrow">↓</div>
-            <div class="flow-step"><div class="step-num">4</div><div class="step-text">JSON proof file generated for audit / CRA Article 13 compliance</div></div>
-        </div>
-    </div>
-    <div class="slide-number">07 / 13</div>
-</div>
-
-<!-- ═══════════════════════════════════════════════
-     SLIDE 08 — PERFORMANCE
-═══════════════════════════════════════════════ -->
-<div class="slide" id="slide-8">
-    <div class="section-label">Performance — Three Datasets, Two Fully Unseen</div>
-    <h2 style="font-size:28px;font-weight:700;letter-spacing:-.025em;margin-bottom:6px;">It works on data it has never seen</h2>
-    <p style="font-size:13px;color:var(--text-secondary);max-width:760px;margin-bottom:4px;">All benchmarks public. No cherry-picking. The IoT dataset is our primary target — malware from 2016 to 2026 that the model never encountered during training. C kernel numbers shown (int8 quantized).</p>
-
-    <div class="perf-grid">
-        <div class="perf-card baseline">
-            <div class="perf-badge">Baseline</div>
-            <h4>Training Set (Internal Validation)</h4>
-            <div class="perf-stats">
-                <div class="perf-stat"><span class="stat-label">Accuracy</span><span class="stat-value good">98.88%</span></div>
-                <div class="perf-stat"><span class="stat-label">Precision</span><span class="stat-value good">98.58%</span></div>
-                <div class="perf-stat"><span class="stat-label">Recall</span><span class="stat-value good">99.21%</span></div>
-                <div class="perf-stat"><span class="stat-label">FPR</span><span class="stat-value good">1.45%</span></div>
-            </div>
-        </div>
-        <div class="perf-card unseen">
-            <div class="perf-badge">Unseen</div>
-            <h4>LinuxStatic ELF Dataset</h4>
-            <div class="perf-stats">
-                <div class="perf-stat"><span class="stat-label">Accuracy</span><span class="stat-value good">92.01%</span></div>
-                <div class="perf-stat"><span class="stat-label">Precision</span><span class="stat-value good">100%</span></div>
-                <div class="perf-stat"><span class="stat-label">Recall</span><span class="stat-value good">92.01%</span></div>
-                <div class="perf-stat"><span class="stat-label">FPR</span><span class="stat-value good">0.00%</span></div>
-            </div>
-        </div>
-        <div class="perf-card unseen">
-            <div class="perf-badge">Unseen — Primary Target</div>
-            <h4>IoT Syscalls (Collected Real-World Dataset)</h4>
-            <div class="perf-stats">
-                <div class="perf-stat"><span class="stat-label">Accuracy</span><span class="stat-value good">96.28%</span></div>
-                <div class="perf-stat"><span class="stat-label">Precision</span><span class="stat-value good">97.71%</span></div>
-                <div class="perf-stat"><span class="stat-label">Recall</span><span class="stat-value good">97.87%</span></div>
-                <div class="perf-stat"><span class="stat-label">FPR</span><span class="stat-value warn">12.18%*</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="latency-box">
-        <h4>Absolute kernel latency — deterministic, trace-length invariant</h4>
-        <div class="latency-row">
-            <span class="latency-name">Training validation traces (median 863 syscalls)</span>
-            <div style="display:flex;align-items:center;gap:16px"><span class="latency-val">62 ns</span><span class="latency-note">σ ≤ 14 ns</span></div>
-        </div>
-        <div class="latency-row">
-            <span class="latency-name">LinuxStatic ELF (median 1,161 syscalls)</span>
-            <div style="display:flex;align-items:center;gap:16px"><span class="latency-val">35 ns</span><span class="latency-note">σ ≤ 14 ns</span></div>
-        </div>
-        <div class="latency-row">
-            <span class="latency-name">IoT Syscalls (median 15,075 syscalls; max 117,088)</span>
-            <div style="display:flex;align-items:center;gap:16px"><span class="latency-val">34 ns</span><span class="latency-note">51× training ceiling extrapolation</span></div>
-        </div>
-    </div>
-    <div style="margin-top:14px;font-size:11px;color:var(--text-muted);line-height:1.7;font-family:'IBM Plex Mono',monospace;">
-        * IoT FPR context: The 12.18% FPR on Collected Real-World Dataset is a data-distribution artifact. Benign IoT traces have a median of only 2,234 syscalls and a 1:5.3 benign-to-malware ratio. On the balanced internal dataset, FPR is 1.45%. The short-trace blindspot is fully mitigated by a 500-syscall gate in production deployment.
-    </div>
-    <div class="slide-number">08 / 13</div>
-</div>
-
-<!-- ═══════════════════════════════════════════════
-     SLIDE 09 — MARKET
-═══════════════════════════════════════════════ -->
-<div class="slide" id="slide-9">
-    <div class="section-label">Market Size — All Figures Sourced</div>
-
-    <div class="market-header">
+      </div>
+      <div class="cred">
+        <div class="cred-ico a">📄</div>
         <div>
-            <h2 style="font-size:32px;font-weight:700;letter-spacing:-.025em;">$28.67B → $80.30B by 2031</h2>
-            <p style="font-size:13px;color:var(--text-secondary);margin-top:4px;">18.7% CAGR. But the real driver is a December 2027 compliance cliff, not organic growth.</p>
-            <div class="src">MarketsandMarkets™ IoT Security Market, March 2026 · marketsandmarkets.com</div>
+          <h4>IEEE AIITA 2026 — Accepted</h4>
+          <p>PTRR Framework · Targeting CSCW on academic reviewer recommendation for higher impact venue</p>
         </div>
-        <div class="market-size">
-            <div class="big">$80.3B</div>
-            <div class="small">Global IoT Security Market, 2031</div>
+      </div>
+      <div class="cred">
+        <div class="cred-ico p">🔬</div>
+        <div>
+          <h4>Nature Portfolio (Scientific Reports) — Under Review</h4>
+          <p>DVF Framework · Currently under review by 9 independent experts</p>
         </div>
+      </div>
+      <div class="cred">
+        <div class="cred-ico r">⚙️</div>
+        <div>
+          <h4>15+ Engines Built Independently</h4>
+          <p>Planck-99, Axiom-WAF, SYRTH, AdmitGPT, and 11 others — no team, no institutional resources</p>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <div class="market-grid">
-        <div class="market-card">
-            <h4><span class="dot" style="background:var(--accent-cyan)"></span>EU CRA: a forced compliance deadline for 21+ billion devices</h4>
-            <p>By December 11, 2027, every connected device sold in Europe must meet mandatory cybersecurity requirements (Regulation EU 2024/2847). Manufacturers who cannot demonstrate on-device security will be legally barred from the EU market. This creates immediate, non-discretionary demand.</p>
-            <div class="src">EUR-Lex 2024/2847 · MarketsandMarkets, March 2026</div>
-        </div>
-        <div class="market-card">
-            <h4><span class="dot" style="background:var(--accent-rose)"></span>Industrial OT: air-gapped by definition</h4>
-            <p>Industrial OT requires on-device, air-gapped detection — no cloud solution qualifies. Industrial IoT security alone was <strong>$26.24B in 2024</strong>. North America holds 34.2% global share. This structural gap is exactly what Planck-99 fills.</p>
-            <div class="src">Technavio IoT Security Market Report, March 2026 · technavio.com</div>
-        </div>
-        <div class="market-card">
-            <h4><span class="dot" style="background:var(--accent-purple)"></span>APAC: highest-growth region</h4>
-            <p>APAC IoT security CAGR: 22.2% — highest globally. Japan's JC-STAR IoT security labeling (2024) signals regulatory alignment. Rapid industrial digitalization across Southeast Asia and India creates greenfield opportunity.</p>
-            <div class="src">Technavio, March 2026 · Japan MIC JC-STAR, 2024</div>
-        </div>
-        <div class="market-card">
-            <h4><span class="dot" style="background:var(--accent-amber)"></span>Regulatory stack: CRA, PSTI, NIST, FDA</h4>
-            <p>EU Cyber Resilience Act (2024/2847) · UK PSTI Act (enforced April 2024) · FDA Cybersecurity in Medical Devices Guidance (2023) · NIST SP 800-213A. Every one mandates on-device security capabilities. Compliance is no longer optional.</p>
-            <div class="src">EUR-Lex · legislation.gov.uk · FDA.gov · NIST.gov</div>
-        </div>
-    </div>
-    <div class="slide-number">09 / 13</div>
+  <div class="legal-notice" style="margin-top:20px;">
+    <h4>⚖ Legal Readiness</h4>
+    <p>A <strong style="color:var(--text)">qualified legal guardian is fully in place</strong> and prepared for all formal engagements. A specialized law firm with expertise in <strong style="color:var(--text)">cybersecurity law, data protection, and intellectual property</strong> has been retained on behalf of Division-36 to handle all commercial, contractual, and IP matters. Full legal capacity for investment negotiations, licensing agreements, and regulatory compliance is operational.</p>
+  </div>
+  <div class="slide-num">02 / 10</div>
 </div>
 
-<!-- ═══════════════════════════════════════════════
-     SLIDE 10 — GTM + UNIT ECONOMICS
-═══════════════════════════════════════════════ -->
-<div class="slide" id="slide-10">
-    <div class="section-label">Go-to-Market — B2B SDK Licensing</div>
-    <h2 style="font-size:28px;font-weight:700;letter-spacing:-.025em;margin-bottom:6px;">Three phases. Illustrative unit economics.</h2>
-    <p style="font-size:13px;color:var(--text-secondary);max-width:700px;margin-bottom:4px;">No revenue projections — those are fantasies until a contract is signed. These phases represent directional priorities aligned with the EU CRA December 2027 compliance window.</p>
+<!-- ═══ SLIDE 03 — PROBLEM ═══ -->
+<div class="slide" id="s3">
+  <div class="tag">The Problem</div>
+  <h2 style="font-size:clamp(20px,2.8vw,28px);font-weight:700;letter-spacing:-.025em;margin-bottom:5px;">21 billion devices. A hard deadline. Zero solutions.</h2>
+  <p style="font-size:12px;color:var(--text-2);max-width:760px;">Traditional antivirus needs 50–500 MB RAM and multi-core CPUs. Your average IoT device has 256 KB–4 MB. By December 2027, the EU Cyber Resilience Act mandates security for every connected device sold in Europe. No production-ready product fits.</p>
 
-    <div class="economics-grid">
-        <div class="econ-card">
-            <div class="econ-scenario">Design Partner Phase</div>
-            <div class="econ-devices">50K–500K</div>
-            <div class="econ-price">devices · $0.10–$0.50 per device license</div>
-            <div class="econ-arr">$5K–$250K</div>
-            <div class="econ-arr-label">Illustrative ARR range</div>
-        </div>
-        <div class="econ-card">
-            <div class="econ-scenario">OEM Platform Deal</div>
-            <div class="econ-devices">1M–10M</div>
-            <div class="econ-price">devices · $0.05–$0.20 per device (volume pricing)</div>
-            <div class="econ-arr">$50K–$2M</div>
-            <div class="econ-arr-label">Illustrative ARR range</div>
-        </div>
-        <div class="econ-card">
-            <div class="econ-scenario">Chipset Embed (NXP/STM)</div>
-            <div class="econ-devices">100M+</div>
-            <div class="econ-price">devices · $0.01–$0.05 royalty per unit shipped</div>
-            <div class="econ-arr">$1M–$5M</div>
-            <div class="econ-arr-label">Illustrative ARR at scale</div>
-        </div>
+  <div class="prob-grid">
+    <div class="prob-card">
+      <div class="big-n">21.1B</div>
+      <h3>Connected IoT devices globally, end of 2025</h3>
+      <p>Cameras, routers, industrial sensors, medical devices — all connected, all vulnerable, all running hardware that cannot host traditional security stacks.</p>
+      <div class="src">IoT Analytics, Oct 2025 · iot-analytics.com</div>
     </div>
+    <div class="prob-card">
+      <div class="big-n">260K+</div>
+      <h3>Devices hijacked in a single nation-state botnet</h3>
+      <p>Flax Typhoon (Raptor Train) compromised 260,000+ cameras, routers, and storage devices. FBI disrupted it September 2024. The playbook is proven and repeatable.</p>
+      <div class="src">FBI Director Wray, Aspen Cyber Summit, Sept 2024 · FBI.gov</div>
+    </div>
+    <div class="prob-card">
+      <div class="big-n">0</div>
+      <h3>Commercial on-device classifiers for MCU-class hardware</h3>
+      <p>No production-ready behavioral malware detection engine deploys at 37 KB with no network, no GPU, and no FPU. The category does not exist yet.</p>
+      <div class="src">Verified market gap — see Slide 09 competitive table</div>
+    </div>
+  </div>
 
-    <div class="econ-note">
-        <strong>~100% gross margin.</strong> Pure software SDK — no hardware, no manufacturing, no COGS. Gross margin scales linearly with device count. Pricing to be validated and set with first design partner.
-    </div>
-
-    <div class="target-partners">
-        <h4 style="font-size:12px;font-weight:600;color:var(--text-primary);margin-bottom:10px;">Phase 1 target design partners (illustrative — no signed agreements):</h4>
-        <div class="partner-chips">
-            <div class="partner-chip">Advantech</div>
-            <div class="partner-chip">Kontron</div>
-            <div class="partner-chip">Moxa</div>
-            <div class="partner-chip">Red Lion Controls</div>
-            <div class="partner-chip">Toradex</div>
-            <div class="partner-chip">NXP (Phase 2)</div>
-            <div class="partner-chip">STMicroelectronics (Phase 2)</div>
-            <div class="partner-chip">Espressif (Phase 2)</div>
-        </div>
-    </div>
-    <div class="slide-number">10 / 13</div>
+  <div class="gap-banner">
+    <p><strong>The structural gap:</strong> Embedded hardware gives you 256 KB–4 MB RAM. Traditional AV wants 50–500 MB. Cloud solutions need constant connectivity. Signature scanners cannot catch zero-days. <strong>Every existing approach fails the constraints — and regulation now mandates those constraints be met.</strong></p>
+  </div>
+  <div class="slide-num">03 / 10</div>
 </div>
 
-<!-- ═══════════════════════════════════════════════
-     SLIDE 11 — STRATEGIC CHANNEL
-═══════════════════════════════════════════════ -->
-<div class="slide" id="slide-11">
-    <div class="section-label">Strategic Channel — Reinsurance Compliance</div>
-    <h2 style="font-size:28px;font-weight:700;letter-spacing:-.025em;margin-bottom:6px;">A sales channel no competitor can replicate</h2>
-    <p style="font-size:13px;color:var(--text-secondary);max-width:750px;margin-bottom:4px;">Planck-99 is uniquely positioned to become a <strong style="color:var(--text-primary)">mandated insurance compliance standard</strong> — creating a pull-through channel where insurers, not sales reps, drive adoption. <strong style="color:var(--accent-cyan)">No competitor — including Exein — has this channel.</strong></p>
+<!-- ═══ SLIDE 04 — WHY NOW ═══ -->
+<div class="slide" id="s4">
+  <div class="tag">Why Now — Verified Triggers</div>
+  <h2 style="font-size:clamp(20px,2.8vw,28px);font-weight:700;letter-spacing:-.025em;margin-bottom:5px;">Three forces converging. One has a legal deadline.</h2>
+  <p style="font-size:12px;color:var(--text-2);max-width:700px;margin-bottom:4px;">2024–2027 is not arbitrary. Regulation, nation-state activity, and ICS vulnerability rates are hitting inflection points simultaneously.</p>
 
-    <div class="trigger-list">
-        <div class="trigger-item">
-            <div class="trigger-num amber-trigger-num">01</div>
-            <div class="trigger-content">
-                <h3>Reinsurers need verifiable on-device proof to underwrite OT cyber policies</h3>
-                <p>The global cyber (re)insurance market exceeds <strong style="color:var(--text-primary)">$15B+ annually</strong>. Reinsurers like Munich Re, Swiss Re, Lloyd's, and SCOR are tightening underwriting requirements for OT clients. They require <strong style="color:var(--text-primary)">verifiable, auditable evidence</strong> — not checklists. Planck-99's <strong style="color:var(--text-primary)">JSON proof files</strong> are exactly what reinsurers need: deterministic, air-gapped, per-device compliance artifacts verifiable with zero proprietary tooling.</p>
-                <div class="trigger-source">Munich Re Cyber Risk Trends 2025 · Lloyd's Market Association · Swiss Re SONAR 2025</div>
-            </div>
-        </div>
-        <div class="trigger-item">
-            <div class="trigger-num amber-trigger-num">02</div>
-            <div class="trigger-content">
-                <h3>Planck-99 as an insurance compliance standard creates OEM pull-through</h3>
-                <p>When reinsurers mandate Planck-99 for coverage eligibility, OEMs are <em>forced to adopt</em> — not because a salesperson convinced them, but because their insurance depends on it. This is the same dynamic that made UL 2900 and ISA/IEC 62443 certification mandatory in industrial markets: the market's most powerful buyers (<strong style="color:var(--text-primary)">insurers</strong>) enforce compliance faster than any sales cycle can.</p>
-            </div>
-        </div>
-        <div class="trigger-item">
-            <div class="trigger-num amber-trigger-num">03</div>
-            <div class="trigger-content">
-                <h3>Full privacy by design — air-gapped by default, zero data exfiltration</h3>
-                <p>No data ever leaves the device. No telemetry is sent to any server. Even the device manufacturer cannot access the detection data — because there is no network path to exfiltrate it. This makes Planck-99 the <strong style="color:var(--text-primary)">only viable solution</strong> for government agencies, defense contractors, and sovereign infrastructure operators under strict data sovereignty mandates. The JSON proof stays on the device and is shared only at the operator's discretion.</p>
-            </div>
-        </div>
+  <div class="trigger-list">
+    <div class="trigger-item">
+      <div class="t-num">01</div>
+      <div class="t-body">
+        <h3>EU Cyber Resilience Act — full obligations from December 11, 2027</h3>
+        <p>Regulation (EU) 2024/2847 entered into force <strong style="color:var(--text)">December 10, 2024</strong>. Full obligations apply <strong style="color:var(--text)">December 11, 2027</strong>. Every device manufacturer selling into Europe must demonstrate on-device security. Perimeter-only defense is no longer legally sufficient. Reporting obligations begin September 11, 2026. This is not an opportunity — it is a compliance mandate with a countdown.</p>
+        <div class="t-src">EUR-Lex 2024/2847 · Entry into force: 10 Dec 2024 · Full obligations: 11 Dec 2027 — European Commission</div>
+      </div>
     </div>
-
-    <div style="margin-top:20px;background:var(--bg-elevated);border:1px solid var(--border);border-radius:10px;padding:24px 28px;">
-        <h4 style="font-size:13px;font-weight:600;color:var(--accent-amber);margin-bottom:10px;">Target reinsurer engagement (directional — no signed agreements)</h4>
-        <div class="partner-chips">
-            <div class="partner-chip" style="background:var(--accent-amber-dim);border-color:var(--accent-amber);color:var(--accent-amber)">Munich Re</div>
-            <div class="partner-chip" style="background:var(--accent-amber-dim);border-color:var(--accent-amber);color:var(--accent-amber)">Swiss Re</div>
-            <div class="partner-chip" style="background:var(--accent-amber-dim);border-color:var(--accent-amber);color:var(--accent-amber)">Lloyd's</div>
-            <div class="partner-chip" style="background:var(--accent-amber-dim);border-color:var(--accent-amber);color:var(--accent-amber)">SCOR</div>
-            <div class="partner-chip" style="background:var(--accent-amber-dim);border-color:var(--accent-amber);color:var(--accent-amber)">Hannover Re</div>
-            <div class="partner-chip" style="background:var(--accent-amber-dim);border-color:var(--accent-amber);color:var(--accent-amber)">AXA XL</div>
-            <div class="partner-chip">Phase 1: Technical whitepaper + PoC</div>
-            <div class="partner-chip">Phase 2: Pilot underwriting program</div>
-            <div class="partner-chip">Phase 3: Mandated standard for OT coverage</div>
-        </div>
-        <p style="margin-top:12px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text-muted);">12–18 month engagement cycle aligned with EU CRA December 2027 enforcement deadline.</p>
+    <div class="trigger-item">
+      <div class="t-num">02</div>
+      <div class="t-body">
+        <h3>Botnets are now nation-state weapons — at IoT scale</h3>
+        <p>Flax Typhoon (PRC-state) built Raptor Train from <strong style="color:var(--text)">260,000+ compromised IoT devices</strong>. Volt Typhoon sat inside US critical infrastructure for five years undetected. This is geopolitics executed through unsecured embedded hardware.</p>
+        <div class="t-src">FBI Director Wray, Aspen Cyber Summit, Sept 2024 · CISA/NSA/FBI Advisory AA24-038A · Black Lotus Labs / Lumen Technologies</div>
+      </div>
     </div>
-    <div class="slide-number">11 / 13</div>
+    <div class="trigger-item">
+      <div class="t-num">03</div>
+      <div class="t-body">
+        <h3>ICS vulnerabilities are accelerating — 2,155 CVEs in 2025 alone</h3>
+        <p><strong style="color:var(--text)">508 ICS advisories in 2025</strong> — the first year CISA published 500+. Average CVSS crossed 8.0 for the first time in 2024 and held in 2025. 82% of 2025-only advisories rated high or critical.</p>
+        <div class="t-src">Forescout Vedere Labs, 'ICS Cybersecurity in 2026: Vulnerabilities and the Path Forward', Feb 2026</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">04 / 10</div>
 </div>
 
-<!-- ═══════════════════════════════════════════════
-     SLIDE 12 — COMPETITIVE
-═══════════════════════════════════════════════ -->
-<div class="slide" id="slide-12">
-    <div class="section-label">Competitive Landscape</div>
-    <h2 style="font-size:28px;font-weight:700;letter-spacing:-.025em;margin-bottom:6px;">We're not improving a category — we're creating one</h2>
-    <p style="font-size:13px;color:var(--text-secondary);max-width:700px;margin-bottom:4px;">No competitor checks all four boxes. Most fail on two or more.</p>
+<!-- ═══ SLIDE 05 — SOLUTION ═══ -->
+<div class="slide" id="s5">
+  <div class="tag">The Solution</div>
+  <h2 style="font-size:clamp(26px,3.5vw,38px);font-weight:700;letter-spacing:-.03em;margin-bottom:6px;">Planck-99</h2>
+  <p style="font-size:13px;color:var(--text-2);max-width:760px;margin-bottom:26px;">32-dimensional normalized frequency vectors. Int8-quantized closed-form inference. No neural networks. No cloud. No GPU. No FPU. No runtime dependencies. Every classification produces a JSON proof file for CRA Article 13 compliance.</p>
 
-    <table class="comp-table">
-        <thead>
-            <tr>
-                <th>Category</th>
-                <th>On-device</th>
-                <th>Air-gapped</th>
-                <th>Real-time</th>
-                <th>MCU-class</th>
-                <th>Notes</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="col-name">Traditional AV<br><span style="font-size:11px;color:var(--text-muted);font-weight:400">Kaspersky, CrowdStrike</span></td>
-                <td class="cross">✗</td><td class="cross">✗</td><td class="check">✓</td><td class="cross">✗</td>
-                <td class="notes">50–500 MB RAM</td>
-            </tr>
-            <tr>
-                <td class="col-name">Cloud Detection<br><span style="font-size:11px;color:var(--text-muted);font-weight:400">Darktrace, Vectra</span></td>
-                <td class="cross">✗</td><td class="cross">✗</td><td class="tilde">~</td><td class="cross">✗</td>
-                <td class="notes">Mandatory connectivity</td>
-            </tr>
-            <tr>
-                <td class="col-name">Signature Scanners<br><span style="font-size:11px;color:var(--text-muted);font-weight:400">YARA, ClamAV</span></td>
-                <td class="tilde">~</td><td class="check">✓</td><td class="cross">✗</td><td class="cross">✗</td>
-                <td class="notes">No behavioral analysis</td>
-            </tr>
-            <tr>
-                <td class="col-name">OT Platforms<br><span style="font-size:11px;color:var(--text-muted);font-weight:400">Nozomi, Claroty</span></td>
-                <td class="cross">✗</td><td class="tilde">~</td><td class="tilde">~</td><td class="cross">✗</td>
-                <td class="notes">Network layer only</td>
-            </tr>
-            <tr>
-                <td class="col-name">Embedded Security<br><span style="font-size:11px;color:var(--text-muted);font-weight:400">Exein (Pulsar)</span></td>
-                <td class="check">✓</td><td class="tilde">~</td><td class="check">✓</td><td class="cross">✗</td>
-                <td class="notes">eBPF/Linux only · ~€700M val · 1B+ devices · no MCU</td>
-            </tr>
-            <tr class="col-planck">
-                <td class="col-name" style="color:var(--accent-cyan)">Planck-99</td>
-                <td class="check" style="background:var(--accent-cyan-dim)">✓</td>
-                <td class="check" style="background:var(--accent-cyan-dim)">✓</td>
-                <td class="check" style="background:var(--accent-cyan-dim)">✓</td>
-                <td class="check" style="background:var(--accent-cyan-dim)">✓</td>
-                <td class="notes" style="color:var(--accent-cyan);background:var(--accent-cyan-dim)">37 KB · 34 ns · 96.28% · deterministic</td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="comp-footer">
-        § Exein: Series C €70M (Jul 2025, Balderton) + €100M extension (Dec 2025, Blue Cloud/J.P. Morgan) = €170M raised in 2025 · ~€700M valuation (TechCrunch/ResilienceMedia, Dec 2025) · 1B+ devices (Jul 2025 press release) · 5× YoY revenue growth (Dec 2025)
+  <div class="metrics-grid">
+    <div class="metric c">
+      <div class="m-lbl">Deterministic</div>
+      <div class="m-val">34 ns</div>
+      <div class="m-det">Median inference on IoT syscall traces. σ ≤ 14 ns across 9 independent runs. Safe for hard real-time systems.</div>
     </div>
+    <div class="metric g">
+      <div class="m-lbl">Ultralight</div>
+      <div class="m-val">37 KB</div>
+      <div class="m-det">27 KB int8-quantized binary + 10 KB ring buffer. Fits in L1 cache of virtually any embedded Linux SoC. No AI accelerator required.</div>
+    </div>
+    <div class="metric a">
+      <div class="m-lbl">Accurate</div>
+      <div class="m-val">96.28%</div>
+      <div class="m-det">On unseen IoT malware from 2016–2026. Not training accuracy — real generalization across 10 years of threats. 97.71% precision.</div>
+    </div>
+    <div class="metric p">
+      <div class="m-lbl">Throughput</div>
+      <div class="m-val">29.4M/s</div>
+      <div class="m-det">Inferences per second on a single CPU core. No batching, no GPU. A deterministic dot product on a 32-feature vector.</div>
+    </div>
+  </div>
 
-    <!-- Exein deep-dive -->
-    <div style="margin-top:28px;background:var(--bg-elevated);border:1px solid var(--border);border-radius:10px;padding:28px;">
-        <h3 style="font-size:17px;font-weight:700;color:var(--accent-cyan);margin-bottom:6px;">Nearest Competitor Deep-Dive: Exein</h3>
-        <p style="font-size:12px;color:var(--text-secondary);line-height:1.7;margin-bottom:14px;">
-            Exein (Rome, 2018) is the closest company to Planck-99 in the embedded security space. Using eBPF for kernel-level runtime observability on Linux IoT devices, they raised <strong style="color:var(--text-primary)">€170M in 2025</strong> (€70M Series C, Jul 2025 + €100M extension, Dec 2025) at a reported valuation exceeding <strong style="color:var(--text-primary)">€700M</strong>, backed by Balderton, J.P. Morgan, and Blue Cloud Ventures. They report protecting <strong style="color:var(--text-primary)">1B+ connected devices</strong> and <strong style="color:var(--text-primary)">5× year-over-year revenue growth</strong> — figures that categorically validate the embedded security market as real, large, and expanding rapidly.
-        </p>
-        <div style="background:var(--accent-cyan-dim);border-left:3px solid var(--accent-cyan);padding:14px 18px;border-radius:0 7px 7px 0;margin-bottom:18px;font-size:12px;color:var(--text-secondary);line-height:1.6;">
-            <strong style="color:var(--accent-cyan)">Market validation thesis:</strong> Exein's €170M+ at ~€700M valuation with 5× YoY growth proves this is not a hypothetical market. If Exein can raise this selling a Linux-only observability tool, the market for a deterministic, MCU-capable detection engine addresses a structurally larger hardware addressable base.
-        </div>
-        <h4 style="font-size:14px;font-weight:600;color:var(--text-primary);margin-bottom:12px;">Where Planck-99 fundamentally surpasses Exein</h4>
-        <div class="diff-item"><div class="diff-tag">Air-Gapped by Design</div><div class="diff-text">Exein's eBPF pipeline requires kernel loading tools, exports logs off-device via perf ring buffer, and may need AI model updates — all of which create operational air-gap problems. Planck-99 needs <strong style="color:var(--text-primary)">zero network</strong> of any kind, ever.</div></div>
-        <div class="diff-item"><div class="diff-tag">37 KB vs Linux-only</div><div class="diff-text">Exein requires a Linux kernel with eBPF support (CONFIG_BPF, CONFIG_BPF_SYSCALL). Planck-99 is 37 KB of pure C — runs on anything with a CPU, from Cortex-M to x64. Opens the entire 21B-device MCU market Exein cannot address.</div></div>
-        <div class="diff-item"><div class="diff-tag">Compliance Engine</div><div class="diff-text">Exein produces observability logs that require external processing. Planck-99 produces a <strong style="color:var(--text-primary)">self-contained JSON proof per classification</strong> that directly satisfies CRA Article 13 traceability mandates — verifiable with zero proprietary tooling by any insurer, auditor, or regulator.</div></div>
-        <div class="diff-item"><div class="diff-tag">34 ns Latency</div><div class="diff-text">Exein's eBPF pipeline carries overhead from BPF verifier JIT, map lookups, and userspace perf ring buffer communication. Planck-99's closed-form int8 dot product completes in <strong style="color:var(--text-primary)">34 ns median</strong> (σ ≤ 14 ns).</div></div>
-        <div class="diff-item"><div class="diff-tag">Zero Dependencies</div><div class="diff-text">Exein requires kernel 4.14+, BPF verifier, GNU/Linux userspace. Planck-99 has <strong style="color:var(--text-primary)">zero runtime dependencies</strong> — no kernel modules, no BPF, no FPU, no GPU, no AI accelerator, no network. One 37 KB binary.</div></div>
-        <div class="src" style="margin-top:14px;">
-            Sources: Exein blog 'Raises €100M' Dec 2025 · Exein blog 'Raises €70M Series C' Jul 2025 · ResilienceMedia '€700M valuation' Dec 2025 · EUR-Lex 2024/2847 Art. 13 · exein.io/blog · partechpartners.com
-        </div>
+  <div style="margin-top:22px;background:var(--bg-el);border:1px solid var(--border);border-radius:9px;padding:22px 26px;">
+    <h4 style="font-size:13px;font-weight:700;margin-bottom:12px;">How It Works — Math, Not Magic</h4>
+    <p style="font-size:12px;color:var(--text-2);line-height:1.7;margin-bottom:10px;">Syscall sequences are modeled as <strong style="color:var(--text)">32-dimensional normalized frequency fingerprints</strong>. Training computes a closed-form decision surface. Inference is a deterministic int8 dot product — identical input, identical output, every time. The model generalizes 51× beyond its training ceiling because normalized frequency ratios are length-invariant by construction.</p>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;font-size:11px;color:var(--text-2);">
+      <span><strong style="color:var(--cyan)">Step 1:</strong> Kernel hook captures syscall trace into ring buffer</span>
+      <span style="color:var(--text-3)">→</span>
+      <span><strong style="color:var(--cyan)">Step 2:</strong> Extract 32 normalized frequency ratios (closed-form)</span>
+      <span style="color:var(--text-3)">→</span>
+      <span><strong style="color:var(--cyan)">Step 3:</strong> Int8 dot product classification (34 ns)</span>
+      <span style="color:var(--text-3)">→</span>
+      <span><strong style="color:var(--cyan)">Step 4:</strong> JSON proof file for CRA Article 13 audit trail</span>
     </div>
-    <div class="slide-number">12 / 13</div>
+  </div>
+
+  <div class="sol-foot">
+    All metrics: Intel Xeon 3.8 GHz, single core, no GPU, no network · github.com/Division-36/Planck-99_PublicBenchmarks
+  </div>
+  <div class="slide-num">05 / 10</div>
 </div>
 
-<!-- ═══════════════════════════════════════════════
-     SLIDE 13 — NEXT STEPS
-═══════════════════════════════════════════════ -->
-<div class="slide" id="slide-13">
-    <div class="section-label">Next Steps</div>
-    <h2 style="font-size:28px;font-weight:700;letter-spacing:-.025em;margin-bottom:6px;">One design partner. That's the only milestone that matters.</h2>
-    <p style="font-size:13px;color:var(--text-secondary);max-width:700px;margin-bottom:4px;">Everything else — revenue projections, patent filings, follow-on rounds — is noise until a real customer validates the integration. Bootstrapped to date. Open to pre-seed partners and strategic investors.</p>
+<!-- ═══ SLIDE 06 — PERFORMANCE ═══ -->
+<div class="slide" id="s6">
+  <div class="tag">Performance — Three Datasets, Two Fully Unseen</div>
+  <h2 style="font-size:clamp(20px,2.8vw,28px);font-weight:700;letter-spacing:-.025em;margin-bottom:5px;">It works on data it has never seen</h2>
+  <p style="font-size:12px;color:var(--text-2);max-width:760px;margin-bottom:4px;">All benchmarks public and reproducible. The IoT dataset is the primary target — malware from 2016–2026 the model never encountered during training. C kernel numbers shown (int8 quantized).</p>
 
-    <div class="next-grid">
-        <div class="next-card">
-            <div class="next-num">1</div>
-            <h3>Find the right vendor</h3>
-            <p>An IoT gateway or OT security vendor shipping embedded Linux devices — Advantech, Moxa, Kontron class. The product already runs on their hardware class. This is integration, not invention.</p>
-        </div>
-        <div class="next-card">
-            <div class="next-num">2</div>
-            <h3>Run a live benchmark</h3>
-            <p>Planck-99 deploys as a 27 KB binary with a kernel hook. Integration takes hours, not months. The vendor gets a JSON proof file per classification — auditable, CRA Article 13 compliant, verifiable by any auditor.</p>
-        </div>
-        <div class="next-card">
-            <div class="next-num">3</div>
-            <h3>Sign a paid pilot</h3>
-            <p>A signed agreement is the proof of market demand no pitch deck can substitute. It de-risks every subsequent conversation with investors, accelerators, and OEM partners — and validates the EU CRA compliance story.</p>
-        </div>
+  <div class="perf-grid">
+    <div class="perf-card base">
+      <div class="perf-badge">Baseline</div>
+      <h4>Training Set (Internal Validation)</h4>
+      <div class="perf-stats">
+        <div><div class="ps-lbl">Accuracy</div><div class="ps-val g">98.88%</div></div>
+        <div><div class="ps-lbl">Precision</div><div class="ps-val g">98.58%</div></div>
+        <div><div class="ps-lbl">Recall</div><div class="ps-val g">99.21%</div></div>
+        <div><div class="ps-lbl">FPR</div><div class="ps-val g">1.45%</div></div>
+      </div>
     </div>
+    <div class="perf-card un">
+      <div class="perf-badge">Unseen</div>
+      <h4>LinuxStatic ELF Dataset</h4>
+      <div class="perf-stats">
+        <div><div class="ps-lbl">Accuracy</div><div class="ps-val g">92.01%</div></div>
+        <div><div class="ps-lbl">Precision</div><div class="ps-val g">100%</div></div>
+        <div><div class="ps-lbl">Recall</div><div class="ps-val g">92.01%</div></div>
+        <div><div class="ps-lbl">FPR</div><div class="ps-val g">0.00%</div></div>
+      </div>
+    </div>
+    <div class="perf-card un">
+      <div class="perf-badge">Unseen — Primary Target</div>
+      <h4>IoT Syscalls (Collected Real-World)</h4>
+      <div class="perf-stats">
+        <div><div class="ps-lbl">Accuracy</div><div class="ps-val g">96.28%</div></div>
+        <div><div class="ps-lbl">Precision</div><div class="ps-val g">97.71%</div></div>
+        <div><div class="ps-lbl">Recall</div><div class="ps-val g">97.87%</div></div>
+        <div><div class="ps-lbl">FPR</div><div class="ps-val w">12.18%*</div></div>
+      </div>
+    </div>
+  </div>
 
-    <div style="margin-top:20px;background:var(--accent-amber-dim);border:1px solid var(--accent-amber);border-radius:10px;padding:20px 24px;">
-        <h4 style="font-size:13px;font-weight:700;color:var(--accent-amber);margin-bottom:8px;">Parallel Track: Reinsurer Engagement (Munich Re, Swiss Re, Lloyd's)</h4>
-        <p style="font-size:12px;color:var(--text-secondary);line-height:1.7;">Alongside OEM design partners, Planck-99 targets a <strong style="color:var(--text-primary)">reinsurer compliance channel</strong>. If a leading reinsurer mandates Planck-99 for OT coverage eligibility, OEM adoption becomes <strong style="color:var(--text-primary)">pull-through demand</strong> — no sales cycle required. 12–18 month engagement cycle, aligned with the EU CRA December 2027 enforcement deadline. <strong style="color:var(--accent-amber)">No competitor — including Exein — has this channel.</strong></p>
+  <div class="lat-box">
+    <h4>Absolute kernel latency — trace-length invariant</h4>
+    <div class="lat-row">
+      <span class="lat-name">Training validation traces (median 863 syscalls)</span>
+      <div style="display:flex;align-items:center;gap:14px"><span class="lat-val">62 ns</span><span class="lat-note">σ ≤ 14 ns</span></div>
     </div>
+    <div class="lat-row">
+      <span class="lat-name">LinuxStatic ELF (median 1,161 syscalls)</span>
+      <div style="display:flex;align-items:center;gap:14px"><span class="lat-val">35 ns</span><span class="lat-note">σ ≤ 14 ns</span></div>
+    </div>
+    <div class="lat-row">
+      <span class="lat-name">IoT Syscalls (median 15,075 syscalls; max 117,088)</span>
+      <div style="display:flex;align-items:center;gap:14px"><span class="lat-val">34 ns</span><span class="lat-note">51× training ceiling extrapolation</span></div>
+    </div>
+  </div>
+  <div style="margin-top:12px;font-size:10px;color:var(--text-3);line-height:1.7;font-family:'IBM Plex Mono',monospace;">
+    * IoT FPR context: The 12.18% FPR is a data-distribution artifact — benign IoT traces have a median of only 2,234 syscalls and a 1:5.3 benign-to-malware ratio. On the balanced internal dataset, FPR is 1.45%. The short-trace blindspot is fully mitigated by a 500-syscall gate in production deployment.
+  </div>
+  <div class="slide-num">06 / 10</div>
+</div>
 
-    <div style="margin-top:16px;background:var(--bg-elevated);border:1px solid var(--border);border-left:3px solid var(--accent-amber);border-radius:0 8px 8px 0;padding:16px 20px;">
-        <p style="font-size:12px;color:var(--text-secondary);line-height:1.6;"><strong style="color:var(--accent-amber)">On single-founder risk:</strong> Acknowledged. The core engine is 37 KB of deterministic C — not team-dependent complexity. IP and architecture are fully documented. Active search for technical co-founder through accelerator cohorts (Black Flag, MACH37). The product exists and is benchmarked; execution risk is commercial, not technical.</p>
-    </div>
+<!-- ═══ SLIDE 07 — GAP TABLE ═══ -->
+<div class="slide" id="s7">
+  <div class="tag">The Gap — No One Else Fits</div>
+  <h2 style="font-size:clamp(20px,2.8vw,28px);font-weight:700;letter-spacing:-.025em;margin-bottom:5px;">Every existing solution breaks on embedded hardware</h2>
+  <p style="font-size:12px;color:var(--text-2);max-width:700px;margin-bottom:4px;">What actually happens when you try to run existing tools on a microcontroller or embedded Linux SoC.</p>
 
-    <div class="contact-row">
-        <div class="contact-item">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg>
-            <a href="mailto:zs.01117875692@gmail.com">zs.01117875692@gmail.com</a>
-        </div>
-        <div class="contact-item">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
-            <a href="https://github.com/zierax" target="_blank">github.com/zierax</a>
-        </div>
-        <div class="contact-item">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
-            <a href="https://linkedin.com/in/z14d" target="_blank">linkedin.com/in/z14d</a>
-        </div>
-        <div class="contact-item">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            <a href="https://github.com/Division-36/Planck-99_PublicBenchmarks/blob/main/Planck-99_TechnicalBrief.pdf" target="_blank">Technical Brief (PDF)</a>
-        </div>
+  <table class="gap-tbl">
+    <thead>
+      <tr>
+        <th style="width:18%">Metric</th>
+        <th>Traditional AV</th>
+        <th>Cloud Detection</th>
+        <th>Signature Scanner</th>
+        <th style="background:var(--cyan-d)">Planck-99</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="col-m">Peak RAM</td><td>50–500 MB</td><td>Server-side</td><td>~30 MB</td><td class="col-p">0.03 MB</td></tr>
+      <tr><td class="col-m">Inference time</td><td>10–100 ms</td><td>200–2,000 ms</td><td>1–50 ms</td><td class="col-p">34 ns</td></tr>
+      <tr><td class="col-m">Network required</td><td>No</td><td class="cx">Mandatory</td><td>No</td><td class="col-p ck">Never</td></tr>
+      <tr><td class="col-m">GPU / FPU required</td><td>No</td><td class="cx">Yes</td><td>No</td><td class="col-p ck">Never</td></tr>
+      <tr><td class="col-m">Air-gap safe</td><td class="cx">✗</td><td class="cx">✗</td><td class="ct">~</td><td class="col-p ck">✓</td></tr>
+      <tr><td class="col-m">MCU-class viable</td><td class="cx">✗</td><td class="cx">✗</td><td class="cx">✗</td><td class="col-p ck">✓</td></tr>
+      <tr><td class="col-m">Deterministic</td><td>No</td><td>No</td><td class="ct">~</td><td class="col-p ck">✓</td></tr>
+      <tr><td class="col-m">Accuracy (IoT, unseen)</td><td>95–98%</td><td>N/A</td><td>Signatures only</td><td class="col-p">96.28%</td></tr>
+    </tbody>
+  </table>
+  <div class="tbl-foot">
+    ★ Planck-99: github.com/Division-36/Planck-99_PublicBenchmarks — public, reproducible, verifiable<br>
+    † Traditional AV: AV-TEST Institute comparisons 2024 · ‡ Competitor specs: publicly documented product specifications
+  </div>
+  <div class="slide-num">07 / 10</div>
+</div>
+
+<!-- ═══ SLIDE 08 — MARKET ═══ -->
+<div class="slide" id="s8">
+  <div class="tag">Market Size — All Figures Sourced</div>
+
+  <div class="mkt-head">
+    <div>
+      <h2 style="font-size:clamp(20px,3vw,32px);font-weight:700;letter-spacing:-.025em;">$28.67B → $80.30B by 2031</h2>
+      <p style="font-size:12px;color:var(--text-2);margin-top:4px;">18.7% CAGR. The real driver is a December 2027 compliance cliff, not organic growth.</p>
+      <div class="src">MarketsandMarkets™ IoT Security Market, March 2026</div>
     </div>
-    <div class="slide-number">13 / 13</div>
+    <div>
+      <div class="mkt-big">$80.3B</div>
+      <div class="mkt-sub">Global IoT Security Market, 2031</div>
+    </div>
+  </div>
+
+  <div class="mkt-grid">
+    <div class="mkt-card">
+      <h4><span class="dot" style="background:var(--cyan)"></span>EU CRA: forced compliance deadline for 21B+ devices</h4>
+      <p>By December 11, 2027, every connected device sold in Europe must meet mandatory cybersecurity requirements (Regulation EU 2024/2847). Manufacturers who cannot demonstrate on-device security will be legally barred from the EU market — creating immediate, non-discretionary demand.</p>
+      <div class="src">EUR-Lex 2024/2847 · MarketsandMarkets, March 2026</div>
+    </div>
+    <div class="mkt-card">
+      <h4><span class="dot" style="background:var(--rose)"></span>Industrial OT: air-gapped by definition</h4>
+      <p>Industrial OT requires on-device, air-gapped detection — no cloud solution qualifies. Industrial IoT security alone was <strong>$26.24B in 2024</strong>. North America holds 34.2% global share. This structural gap is exactly what Planck-99 fills.</p>
+      <div class="src">Technavio IoT Security Market Report, March 2026</div>
+    </div>
+    <div class="mkt-card">
+      <h4><span class="dot" style="background:var(--purple)"></span>APAC: highest-growth region at 22.2% CAGR</h4>
+      <p>APAC IoT security CAGR: 22.2% — highest globally. Japan's JC-STAR IoT security labeling (2024) signals regulatory alignment. Rapid industrial digitalization across Southeast Asia and India creates greenfield opportunity.</p>
+      <div class="src">Technavio, March 2026 · Japan MIC JC-STAR, 2024</div>
+    </div>
+    <div class="mkt-card">
+      <h4><span class="dot" style="background:var(--amber)"></span>Regulatory stack: CRA, PSTI, FDA, NIST</h4>
+      <p>EU Cyber Resilience Act (2024/2847) · UK PSTI Act (enforced April 2024) · FDA Cybersecurity in Medical Devices Guidance (2023) · NIST SP 800-213A. Every mandate requires on-device security capabilities. Compliance is no longer optional.</p>
+      <div class="src">EUR-Lex · legislation.gov.uk · FDA.gov · NIST.gov</div>
+    </div>
+  </div>
+  <div class="slide-num">08 / 10</div>
+</div>
+
+<!-- ═══ SLIDE 09 — COMPETITIVE ═══ -->
+<div class="slide" id="s9">
+  <div class="tag">Competitive Landscape</div>
+  <h2 style="font-size:clamp(20px,2.8vw,28px);font-weight:700;letter-spacing:-.025em;margin-bottom:5px;">We're not improving a category — we're creating one</h2>
+  <p style="font-size:12px;color:var(--text-2);max-width:700px;margin-bottom:4px;">No competitor checks all four boxes. Most fail on two or more.</p>
+
+  <table class="comp-tbl">
+    <thead>
+      <tr><th>Category</th><th>On-device</th><th>Air-gapped</th><th>Real-time</th><th>MCU-class</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="cn">Traditional AV<br><span style="font-size:10px;color:var(--text-3);font-weight:400">Kaspersky, CrowdStrike</span></td><td class="cx">✗</td><td class="cx">✗</td><td class="ck">✓</td><td class="cx">✗</td><td class="nt">50–500 MB RAM</td></tr>
+      <tr><td class="cn">Cloud Detection<br><span style="font-size:10px;color:var(--text-3);font-weight:400">Darktrace, Vectra</span></td><td class="cx">✗</td><td class="cx">✗</td><td class="ct">~</td><td class="cx">✗</td><td class="nt">Mandatory connectivity</td></tr>
+      <tr><td class="cn">Signature Scanners<br><span style="font-size:10px;color:var(--text-3);font-weight:400">YARA, ClamAV</span></td><td class="ct">~</td><td class="ck">✓</td><td class="cx">✗</td><td class="cx">✗</td><td class="nt">No behavioral analysis</td></tr>
+      <tr><td class="cn">OT Platforms<br><span style="font-size:10px;color:var(--text-3);font-weight:400">Nozomi, Claroty</span></td><td class="cx">✗</td><td class="ct">~</td><td class="ct">~</td><td class="cx">✗</td><td class="nt">Network layer only</td></tr>
+      <tr><td class="cn">Exein (Pulsar)</td><td class="ck">✓</td><td class="ct">~</td><td class="ck">✓</td><td class="cx">✗</td><td class="nt">eBPF/Linux only · €700M val · no MCU</td></tr>
+      <tr class="row-p"><td class="cn">Planck-99</td><td class="ck" style="background:var(--cyan-d)">✓</td><td class="ck" style="background:var(--cyan-d)">✓</td><td class="ck" style="background:var(--cyan-d)">✓</td><td class="ck" style="background:var(--cyan-d)">✓</td><td class="nt" style="color:var(--cyan);background:var(--cyan-d)">37 KB · 34 ns · 96.28% · deterministic</td></tr>
+    </tbody>
+  </table>
+  <div class="comp-foot">§ Exein: €70M Series C (Jul 2025, Balderton) + €100M extension (Dec 2025, J.P. Morgan) = €170M raised in 2025 · ~€700M valuation · 1B+ devices · 5× YoY revenue growth</div>
+
+  <div style="margin-top:20px;background:var(--bg-el);border:1px solid var(--border);border-radius:9px;padding:22px 26px;">
+    <h3 style="font-size:15px;font-weight:700;color:var(--cyan);margin-bottom:10px;">Where Planck-99 Surpasses Exein — Our Nearest Competitor</h3>
+    <p style="font-size:11px;color:var(--text-2);line-height:1.7;margin-bottom:12px;">Exein raised €170M in 2025 at ~€700M valuation — proof the embedded security market is real, large, and expanding. But Exein requires Linux with eBPF support and cannot reach MCU-class hardware. That's 21 billion devices they cannot address.</p>
+    <div class="diff-row"><div class="diff-tag">Air-Gapped by Design</div><div class="diff-txt">Exein's eBPF pipeline may need AI model updates and log exports off-device. Planck-99 needs <strong style="color:var(--text)">zero network of any kind, ever</strong>.</div></div>
+    <div class="diff-row"><div class="diff-tag">37 KB vs Linux-only</div><div class="diff-txt">Exein requires Linux kernel with CONFIG_BPF/CONFIG_BPF_SYSCALL. Planck-99 is 37 KB pure C — runs from Cortex-M to x64, opening the entire MCU market Exein cannot reach.</div></div>
+    <div class="diff-row"><div class="diff-tag">Compliance Engine</div><div class="diff-txt">Planck-99 produces a <strong style="color:var(--text)">self-contained JSON proof per classification</strong> directly satisfying CRA Article 13 traceability mandates — verifiable by any insurer, auditor, or regulator.</div></div>
+    <div class="diff-row"><div class="diff-tag">34 ns vs eBPF overhead</div><div class="diff-txt">Exein's eBPF carries overhead from BPF verifier JIT, map lookups, and ring buffer comms. Planck-99's closed-form int8 dot product completes in <strong style="color:var(--text)">34 ns median (σ ≤ 14 ns)</strong>.</div></div>
+  </div>
+  <div class="slide-num">09 / 10</div>
+</div>
+
+<!-- ═══ SLIDE 10 — NEXT STEPS & GTM ═══ -->
+<div class="slide" id="s10">
+  <div class="tag">Next Steps + Go-to-Market</div>
+  <h2 style="font-size:clamp(20px,2.8vw,28px);font-weight:700;letter-spacing:-.025em;margin-bottom:5px;">One design partner. That's the only milestone that matters.</h2>
+  <p style="font-size:12px;color:var(--text-2);max-width:700px;margin-bottom:4px;">No revenue projections until a contract is signed. These priorities are aligned with the EU CRA December 2027 compliance window. <strong style="color:var(--text)">Full legal infrastructure is operational.</strong></p>
+
+  <div class="next-grid">
+    <div class="next-card">
+      <div class="next-n">1</div>
+      <h3>Find the right OEM partner</h3>
+      <p>An IoT gateway or OT security vendor shipping embedded Linux devices — Advantech, Moxa, Kontron class. The product already runs on their hardware class. This is integration, not invention.</p>
+      <div style="margin-top:14px;padding:10px 14px;background:var(--bg-card);border:1px solid var(--border);border-radius:6px;">
+        <div style="font-size:10px;color:var(--text-3);font-family:'IBM Plex Mono',monospace;margin-bottom:7px;">Phase 1 targets (illustrative):</div>
+        <div class="chips" style="margin-top:0;">
+          <div class="chip">Advantech</div>
+          <div class="chip">Kontron</div>
+          <div class="chip">Moxa</div>
+          <div class="chip">Toradex</div>
+        </div>
+      </div>
+    </div>
+    <div class="next-card">
+      <div class="next-n">2</div>
+      <h3>Run a live benchmark</h3>
+      <p>Planck-99 deploys as a 27 KB binary with a kernel hook. Integration takes hours, not months. The partner gets a JSON proof file per classification — auditable, CRA Article 13 compliant, verifiable by any auditor or reinsurer.</p>
+      <div style="margin-top:14px;padding:10px 14px;background:var(--cyan-d);border:1px solid var(--cyan);border-radius:6px;font-size:11px;color:var(--text-2);">
+        Unit economics: <strong style="color:var(--cyan)">~100% gross margin</strong>. Pure software SDK. $0.05–$0.50/device license. 1M devices = $50K–$500K ARR.
+      </div>
+    </div>
+    <div class="next-card">
+      <div class="next-n">3</div>
+      <h3>Sign a paid pilot</h3>
+      <p>A signed agreement is proof of market demand no pitch deck can substitute. It de-risks every subsequent conversation with investors, accelerators, and OEM partners — and validates the EU CRA compliance story.</p>
+      <div style="margin-top:14px;padding:10px 14px;background:var(--bg-card);border:1px solid var(--border);border-radius:6px;">
+        <div style="font-size:10px;color:var(--text-3);font-family:'IBM Plex Mono',monospace;margin-bottom:7px;">Phase 2 chipset targets:</div>
+        <div class="chips" style="margin-top:0;">
+          <div class="chip">NXP</div>
+          <div class="chip">STMicroelectronics</div>
+          <div class="chip">Espressif</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="amber-box" style="margin-top:16px;">
+    <h4>Parallel Track: Reinsurance Compliance Channel</h4>
+    <p>Alongside OEM design partners, Planck-99 targets a <strong style="color:var(--text)">reinsurer compliance channel</strong> (Munich Re, Swiss Re, Lloyd's, SCOR, AXA XL). If a leading reinsurer mandates Planck-99 for OT coverage eligibility, OEM adoption becomes <strong style="color:var(--text)">pull-through demand</strong> — no sales cycle required. 12–18 month engagement cycle aligned with the EU CRA December 2027 enforcement deadline. <strong style="color:var(--amber)">No competitor — including Exein — has this channel.</strong></p>
+  </div>
+
+  <div style="margin-top:14px;background:var(--cyan-d);border:1px solid var(--cyan);border-radius:8px;padding:15px 20px;">
+    <h4 style="font-size:12px;font-weight:700;color:var(--cyan);margin-bottom:6px;font-family:'IBM Plex Mono',monospace;">⚖ Legal &amp; Operational Readiness</h4>
+    <p style="font-size:11px;color:var(--text-2);line-height:1.7;">A <strong style="color:var(--text)">qualified legal guardian is fully in place</strong>. A specialized law firm with expertise in <strong style="color:var(--text)">cybersecurity law, data protection law, and intellectual property</strong> has been retained by Division-36 for all commercial, licensing, and investment engagements. Full legal capacity for contract negotiations, IP registration, and regulatory compliance is operational today — no delays on our side. On single-founder risk: the core engine is 37 KB of deterministic C — not team-dependent complexity. IP and architecture are fully documented. Active search for technical co-founder through accelerator cohorts (Black Flag, MACH37).</p>
+  </div>
+
+  <div class="contact-row" style="margin-top:20px;">
+    <div class="contact-item">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg>
+      <a href="mailto:zs.01117875692@gmail.com">zs.01117875692@gmail.com</a>
+    </div>
+    <div class="contact-item">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+      <a href="https://github.com/zierax" target="_blank">github.com/zierax</a>
+    </div>
+    <div class="contact-item">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+      <a href="https://linkedin.com/in/z14d" target="_blank">linkedin.com/in/z14d</a>
+    </div>
+    <div class="contact-item">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      <a href="https://github.com/Division-36/Planck-99_PublicBenchmarks/blob/main/Planck-99_TechnicalBrief.pdf" target="_blank">Technical Brief (PDF)</a>
+    </div>
+  </div>
+  <div class="slide-num">10 / 10</div>
 </div>
 
 </div><!-- /deck -->
-
-<script>
-async function generatePDF() {
-    const btn = document.getElementById('btn-pdf');
-    const overlay = document.getElementById('pdf-overlay');
-    const status = document.getElementById('pdf-status');
-    btn.disabled = true;
-    btn.innerHTML = 'Generating…';
-    overlay.classList.remove('hidden');
-    try {
-        const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF({ orientation: 'landscape', unit: 'px', format: [1280, 720], compress: true });
-        const slides = document.querySelectorAll('.slide');
-        for (let i = 0; i < slides.length; i++) {
-            status.textContent = `Capturing slide ${i + 1} of ${slides.length}…`;
-            const slide = slides[i];
-            slide.scrollIntoView({ behavior: 'instant', block: 'start' });
-            await new Promise(r => setTimeout(r, 320));
-            const canvas = await html2canvas(slide, {
-                scale: 2, useCORS: true, backgroundColor: '#0d1017', logging: false,
-                windowWidth: 1280, windowHeight: 720,
-                onclone: (doc) => {
-                    const s = doc.getElementById(slide.id);
-                    if (s) { s.style.width='1280px'; s.style.minHeight='720px'; s.style.margin='0'; s.style.borderRadius='0'; }
-                }
-            });
-            const imgData = canvas.toDataURL('image/jpeg', 0.93);
-            if (i > 0) pdf.addPage([1280, 720], 'landscape');
-            pdf.addImage(imgData, 'JPEG', 0, 0, 1280, 720);
-        }
-        pdf.save('Planck-99-Pitch-Deck.pdf');
-    } catch (err) {
-        alert('PDF generation failed. Use browser Print → Save as PDF (Ctrl+P) as fallback.');
-        console.error(err);
-    } finally {
-        overlay.classList.add('hidden');
-        btn.disabled = false;
-        btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:14px;height:14px"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M7.5 12l3 3m0 0l3-3m-3 3V3"/></svg> Download PDF`;
-    }
-}
-</script>
 </body>
 </html>
