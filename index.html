@@ -46,6 +46,13 @@ body::before{
   pointer-events:none;z-index:0;
 }
 
+body::after{
+  content:'';position:fixed;inset:0;
+  background:radial-gradient(ellipse at 20% 0%, rgba(0,224,196,.04) 0%, transparent 50%),
+             radial-gradient(ellipse at 80% 100%, rgba(167,139,250,.03) 0%, transparent 50%);
+  pointer-events:none;z-index:0;
+}
+
 /* ── TOOLBAR ── */
 .toolbar{
   position:fixed;top:0;left:0;right:0;z-index:1000;
@@ -94,6 +101,10 @@ body::before{
   position:relative;overflow:hidden;
   page-break-after:always;
   break-after:page;
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+.slide:hover{
+  box-shadow: 0 8px 32px rgba(0,0,0,.3);
 }
 .slide::after{
   content:'';position:absolute;top:0;left:0;
@@ -151,7 +162,8 @@ body::before{
 .chip{background:var(--bg-el);border:1px solid var(--border);border-radius:4px;padding:4px 11px;font-size:10px;color:var(--text-2);font-family:'IBM Plex Mono',monospace;}
 .chip span{color:var(--cyan);font-weight:700;margin-right:4px;}
 .creds{display:flex;flex-direction:column;gap:12px;}
-.cred{background:var(--bg-el);border:1px solid var(--border);border-radius:8px;padding:15px 18px;display:flex;gap:12px;align-items:flex-start;}
+.cred{background:var(--bg-el);border:1px solid var(--border);border-radius:8px;padding:15px 18px;display:flex;gap:12px;align-items:flex-start;transition: border-color .2s ease;}
+.cred:hover{border-color:var(--border-l);}
 .cred-ico{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;}
 .cred-ico.c{background:var(--cyan-d);}
 .cred-ico.a{background:var(--amber-d);}
@@ -172,7 +184,8 @@ body::before{
 
 /* ── SLIDE 3 PROBLEM ── */
 .prob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px;}
-.prob-card{background:var(--bg-el);border:1px solid var(--border);border-radius:9px;padding:24px;position:relative;overflow:hidden;}
+.prob-card{background:var(--bg-el);border:1px solid var(--border);border-radius:9px;padding:24px;position:relative;overflow:hidden;transition: border-color .2s ease;}
+.prob-card:hover{border-color:var(--border-l);}
 .prob-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--rose);}
 .big-n{font-family:'IBM Plex Mono',monospace;font-size:clamp(36px,5vw,52px);font-weight:700;color:var(--rose);line-height:1;margin-bottom:12px;}
 .prob-card h3{font-size:13px;font-weight:600;margin-bottom:8px;line-height:1.4;}
@@ -182,7 +195,8 @@ body::before{
 
 /* ── SLIDE 4 WHY NOW ── */
 .trigger-list{display:flex;flex-direction:column;gap:16px;margin-top:22px;}
-.trigger-item{display:flex;gap:18px;align-items:flex-start;background:var(--bg-el);border:1px solid var(--border);border-radius:9px;padding:20px 24px;}
+.trigger-item{display:flex;gap:18px;align-items:flex-start;background:var(--bg-el);border:1px solid var(--border);border-radius:9px;padding:20px 24px;transition: border-color .2s ease;}
+.trigger-item:hover{border-color:var(--border-l);}
 .t-num{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;color:var(--cyan);background:var(--cyan-d);width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:5px;flex-shrink:0;}
 .t-body h3{font-size:14px;font-weight:600;margin-bottom:5px;}
 .t-body p{font-size:11px;color:var(--text-2);line-height:1.65;margin-bottom:4px;}
@@ -202,7 +216,8 @@ body::before{
 
 /* ── SLIDE 6 SOLUTION ── */
 .metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:28px;}
-.metric{background:var(--bg-el);border:1px solid var(--border);border-radius:9px;padding:24px 20px;position:relative;overflow:hidden;}
+.metric{background:var(--bg-el);border:1px solid var(--border);border-radius:9px;padding:24px 20px;position:relative;overflow:hidden;transition: border-color .2s ease;}
+.metric:hover{border-color:var(--border-l);}
 .metric::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
 .metric.c::before{background:var(--cyan);}
 .metric.g::before{background:var(--green);}
@@ -219,7 +234,8 @@ body::before{
 
 /* ── SLIDE 7 PERFORMANCE ── */
 .perf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px;}
-.perf-card{background:var(--bg-el);border:1px solid var(--border);border-radius:9px;padding:20px;}
+.perf-card{background:var(--bg-el);border:1px solid var(--border);border-radius:9px;padding:20px;transition: border-color .2s ease;}
+.perf-card:hover{border-color:var(--border-l);}
 .perf-badge{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:3px;margin-bottom:12px;}
 .perf-card.base .perf-badge{background:var(--border);color:var(--text-3);}
 .perf-card.un .perf-badge{background:var(--cyan-d);color:var(--cyan);border:1px solid var(--cyan);}
@@ -242,7 +258,8 @@ body::before{
 .mkt-big{font-family:'IBM Plex Mono',monospace;font-size:clamp(32px,5vw,50px);font-weight:700;color:var(--cyan);line-height:1;}
 .mkt-sub{font-size:9px;color:var(--text-3);margin-top:4px;font-family:'IBM Plex Mono',monospace;}
 .mkt-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-.mkt-card{background:var(--bg-el);border:1px solid var(--border);border-radius:9px;padding:20px;}
+.mkt-card{background:var(--bg-el);border:1px solid var(--border);border-radius:9px;padding:20px;transition: border-color .2s ease;}
+.mkt-card:hover{border-color:var(--border-l);}
 .mkt-card h4{font-size:13px;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:7px;}
 .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
 .mkt-card p{font-size:11px;color:var(--text-2);line-height:1.65;}
@@ -263,7 +280,8 @@ body::before{
 
 /* ── SLIDE 10 NEXT STEPS ── */
 .next-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px;}
-.next-card{background:var(--bg-el);border:1px solid var(--border);border-radius:9px;padding:24px;}
+.next-card{background:var(--bg-el);border:1px solid var(--border);border-radius:9px;padding:24px;transition: border-color .2s ease;}
+.next-card:hover{border-color:var(--border-l);}
 .next-n{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;color:var(--cyan);background:var(--cyan-d);width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:5px;margin-bottom:14px;}
 .next-card h3{font-size:15px;font-weight:700;margin-bottom:8px;}
 .next-card p{font-size:11px;color:var(--text-2);line-height:1.65;}
@@ -279,7 +297,7 @@ body::before{
 /* ── PRINT ── */
 @media print{
   body{background:#07090e !important;}
-  body::before{display:none;}
+  body::before, body::after{display:none;}
   .toolbar,.no-print{display:none !important;}
   .deck{padding:0;}
   .slide{
@@ -369,23 +387,23 @@ body::before{
 <!-- ═══ SLIDE 02 — FOUNDER ═══ -->
 <div class="slide" id="s2">
   <div class="tag">The Founder</div>
-  <h2 style="font-size:clamp(20px,2.8vw,28px);font-weight:700;letter-spacing:-.025em;margin-bottom:5px;">Built by someone who learned Linux before he learned algebra.</h2>
-  <p style="font-size:12px;color:var(--text-2);max-width:680px;">A decade of deliberate, self-directed work in systems, security, and architecture — verifiable, public, and on record.</p>
+  <h2 style="font-size:clamp(20px,2.8vw,28px);font-weight:700;letter-spacing:-.025em;margin-bottom:5px;">Self-taught from age 7. No courses, no bootcamps.</h2>
+  <p style="font-size:12px;color:var(--text-2);max-width:680px;">A decade of work in systems, security, and architecture — all public, all verifiable.</p>
 
   <div class="founder-grid">
     <div>
       <div class="f-name">Ziad Salah</div>
       <div class="f-tag">Founder · Division-36 · Age 17 · Giza, Egypt</div>
       <div class="f-bio">
-        Self-taught from age 7 — no courses, no bootcamps. Built a kernel and networking mental model from documentation, transitioned into offensive security research at 12 through independent exploitation work and bug bounty programs.<br><br>
-        <strong style="color:var(--text)">Top 90 globally on HackerOne VDP leaderboard</strong> (Feb–Jun 2026), #9 in Egypt. 12+ critical vulnerabilities reported in 48 hours in a single engagement.<br><br>
+        Started with Linux documentation at age 7. By 12, was doing offensive security research through independent exploitation work and bug bounty programs. No formal training — just documentation, source code, and repetition.<br><br>
+        <strong style="color:var(--text)">Top 90 globally on HackerOne VDP leaderboard</strong> (Feb–Jun 2026), #9 in Egypt. 12+ critical vulnerabilities reported in a single 48-hour engagement.<br><br>
         Accepted to <strong style="color:var(--text)">IEEE AIITA 2026</strong>. Research under review at <strong style="color:var(--text)">Nature Portfolio (Scientific Reports)</strong>. Invited by Neurology Research Journal.
       </div>
       <div class="chips">
         <div class="chip"><span>Age 7</span>Linux from docs</div>
-        <div class="chip"><span>Age 12</span>Business and Marketing</div>
-        <div class="chip"><span>Age 15</span>HackerOne + 3 mentees</div>
-        <div class="chip"><span>Age 17</span>Planck-99 + IEEE + Nature + XAI</div>
+        <div class="chip"><span>Age 12</span>Offensive security</div>
+        <div class="chip"><span>Age 15</span>HackerOne + mentoring</div>
+        <div class="chip"><span>Age 17</span>Planck-99 + IEEE + Nature</div>
       </div>
     </div>
     <div class="creds">
@@ -407,7 +425,7 @@ body::before{
         <div class="cred-ico p">🔬</div>
         <div>
           <h4>Nature Portfolio (Scientific Reports) — Under Review</h4>
-          <p>DVF Framework · Currently under review by 9 independent experts</p>
+          <p>PTRR Framework · Currently under review by 9 independent experts</p>
         </div>
       </div>
       <div class="cred">
@@ -415,6 +433,13 @@ body::before{
         <div>
           <h4>15+ Engines Built Independently</h4>
           <p>Planck-99, Axiom-WAF, SYRTH, AdmitGPT, and 11 others — no team, no institutional resources</p>
+        </div>
+      </div>
+      <div class="cred">
+        <div class="cred-ico c" style="background:var(--amber-d);">📰</div>
+        <div>
+          <h4>Risky Business — Featured Tool</h4>
+          <p>Z-Jail (native code sandbox for Linux) highlighted among the week's new tools in Risky Business newsletter, June 8, 2026</p>
         </div>
       </div>
     </div>
@@ -525,7 +550,7 @@ body::before{
   </div>
 
   <div style="margin-top:22px;background:var(--bg-el);border:1px solid var(--border);border-radius:9px;padding:22px 26px;">
-    <h4 style="font-size:13px;font-weight:700;margin-bottom:12px;">How It Works — Math, Not Magic</h4>
+    <h4 style="font-size:13px;font-weight:700;margin-bottom:12px;">How It Works</h4>
     <p style="font-size:12px;color:var(--text-2);line-height:1.7;margin-bottom:10px;">Syscall sequences are modeled as <strong style="color:var(--text)">32-dimensional normalized frequency fingerprints</strong>. Training computes a closed-form decision surface. Inference is a deterministic int8 dot product — identical input, identical output, every time. The model generalizes 51× beyond its training ceiling because normalized frequency ratios are length-invariant by construction.</p>
     <div style="display:flex;gap:20px;flex-wrap:wrap;font-size:11px;color:var(--text-2);">
       <span><strong style="color:var(--cyan)">Step 1:</strong> Kernel hook captures syscall trace into ring buffer</span>
